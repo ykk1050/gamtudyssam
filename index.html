@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamtudy ssam의 교육용 프로그램 모음</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 680px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .profile-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .profile-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .profile-subtitle {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .links-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .category-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            padding-left: 5px;
+        }
+
+        .main-category-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .main-category-title:first-child {
+            margin-top: 0;
+        }
+
+        .subcategory-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding-left: 10px;
+            border-left: 3px solid #667eea;
+        }
+
+        .link-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px 25px;
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .link-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .link-icon {
+            font-size: 32px;
+            min-width: 40px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .link-content {
+            flex: 1;
+            z-index: 1;
+        }
+
+        .link-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .link-description {
+            font-size: 13px;
+            color: #777;
+            line-height: 1.4;
+        }
+
+        .link-arrow {
+            font-size: 20px;
+            color: #999;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .link-card:hover .link-arrow {
+            transform: translateX(5px);
+            color: #667eea;
+        }
+
+        .link-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+        }
+
+        /* 복사 알림 토스트 */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 184, 148, 0.4);
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* 과목별 색상 구분 */
+        .link-card.math-grade3 {
+            border-left: 4px solid #667eea;
+        }
+
+        .link-card.math-grade4 {
+            border-left: 4px solid #f093fb;
+        }
+
+        .link-card.math-grade5 {
+            border-left: 4px solid #4facfe;
+        }
+
+        .link-card.math-grade6 {
+            border-left: 4px solid #fa709a;
+        }
+
+        .link-card.management {
+            border-left: 4px solid #00b894;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+            color: #999;
+            font-size: 13px;
+        }
+
+        /* 편집 모드 스타일 */
+        .edit-mode-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .edit-mode-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #666;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-danger {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #ff5252;
+        }
+
+        .link-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .link-item-info {
+            flex: 1;
+        }
+
+        .link-item-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .link-item-url {
+            font-size: 13px;
+            color: #777;
+            word-break: break-all;
+        }
+
+        .link-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-edit {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #5568d3;
+        }
+
+        .btn-delete {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #ff5252;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .profile-title {
+                font-size: 24px;
+            }
+
+            .link-card {
+                padding: 18px 20px;
+            }
+
+            .link-title {
+                font-size: 16px;
+            }
+
+            .copy-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .link-arrow {
+                font-size: 18px;
+            }
+
+            .edit-mode-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .toast {
+                bottom: 20px;
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-section">
+            <div class="profile-icon">🎮</div>
+            <div class="profile-title">Gamtudy ssam의 교육용 프로그램</div>
+            <div class="profile-subtitle">
+                재미있게 게임으로 공부하고<br>
+                교실을 위해 똑똑하게 프로그램 활용하자
+            </div>
+        </div>
+
+        <div class="links-section" id="linksContainer">
+            <!-- 링크들이 여기에 동적으로 생성됩니다 -->
+        </div>
+
+        <div class="footer">
+            Made with ❤️ by Gamtudy ssam | 2025.11.17.21:46
+        </div>
+    </div>
+
+    <button class="edit-mode-btn" onclick="openEditModal()" title="링크 관리">✏️</button>
+
+    <!-- 링크 관리 모달 -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">링크 관리</h2>
+                <button class="close-btn" onclick="closeEditModal()">&times;</button>
+            </div>
+            
+            <div id="linksList"></div>
+
+            <button class="btn btn-primary" onclick="openAddLinkModal()" style="width: 100%; margin-top: 20px;">
+                ➕ 새 링크 추가
+            </button>
+        </div>
+    </div>
+
+    <!-- 링크 추가/수정 모달 -->
+    <div class="modal" id="addEditModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="formTitle">새 링크 추가</h2>
+                <button class="close-btn" onclick="closeAddEditModal()">&times;</button>
+            </div>
+
+            <form id="linkForm">
+                <div class="form-group">
+                    <label class="form-label">제목</label>
+                    <input type="text" class="form-input" id="linkTitle" required placeholder="예: 수학몬 마스터">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">설명</label>
+                    <textarea class="form-textarea" id="linkDescription" required placeholder="예: 분수의 곱셈을 재미있게 배우는 몬스터 수집 RPG"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">URL</label>
+                    <input type="url" class="form-input" id="linkUrl" required placeholder="https://...">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">아이콘 (이모지)</label>
+                    <input type="text" class="form-input" id="linkIcon" required placeholder="예: 🎯" maxlength="2">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">카테고리</label>
+                    <select class="form-select" id="linkCategory" required>
+                        <optgroup label="📚 수학 학습 게임">
+                            <option value="math-grade3">3학년</option>
+                            <option value="math-grade4">4학년</option>
+                            <option value="math-grade5">5학년</option>
+                            <option value="math-grade6">6학년</option>
+                        </optgroup>
+                        <optgroup label="🏫 학급 경영">
+                            <option value="management">학급 경영 프로그램</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <input type="hidden" id="editIndex" value="">
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" onclick="closeAddEditModal()">취소</button>
+                    <button type="submit" class="btn btn-primary">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // 💾 데이터 저장소 (이 부분만 수정하면 됩니다!)
+        // ==========================================
+        let links = [
+            {
+                title: "수학몬 마스터",
+                description: "분수의 곱셈을 마스터하는 몬스터 수집 게임",
+                url: "https://ykk1050.github.io/yangume_mathmon_multiplication-of-fractions_sh_open/",
+                icon: "🎯",
+                category: "math-grade5"
+            },
+            {
+                title: "메테오 피하기",
+                description: "나눗셈 문제를 풀며 운석을 피하는 액션 게임",
+                url: "https://ykk1050.github.io/mathmeteo/",
+                icon: "☄️",
+                category: "math-grade3"
+            },
+            {
+                title: "스쿨몬",
+                description: "점수제와 캐릭터 진화 기반 학급 경영 시스템, 오프라인 기반",
+                url: "https://drive.google.com/file/d/1MdLN6nwc5W6Av0X0WPQuoE9y-Js9uSXk/view?usp=drive_link",
+                icon: "⭐",
+                category: "management"
+            },
+            {
+                title: "소수의 검: 수학 악마 전쟁",
+                description: "소수의 곱셈으로 마왕을 무찌르는 게임",
+                url: "https://ykk1050.github.io/multiplying-decimals/",
+                icon: "⚔️",
+                category: "math-grade5"
+            }
+        ];
+
+        // 로컬 스토리지에서 데이터 불러오기
+        function loadLinks() {
+            const savedLinks = localStorage.getItem('teacherLinks');
+            if (savedLinks) {
+                links = JSON.parse(savedLinks);
+            }
+        }
+
+        // 로컬 스토리지에 데이터 저장하기
+        function saveLinks() {
+            localStorage.setItem('teacherLinks', JSON.stringify(links));
+        }
+
+        // 페이지 로드 시 데이터 불러오기
+        loadLinks();
+
+        // ==========================================
+        // 🎨 화면 렌더링
+        // ==========================================
+        function renderLinks() {
+            const container = document.getElementById('linksContainer');
+            container.innerHTML = '';
+
+            // 메인 카테고리별로 그룹화
+            const mainCategories = {
+                math: {
+                    name: '📚 수학 학습 게임',
+                    subcategories: {
+                        'math-grade3': { name: '3학년', items: [] },
+                        'math-grade4': { name: '4학년', items: [] },
+                        'math-grade5': { name: '5학년', items: [] },
+                        'math-grade6': { name: '6학년', items: [] }
+                    }
+                },
+                management: {
+                    name: '🏫 학급 경영',
+                    items: []
+                }
+            };
+
+            // 링크를 카테고리별로 분류
+            links.forEach(link => {
+                if (link.category.startsWith('math-')) {
+                    // 수학 학습 게임의 하위 카테고리
+                    if (mainCategories.math.subcategories[link.category]) {
+                        mainCategories.math.subcategories[link.category].items.push(link);
+                    }
+                } else if (link.category === 'management') {
+                    // 학급 경영
+                    mainCategories.management.items.push(link);
+                }
+            });
+
+            // 수학 학습 게임 렌더링
+            const mathSubcats = mainCategories.math.subcategories;
+            const hasMathItems = Object.values(mathSubcats).some(sub => sub.items.length > 0);
+            
+            if (hasMathItems) {
+                const mainTitle = document.createElement('div');
+                mainTitle.className = 'main-category-title';
+                mainTitle.textContent = mainCategories.math.name;
+                container.appendChild(mainTitle);
+
+                // 학년별 렌더링
+                Object.keys(mathSubcats).forEach(subcatKey => {
+                    const subcategory = mathSubcats[subcatKey];
+                    if (subcategory.items.length > 0) {
+                        const subcatTitle = document.createElement('div');
+                        subcatTitle.className = 'subcategory-title';
+                        subcatTitle.textContent = subcategory.name;
+                        container.appendChild(subcatTitle);
+
+                        subcategory.items.forEach(link => {
+                            container.appendChild(createLinkCard(link));
+                        });
+                    }
+                });
+            }
+
+            // 학급 경영 렌더링
+            if (mainCategories.management.items.length > 0) {
+                const mainTitle = document.createElement('div');
+                mainTitle.className = 'main-category-title';
+                mainTitle.textContent = mainCategories.management.name;
+                container.appendChild(mainTitle);
+
+                mainCategories.management.items.forEach(link => {
+                    container.appendChild(createLinkCard(link));
+                });
+            }
+        }
+
+        // 링크 카드 생성 함수
+        function createLinkCard(link) {
+            const linkCard = document.createElement('a');
+            linkCard.className = `link-card ${link.category}`;
+            linkCard.href = link.url;
+            linkCard.target = '_blank';
+            linkCard.innerHTML = `
+                <div class="link-icon">${link.icon}</div>
+                <div class="link-content">
+                    <div class="link-title">${link.title}</div>
+                    <div class="link-description">${link.description}</div>
+                </div>
+                <div class="link-actions">
+                    <button class="copy-btn" onclick="copyLink(event, '${link.url}', this)">
+                        📋 복사
+                    </button>
+                    <div class="link-arrow">→</div>
+                </div>
+            `;
+            return linkCard;
+        }
+
+        // 링크 목록 렌더링 (관리 모달용)
+        function renderLinksList() {
+            const linksList = document.getElementById('linksList');
+            linksList.innerHTML = '';
+
+            if (links.length === 0) {
+                linksList.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">등록된 링크가 없습니다.</p>';
+                return;
+            }
+
+            links.forEach((link, index) => {
+                const linkItem = document.createElement('div');
+                linkItem.className = 'link-item';
+                linkItem.innerHTML = `
+                    <div class="link-item-info">
+                        <div class="link-item-title">${link.icon} ${link.title}</div>
+                        <div class="link-item-url">${link.url}</div>
+                    </div>
+                    <div class="link-item-actions">
+                        <button class="btn-small btn-edit" onclick="editLink(${index})">수정</button>
+                        <button class="btn-small btn-delete" onclick="deleteLink(${index})">삭제</button>
+                    </div>
+                `;
+                linksList.appendChild(linkItem);
+            });
+        }
+
+        // ==========================================
+        // 🔧 모달 관리
+        // ==========================================
+        function openEditModal() {
+            document.getElementById('editModal').classList.add('active');
+            renderLinksList();
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
+
+        function openAddLinkModal() {
+            document.getElementById('formTitle').textContent = '새 링크 추가';
+            document.getElementById('linkForm').reset();
+            document.getElementById('editIndex').value = '';
+            document.getElementById('addEditModal').classList.add('active');
+        }
+
+        function closeAddEditModal() {
+            document.getElementById('addEditModal').classList.remove('active');
+        }
+
+        // ==========================================
+        // ✏️ 링크 편집
+        // ==========================================
+        function editLink(index) {
+            const link = links[index];
+            document.getElementById('formTitle').textContent = '링크 수정';
+            document.getElementById('linkTitle').value = link.title;
+            document.getElementById('linkDescription').value = link.description;
+            document.getElementById('linkUrl').value = link.url;
+            document.getElementById('linkIcon').value = link.icon;
+            document.getElementById('linkCategory').value = link.category;
+            document.getElementById('editIndex').value = index;
+            
+            closeEditModal();
+            document.getElementById('addEditModal').classList.add('active');
+        }
+
+        // ==========================================
+        // 🗑️ 링크 삭제
+        // ==========================================
+        function deleteLink(index) {
+            if (confirm('정말로 이 링크를 삭제하시겠습니까?')) {
+                links.splice(index, 1);
+                saveLinks();
+                renderLinks();
+                renderLinksList();
+            }
+        }
+
+        // ==========================================
+        // 💾 링크 저장
+        // ==========================================
+        document.getElementById('linkForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const newLink = {
+                title: document.getElementById('linkTitle').value,
+                description: document.getElementById('linkDescription').value,
+                url: document.getElementById('linkUrl').value,
+                icon: document.getElementById('linkIcon').value,
+                category: document.getElementById('linkCategory').value
+            };
+
+            const editIndex = document.getElementById('editIndex').value;
+
+            if (editIndex === '') {
+                // 새 링크 추가
+                links.push(newLink);
+            } else {
+                // 기존 링크 수정
+                links[editIndex] = newLink;
+            }
+
+            saveLinks();
+            renderLinks();
+            closeAddEditModal();
+            
+            // 관리 모달이 열려있으면 목록 업데이트
+            if (document.getElementById('editModal').classList.contains('active')) {
+                renderLinksList();
+            }
+        });
+
+        // ==========================================
+        // 📋 링크 복사 기능
+        // ==========================================
+        function copyLink(event, url, button) {
+            // 링크 클릭 이벤트 방지
+            event.preventDefault();
+            event.stopPropagation();
+
+            // 클립보드에 복사
+            navigator.clipboard.writeText(url).then(() => {
+                // 버튼 텍스트 변경
+                const originalText = button.innerHTML;
+                button.innerHTML = '✅ 복사됨!';
+                button.classList.add('copied');
+
+                // 토스트 메시지 표시
+                showToast('링크가 복사되었습니다! 📋');
+
+                // 2초 후 원래대로 복귀
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('복사 실패:', err);
+                showToast('복사에 실패했습니다. 다시 시도해주세요.', true);
+            });
+        }
+
+        // 토스트 메시지 표시
+        function showToast(message, isError = false) {
+            // 기존 토스트 제거
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) {
+                existingToast.remove();
+            }
+
+            // 새 토스트 생성
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            
+            if (isError) {
+                toast.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+            }
+            
+            document.body.appendChild(toast);
+
+            // 애니메이션 표시
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+
+            // 3초 후 제거
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toast.remove();
+                }, 400);
+            }, 3000);
+        }
+
+        // 페이지 로드 시 링크 렌더링
+        renderLinks();
+
+        // 모달 외부 클릭 시 닫기
+        document.getElementById('editModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEditModal();
+            }
+        });
+
+        document.getElementById('addEditModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAddEditModal();
+            }
+        });
+    </script>
+</body>
+</html>
