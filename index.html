@@ -40,15 +40,23 @@
         .profile-icon {
             width: 100px;
             height: 100px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
             border-radius: 50%;
             margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px;
+            /* font-size: 50px; */
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            overflow: hidden; /* 이미지가 원형 밖으로 나가지 않도록 */
         }
+
+        .profile-image {
+        width: 100%; /* 부모 .profile-icon에 꽉 채움 */
+        height: 100%; /* 부모 .profile-icon에 꽉 채움 */
+        object-fit: cover; /* 이미지가 잘리지 않게 채우고, 비율 유지 */
+        border-radius: 50%; /* 부모의 둥근 모서리를 상속받도록 */
+    }
 
         .profile-title {
             font-size: 28px;
@@ -537,7 +545,9 @@
 <body>
     <div class="container">
         <div class="profile-section">
-            <div class="profile-icon">🎮</div>
+            <div class="profile-icon">
+                <img src="gamtudy.png" alt="Gamtudy Ssam 프로필" class="profile-image">
+            </div>
             <div class="profile-title">Gamtudy ssam의 교육용 프로그램</div>
             <div class="profile-subtitle">
                 재미있게 게임으로 공부하고<br>
@@ -551,7 +561,7 @@
         </div>
 
         <div class="footer">
-            Made with ❤️ by Gamtudy ssam | 2025.11.17.21:55
+            Made with ❤️ by Gamtudy ssam | 2025.11.18.22:34
         </div>
     </div>
 
@@ -816,14 +826,15 @@
             if (password === ADMIN_PASSWORD) {
                 document.getElementById('editModal').classList.add('active');
                 renderLinksList();
+                document.getElementById('editModal').classList.add('active');
+                renderLinksList();
             } else if (password !== null) {
                 // '취소'를 누르지 않았지만 비밀번호가 틀린 경우
                 alert("비밀번호가 틀렸습니다. 🚫");
             }
 
 
-            document.getElementById('editModal').classList.add('active');
-            renderLinksList();
+            
         }
 
         function closeEditModal() {
