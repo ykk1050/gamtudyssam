@@ -561,7 +561,7 @@
         </div>
 
         <div class="footer">
-            Made with ❤️ by Gamtudy ssam | 2025.11.18.23:09
+            Made with ❤️ by Gamtudy ssam | 2025.11.18.23:15
         </div>
     </div>
 
@@ -639,12 +639,13 @@
 
     <script>
         // ==========================================
-        // 💾 데이터 저장소 (이 부분만 수정하면 됩니다!)
+        // 💾 데이터 저장소 & 설정
         // ==========================================
 
-        // **🔑 실제 비밀번호 대신 SHA-256 해시 값을 저장합니다.**
-        const ADMIN_PASSWORD_HASH = "5b6a715f9175d2753a473a2139b4f2c067710c011e031023d8c13038a80d440c";
-        // **[추가된 부분]** 초기 링크 데이터
+        // **🔑 비밀번호 설정 (Base64 인코딩)**
+        const ADMIN_PASSWORD_ENCODED = "MTA1MDM1NjM="; 
+
+        // 초기 링크 데이터
         const DEFAULT_LINKS = [
             {
                 title: "수학몬 마스터",
@@ -681,58 +682,30 @@
         // 로컬 스토리지에서 데이터 불러오기
         function loadLinks() {
             const savedLinks = localStorage.getItem('teacherLinks');
-            // **[수정된 부분: Try-Catch를 사용하여 안전하게 로드 및 초기화]**
+            
             if (savedLinks) {
                 try {
-                    // 저장된 데이터가 유효한 JSON인지 확인하고 불러옴
                     links = JSON.parse(savedLinks);
                 } catch (e) {
-                    // 파싱 오류 발생 시 (데이터 손상 시), 콘솔에 오류 기록 후 기본 데이터 사용
-                    console.error("로컬 스토리지 데이터 파싱 오류 (손상):", e);
-                    links = DEFAULT_LINKS; 
+                    console.error("데이터 로딩 실패, 기본값 사용", e);
+                    links = JSON.parse(JSON.stringify(DEFAULT_LINKS));
                 }
             } else {
-                // 저장된 데이터가 없으면 기본 데이터 사용
-                links = DEFAULT_LINKS;
+                links = JSON.parse(JSON.stringify(DEFAULT_LINKS));
             }
 
-            // **[추가된 부분]** 링크가 비어있다면, 기본 데이터로 초기화
-            // 이는 이전에 잘못된 데이터가 저장된 경우를 대비합니다.
-            if (links.length === 0) {
-                links = DEFAULT_LINKS;
+            // 데이터가 비어있으면 초기화
+            if (!Array.isArray(links) || links.length === 0) {
+                links = JSON.parse(JSON.stringify(DEFAULT_LINKS));
             }
         }
-        // 페이지 로드 시 데이터 불러오기
+
+        // 데이터 저장
+        function saveLinks() {
+            localStorage.setItem('teacherLinks', JSON.stringify(links));
+        }
+
         loadLinks();
-
-        // ==========================================
-        // 🔑 암호화 및 인증 함수
-        // ==========================================
-
-        /**
-         * 문자열을 SHA-256 해시 값으로 변환하는 비동기 함수
-         * @param {string} message - 해시할 문자열
-         * @returns {Promise<string>} - 16진수 해시 문자열
-         */
-        async function sha256(message) {
-            try {
-                // String을 ArrayBuffer로 변환 (UTF-8 인코딩)
-                const msgBuffer = new TextEncoder().encode(message);
-
-                // ArrayBuffer를 해시 (Web Cryptography API 사용)
-                const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-
-                // ArrayBuffer를 16진수 문자열로 변환
-                const hashArray = Array.from(new Uint8Array(hashBuffer));
-                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-                return hashHex;
-            } catch (e) {
-                // Web Crypto API를 사용할 수 없는 환경에 대한 대비
-                console.error("SHA-256 해싱 중 오류 발생:", e);
-                alert("보안 인증 시스템을 사용할 수 없습니다. (브라우저 지원 문제)");
-                return null; 
-            }
-        }
 
         // ==========================================
         // 🎨 화면 렌더링
@@ -741,111 +714,85 @@
             const container = document.getElementById('linksContainer');
             container.innerHTML = '';
 
-            // 메인 카테고리별로 그룹화
-            const mainCategories = {
-                math: {
-                    name: '📚 수학 학습 게임',
-                    subcategories: {
-                        'math-grade3': { name: '3학년', items: [] },
-                        'math-grade4': { name: '4학년', items: [] },
-                        'math-grade5': { name: '5학년', items: [] },
-                        'math-grade6': { name: '6학년', items: [] }
-                    }
-                },
-                management: {
-                    name: '🏫 학급 경영',
-                    items: []
-                }
+            const categories = {
+                'math-grade3': { main: '📚 수학 학습 게임', sub: '3학년' },
+                'math-grade4': { main: '📚 수학 학습 게임', sub: '4학년' },
+                'math-grade5': { main: '📚 수학 학습 게임', sub: '5학년' },
+                'math-grade6': { main: '📚 수학 학습 게임', sub: '6학년' },
+                'management': { main: '🏫 학급 경영', sub: null }
             };
 
-            // 링크를 카테고리별로 분류
+            const groupedLinks = {};
+            
+            // 데이터 분류
             links.forEach(link => {
-                if (link.category.startsWith('math-')) {
-                    // 수학 학습 게임의 하위 카테고리
-                    if (mainCategories.math.subcategories[link.category]) {
-                        mainCategories.math.subcategories[link.category].items.push(link);
+                const catInfo = categories[link.category];
+                if (catInfo) {
+                    if (!groupedLinks[catInfo.main]) {
+                        groupedLinks[catInfo.main] = { items: {} };
                     }
-                } else if (link.category === 'management') {
-                    // 학급 경영
-                    mainCategories.management.items.push(link);
+                    const mainCat = groupedLinks[catInfo.main];
+                    const subKey = catInfo.sub || 'general';
+                    
+                    if (!mainCat.items[subKey]) mainCat.items[subKey] = [];
+                    mainCat.items[subKey].push(link);
                 }
             });
 
-            // 수학 학습 게임 렌더링
-            const mathSubcats = mainCategories.math.subcategories;
-            const hasMathItems = Object.values(mathSubcats).some(sub => sub.items.length > 0);
-            
-            if (hasMathItems) {
-                const mainTitle = document.createElement('div');
-                mainTitle.className = 'main-category-title';
-                mainTitle.textContent = mainCategories.math.name;
-                container.appendChild(mainTitle);
+            // 화면 그리기
+            Object.keys(groupedLinks).forEach(mainTitle => {
+                const mainTitleDiv = document.createElement('div');
+                mainTitleDiv.className = 'main-category-title';
+                mainTitleDiv.textContent = mainTitle;
+                container.appendChild(mainTitleDiv);
 
-                // 학년별 렌더링
-                Object.keys(mathSubcats).forEach(subcatKey => {
-                    const subcategory = mathSubcats[subcatKey];
-                    if (subcategory.items.length > 0) {
-                        const subcatTitle = document.createElement('div');
-                        subcatTitle.className = 'subcategory-title';
-                        subcatTitle.textContent = subcategory.name;
-                        container.appendChild(subcatTitle);
-
-                        subcategory.items.forEach(link => {
-                            container.appendChild(createLinkCard(link));
-                        });
+                const mainCat = groupedLinks[mainTitle];
+                Object.keys(mainCat.items).forEach(subKey => {
+                    if (subKey !== 'general') {
+                        const subTitleDiv = document.createElement('div');
+                        subTitleDiv.className = 'subcategory-title';
+                        subTitleDiv.textContent = subKey;
+                        container.appendChild(subTitleDiv);
                     }
+                    mainCat.items[subKey].forEach(link => {
+                        container.appendChild(createLinkCard(link));
+                    });
                 });
-            }
-
-            // 학급 경영 렌더링
-            if (mainCategories.management.items.length > 0) {
-                const mainTitle = document.createElement('div');
-                mainTitle.className = 'main-category-title';
-                mainTitle.textContent = mainCategories.management.name;
-                container.appendChild(mainTitle);
-
-                mainCategories.management.items.forEach(link => {
-                    container.appendChild(createLinkCard(link));
-                });
-            }
+            });
         }
 
-        // 링크 카드 생성 함수
         function createLinkCard(link) {
-            const linkCard = document.createElement('a');
-            linkCard.className = `link-card ${link.category}`;
-            linkCard.href = link.url;
-            linkCard.target = '_blank';
-            linkCard.innerHTML = `
+            const a = document.createElement('a');
+            a.className = `link-card ${link.category}`;
+            a.href = link.url;
+            a.target = '_blank';
+            a.innerHTML = `
                 <div class="link-icon">${link.icon}</div>
                 <div class="link-content">
                     <div class="link-title">${link.title}</div>
                     <div class="link-description">${link.description}</div>
                 </div>
                 <div class="link-actions">
-                    <button class="copy-btn" onclick="copyLink(event, '${link.url}', this)">
-                        📋 접속 링크 복사
-                    </button>
+                    <button class="copy-btn" onclick="copyLink(event, '${link.url}', this)">📋 접속 링크 복사</button>
                     <div class="link-arrow">→</div>
                 </div>
             `;
-            return linkCard;
+            return a;
         }
 
-        // 링크 목록 렌더링 (관리 모달용)
         function renderLinksList() {
-            const linksList = document.getElementById('linksList');
-            linksList.innerHTML = '';
-
+            const list = document.getElementById('linksList');
+            list.innerHTML = '';
+            
             if (links.length === 0) {
-                linksList.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">등록된 링크가 없습니다.</p>';
+                list.innerHTML = '<p style="text-align:center;color:#999;padding:20px;">링크가 없습니다.</p>';
                 return;
             }
 
             links.forEach((link, index) => {
-                const linkItem = document.createElement('div');
-                linkItem.className = 'link-item';
-                linkItem.innerHTML = `
+                const item = document.createElement('div');
+                item.className = 'link-item';
+                item.innerHTML = `
                     <div class="link-item-info">
                         <div class="link-item-title">${link.icon} ${link.title}</div>
                         <div class="link-item-url">${link.url}</div>
@@ -855,41 +802,31 @@
                         <button class="btn-small btn-delete" onclick="deleteLink(${index})">삭제</button>
                     </div>
                 `;
-                linksList.appendChild(linkItem);
+                list.appendChild(item);
             });
         }
 
         // ==========================================
-        // 🔧 모달 관리 & 비밀번호 인증 로직 (수정 완료!)
+        // 🔧 관리 기능 (비밀번호 인증)
         // ==========================================
+        function openEditModal() {
+            const password = prompt("링크 관리를 위해 비밀번호를 입력하세요:");
 
-        // 🔑 openEditModal 함수를 비동기(async)로 수정하여 해시 비교 로직 적용
-        async function openEditModal() {
-         const password = prompt("링크 관리를 위해 비밀번호를 입력하세요:");
- 
-         if (password === null || password === "") {
-             return; // 입력값이 없거나 취소
-         }
- 
-         // 입력된 비밀번호를 SHA-256 해시로 변환 시도
-         const inputHash = await sha256(password); 
- 
-         // **[추가된 부분]** 해싱에 실패(null 반환)했을 경우 진행 중단
-         if (inputHash === null) {
-             return;
-         }
- 
-         // 해시 값 비교
-         if (inputHash === ADMIN_PASSWORD_HASH) {
-             // 인증 성공 시
-             document.getElementById('editModal').classList.add('active');
-             renderLinksList();
-         } else {
-             // 인증 실패 시
-             alert("비밀번호가 틀렸습니다. 🚫");
-         }
-     }
+            if (password === null || password === "") return;
 
+            // 브라우저 내장 함수 btoa()를 사용하여 입력값을 인코딩 후 비교
+            // btoa("10503563") === "MTA1MDM1NjM="
+            try {
+                if (btoa(password) === ADMIN_PASSWORD_ENCODED) {
+                    document.getElementById('editModal').classList.add('active');
+                    renderLinksList();
+                } else {
+                    alert("비밀번호가 틀렸습니다. 🚫");
+                }
+            } catch (e) {
+                alert("비밀번호 확인 중 오류가 발생했습니다.");
+            }
+        }
 
         function closeEditModal() {
             document.getElementById('editModal').classList.remove('active');
@@ -906,9 +843,7 @@
             document.getElementById('addEditModal').classList.remove('active');
         }
 
-        // ==========================================
-        // ✏️ 링크 편집
-        // ==========================================
+        // 링크 추가/수정
         function editLink(index) {
             const link = links[index];
             document.getElementById('formTitle').textContent = '링크 수정';
@@ -923,11 +858,9 @@
             document.getElementById('addEditModal').classList.add('active');
         }
 
-        // ==========================================
-        // 🗑️ 링크 삭제
-        // ==========================================
+        // 링크 삭제
         function deleteLink(index) {
-            if (confirm('정말로 이 링크를 삭제하시겠습니까?')) {
+            if (confirm('정말로 삭제하시겠습니까?')) {
                 links.splice(index, 1);
                 saveLinks();
                 renderLinks();
@@ -935,12 +868,10 @@
             }
         }
 
-        // ==========================================
-        // 💾 링크 저장
-        // ==========================================
+        // 폼 제출
         document.getElementById('linkForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
+            
             const newLink = {
                 title: document.getElementById('linkTitle').value,
                 description: document.getElementById('linkDescription').value,
@@ -948,104 +879,64 @@
                 icon: document.getElementById('linkIcon').value,
                 category: document.getElementById('linkCategory').value
             };
-
-            const editIndex = document.getElementById('editIndex').value;
-
-            if (editIndex === '') {
-                // 새 링크 추가
-                links.push(newLink);
-            } else {
-                // 기존 링크 수정
-                links[editIndex] = newLink;
-            }
-
+            
+            const idx = document.getElementById('editIndex').value;
+            
+            if (idx === '') links.push(newLink);
+            else links[idx] = newLink;
+            
             saveLinks();
             renderLinks();
             closeAddEditModal();
             
-            // 관리 모달이 열려있으면 목록 업데이트
             if (document.getElementById('editModal').classList.contains('active')) {
                 renderLinksList();
             }
+            showToast('저장되었습니다!');
         });
 
-        // ==========================================
-        // 📋 링크 복사 기능
-        // ==========================================
-        function copyLink(event, url, button) {
-            // 링크 클릭 이벤트 방지
-            event.preventDefault();
-            event.stopPropagation();
-
-            // 클립보드에 복사
+        // 링크 복사
+        function copyLink(e, url, btn) {
+            e.preventDefault();
+            e.stopPropagation();
             navigator.clipboard.writeText(url).then(() => {
-                // 버튼 텍스트 변경
-                const originalText = button.innerHTML;
-                button.innerHTML = '✅ 복사됨!';
-                button.classList.add('copied');
-
-                // 토스트 메시지 표시
-                showToast('링크가 복사되었습니다! 📋');
-
-                // 2초 후 원래대로 복귀
+                const original = btn.innerHTML;
+                btn.innerHTML = '✅ 복사됨!';
+                btn.classList.add('copied');
+                showToast('링크 복사 완료!');
                 setTimeout(() => {
-                    button.innerHTML = originalText;
-                    button.classList.remove('copied');
+                    btn.innerHTML = original;
+                    btn.classList.remove('copied');
                 }, 2000);
-            }).catch(err => {
-                console.error('복사 실패:', err);
-                showToast('복사에 실패했습니다. 다시 시도해주세요.', true);
-            });
+            }).catch(() => showToast('복사 실패', true));
         }
 
-        // 토스트 메시지 표시
-        function showToast(message, isError = false) {
-            // 기존 토스트 제거
-            const existingToast = document.querySelector('.toast');
-            if (existingToast) {
-                existingToast.remove();
-            }
-
-            // 새 토스트 생성
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.textContent = message;
+        function showToast(msg, isError = false) {
+            const old = document.querySelector('.toast');
+            if (old) old.remove();
             
-            if (isError) {
-                toast.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
-            }
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            if (isError) t.style.background = '#ff6b6b';
+            document.body.appendChild(t);
             
-            document.body.appendChild(toast);
-
-            // 애니메이션 표시
+            setTimeout(() => t.classList.add('show'), 10);
             setTimeout(() => {
-                toast.classList.add('show');
-            }, 10);
-
-            // 3초 후 제거
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => {
-                    toast.remove();
-                }, 400);
+                t.classList.remove('show');
+                setTimeout(() => t.remove(), 400);
             }, 3000);
         }
 
-        // 페이지 로드 시 링크 렌더링
+        // 초기 실행
         renderLinks();
 
-        // 모달 외부 클릭 시 닫기
-        document.getElementById('editModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeEditModal();
+        // 모달 닫기 이벤트
+        window.onclick = function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
             }
-        });
-
-        document.getElementById('addEditModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeAddEditModal();
-            }
-        });
+        }
     </script>
 </body>
 </html>
