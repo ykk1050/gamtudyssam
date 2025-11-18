@@ -561,7 +561,7 @@
         </div>
 
         <div class="footer">
-            Made with ❤️ by Gamtudy ssam | 2025.11.18.22:58
+            Made with ❤️ by Gamtudy ssam | 2025.11.18.23:00
         </div>
     </div>
 
@@ -719,7 +719,7 @@
                 // Web Crypto API를 사용할 수 없는 환경에 대한 대비
                 console.error("SHA-256 해싱 중 오류 발생:", e);
                 alert("보안 인증 시스템을 사용할 수 없습니다. (브라우저 지원 문제)");
-                return **null**; // **이전: ""**
+                return null; // **이전: ""**
             }
         }
 
@@ -864,7 +864,7 @@
          const inputHash = await sha256(password); 
  
          // **[추가된 부분]** 해싱에 실패(null 반환)했을 경우 진행 중단
-         if (inputHash === **null**) {
+         if (inputHash === null) {
              return;
          }
  
