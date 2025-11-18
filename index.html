@@ -561,7 +561,7 @@
         </div>
 
         <div class="footer">
-            Made with ❤️ by Gamtudy ssam | 2025.11.18.22:39
+            Made with ❤️ by Gamtudy ssam | 2025.11.18.22:45
         </div>
     </div>
 
@@ -643,7 +643,6 @@
         // ==========================================
 
         // **🔑 실제 비밀번호 대신 SHA-256 해시 값을 저장합니다.**
-        // 비밀번호: "10503563" 의 SHA-256 해시 값입니다.
         const ADMIN_PASSWORD_HASH = "5b6a715f9175d2753a473a2139b4f2c067710c011e031023d8c13038a80d440c";
         let links = [
             {
@@ -691,6 +690,35 @@
 
         // 페이지 로드 시 데이터 불러오기
         loadLinks();
+
+        // ==========================================
+        // 🔑 암호화 및 인증 함수
+        // ==========================================
+
+        /**
+         * 문자열을 SHA-256 해시 값으로 변환하는 비동기 함수
+         * @param {string} message - 해시할 문자열
+         * @returns {Promise<string>} - 16진수 해시 문자열
+         */
+        async function sha256(message) {
+            try {
+                // String을 ArrayBuffer로 변환 (UTF-8 인코딩)
+                const msgBuffer = new TextEncoder().encode(message);
+
+                // ArrayBuffer를 해시 (Web Cryptography API 사용)
+                const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+
+                // ArrayBuffer를 16진수 문자열로 변환
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                return hashHex;
+            } catch (e) {
+                // Web Crypto API를 사용할 수 없는 환경에 대한 대비
+                console.error("SHA-256 해싱 중 오류 발생:", e);
+                alert("보안 인증 시스템을 사용할 수 없습니다.");
+                return ""; 
+            }
+        }
 
         // ==========================================
         // 🎨 화면 렌더링
@@ -818,24 +846,36 @@
         }
 
         // ==========================================
-        // 🔧 모달 관리
+        // 🔧 모달 관리 & 비밀번호 인증 로직 (수정 완료!)
         // ==========================================
-        function openEditModal() {
+
+        // 🔑 openEditModal 함수를 비동기(async)로 수정하여 해시 비교 로직 적용
+        async function openEditModal() {
             const password = prompt("링크 관리를 위해 비밀번호를 입력하세요:");
 
-            if (password === ADMIN_PASSWORD) {
-                document.getElementById('editModal').classList.add('active');
-                renderLinksList();
-                document.getElementById('editModal').classList.add('active');
-                renderLinksList();
-            } else if (password !== null) {
-                // '취소'를 누르지 않았지만 비밀번호가 틀린 경우
-                alert("비밀번호가 틀렸습니다. 🚫");
+            if (password === null || password === "") {
+                return; // 입력값이 없거나 취소
             }
 
+            try {
+                // 입력된 비밀번호를 SHA-256 해시로 변환
+                const inputHash = await sha256(password); 
 
-            
+                // 해시 값 비교
+                if (inputHash === ADMIN_PASSWORD_HASH) {
+                    // 인증 성공 시
+                    document.getElementById('editModal').classList.add('active');
+                    renderLinksList();
+                } else {
+                    // 인증 실패 시
+                    alert("비밀번호가 틀렸습니다. 🚫");
+                }
+            } catch (error) {
+                console.error("인증 중 오류 발생:", error);
+                alert("인증 시스템 오류가 발생했습니다. 다시 시도해주세요.");
+            }
         }
+
 
         function closeEditModal() {
             document.getElementById('editModal').classList.remove('active');
