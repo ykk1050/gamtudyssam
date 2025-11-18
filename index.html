@@ -561,7 +561,7 @@
         </div>
 
         <div class="footer">
-            Made with ❤️ by Gamtudy ssam | 2025.11.18.23:00
+            Made with ❤️ by Gamtudy ssam | 2025.11.18.23:05
         </div>
     </div>
 
@@ -681,16 +681,27 @@
         // 로컬 스토리지에서 데이터 불러오기
         function loadLinks() {
             const savedLinks = localStorage.getItem('teacherLinks');
+            // **[수정된 부분: Try-Catch를 사용하여 안전하게 로드 및 초기화]**
             if (savedLinks) {
-                links = JSON.parse(savedLinks);
+                try {
+                    // 저장된 데이터가 유효한 JSON인지 확인하고 불러옴
+                    links = JSON.parse(savedLinks);
+                } catch (e) {
+                    // 파싱 오류 발생 시 (데이터 손상 시), 콘솔에 오류 기록 후 기본 데이터 사용
+                    console.error("로컬 스토리지 데이터 파싱 오류 (손상):", e);
+                    links = DEFAULT_LINKS; 
+                }
+            } else {
+                // 저장된 데이터가 없으면 기본 데이터 사용
+                links = DEFAULT_LINKS;
+            }
+
+            // **[추가된 부분]** 링크가 비어있다면, 기본 데이터로 초기화
+            // 이는 이전에 잘못된 데이터가 저장된 경우를 대비합니다.
+            if (links.length === 0) {
+                links = DEFAULT_LINKS;
             }
         }
-
-        // 로컬 스토리지에 데이터 저장하기
-        function saveLinks() {
-            localStorage.setItem('teacherLinks', JSON.stringify(links));
-        }
-
         // 페이지 로드 시 데이터 불러오기
         loadLinks();
 
