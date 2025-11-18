@@ -561,7 +561,7 @@
         </div>
 
         <div class="footer">
-            Made with ❤️ by Gamtudy ssam | 2025.11.18.22:45
+            Made with ❤️ by Gamtudy ssam | 2025.11.18.22:58
         </div>
     </div>
 
@@ -644,7 +644,8 @@
 
         // **🔑 실제 비밀번호 대신 SHA-256 해시 값을 저장합니다.**
         const ADMIN_PASSWORD_HASH = "5b6a715f9175d2753a473a2139b4f2c067710c011e031023d8c13038a80d440c";
-        let links = [
+        // **[추가된 부분]** 초기 링크 데이터
+        const DEFAULT_LINKS = [
             {
                 title: "수학몬 마스터",
                 description: "분수의 곱셈을 마스터하는 몬스터 수집 게임",
@@ -674,6 +675,8 @@
                 category: "math-grade5"
             }
         ];
+
+        let links = [];
 
         // 로컬 스토리지에서 데이터 불러오기
         function loadLinks() {
@@ -715,8 +718,8 @@
             } catch (e) {
                 // Web Crypto API를 사용할 수 없는 환경에 대한 대비
                 console.error("SHA-256 해싱 중 오류 발생:", e);
-                alert("보안 인증 시스템을 사용할 수 없습니다.");
-                return ""; 
+                alert("보안 인증 시스템을 사용할 수 없습니다. (브라우저 지원 문제)");
+                return **null**; // **이전: ""**
             }
         }
 
@@ -851,30 +854,30 @@
 
         // 🔑 openEditModal 함수를 비동기(async)로 수정하여 해시 비교 로직 적용
         async function openEditModal() {
-            const password = prompt("링크 관리를 위해 비밀번호를 입력하세요:");
-
-            if (password === null || password === "") {
-                return; // 입력값이 없거나 취소
-            }
-
-            try {
-                // 입력된 비밀번호를 SHA-256 해시로 변환
-                const inputHash = await sha256(password); 
-
-                // 해시 값 비교
-                if (inputHash === ADMIN_PASSWORD_HASH) {
-                    // 인증 성공 시
-                    document.getElementById('editModal').classList.add('active');
-                    renderLinksList();
-                } else {
-                    // 인증 실패 시
-                    alert("비밀번호가 틀렸습니다. 🚫");
-                }
-            } catch (error) {
-                console.error("인증 중 오류 발생:", error);
-                alert("인증 시스템 오류가 발생했습니다. 다시 시도해주세요.");
-            }
-        }
+         const password = prompt("링크 관리를 위해 비밀번호를 입력하세요:");
+ 
+         if (password === null || password === "") {
+             return; // 입력값이 없거나 취소
+         }
+ 
+         // 입력된 비밀번호를 SHA-256 해시로 변환 시도
+         const inputHash = await sha256(password); 
+ 
+         // **[추가된 부분]** 해싱에 실패(null 반환)했을 경우 진행 중단
+         if (inputHash === **null**) {
+             return;
+         }
+ 
+         // 해시 값 비교
+         if (inputHash === ADMIN_PASSWORD_HASH) {
+             // 인증 성공 시
+             document.getElementById('editModal').classList.add('active');
+             renderLinksList();
+         } else {
+             // 인증 실패 시
+             alert("비밀번호가 틀렸습니다. 🚫");
+         }
+     }
 
 
         function closeEditModal() {
