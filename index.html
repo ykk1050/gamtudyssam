@@ -561,7 +561,7 @@
         </div>
 
         <div class="footer">
-            Made with ❤️ by Gamtudy ssam | 2026.01.02. 10:40
+            Made with ❤️ by Gamtudy ssam | 2026.04.06.
         </div>
     </div>
 
@@ -642,6 +642,128 @@
         // 💾 데이터 저장소 & 설정
         // ==========================================
 
+        /*
+         * [기기 간 동기화] Google 스프레드시트 + Apps Script
+         *
+         * 준비
+         * 1) 스프레드시트 생성 → 시트 이름을 "Links" 로 지정 (없으면 스크립트가 자동 생성)
+         * 2) A1 셀에 링크 배열 JSON. 처음엔 [] 또는 DEFAULT_LINKS 를 복사해 붙여넣기
+         * 3) 확장 프로그램 > Apps Script → 아래 "Apps Script 붙여넣기" 블록 전체 복사 후 저장
+         * 4) 톱니바퀴 > 스크립트 속성 > SECRET (임의의 긴 문자열) → GOOGLE_WRITE_SECRET 과 동일하게
+         * 5) 배포 > 새 배포 > 웹 앱 / 실행: 나 / 액세스: 모든 사용자(익명 포함)
+         * 6) 웹 앱 URL(/exec 로 끝남) → GOOGLE_APPS_SCRIPT_URL
+         *
+         * 읽기: JSONP(callback) / 저장: 숨은 iframe + form POST (CORS 회피)
+         *
+         * ----- Apps Script 붙여넣기 (코드.gs) -----
+         * function doGet(e) {
+         *   var sheet = getLinksSheet_();
+         *   var raw = sheet.getRange('A1').getDisplayValue() || sheet.getRange('A1').getValue();
+         *   var list = [];
+         *   try {
+         *     if (raw && String(raw).trim()) list = JSON.parse(String(raw));
+         *     if (!Array.isArray(list)) list = [];
+         *   } catch (err) { list = []; }
+         *   var cb = e && e.parameter && e.parameter.callback;
+         *   if (cb && /^[A-Za-z_$][0-9A-Za-z_$]*$/.test(String(cb))) {
+         *     return ContentService.createTextOutput(String(cb) + '(' + JSON.stringify({ links: list }) + ');')
+         *       .setMimeType(ContentService.MimeType.JAVASCRIPT);
+         *   }
+         *   return ContentService.createTextOutput(JSON.stringify({ links: list }))
+         *     .setMimeType(ContentService.MimeType.JSON);
+         * }
+         * function doPost(e) {
+         *   var expected = PropertiesService.getScriptProperties().getProperty('SECRET') || '';
+         *   var got = (e && e.parameter && e.parameter.secret) || '';
+         *   if (!expected || got !== expected) return HtmlService.createHtmlOutput('denied');
+         *   var payload = e && e.parameter && e.parameter.payload;
+         *   if (!payload) return HtmlService.createHtmlOutput('no payload');
+         *   try {
+         *     var arr = JSON.parse(payload);
+         *     if (!Array.isArray(arr)) throw new Error('x');
+         *   } catch (err) { return HtmlService.createHtmlOutput('bad json'); }
+         *   getLinksSheet_().getRange('A1').setValue(payload);
+         *   return HtmlService.createHtmlOutput('ok');
+         * }
+         * function getLinksSheet_() {
+         *   var ss = SpreadsheetApp.getActiveSpreadsheet();
+         *   var sh = ss.getSheetByName('Links');
+         *   if (!sh) sh = ss.insertSheet('Links');
+         *   return sh;
+         * }
+         * ----- 끝 -----
+         */
+        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwNA5mqRiEjkaUrY9s-NnRN2ZuboFV_4pjbGBfcdAGRa6QCMF4e67kqVq_o1FwLzoew/exec';
+        const GOOGLE_WRITE_SECRET = 'class2026-links-sync-xK9mP2qW7';
+        const USE_REMOTE_SYNC = Boolean(String(GOOGLE_APPS_SCRIPT_URL || '').trim());
+        const CAN_SAVE_TO_SHEET = USE_REMOTE_SYNC && Boolean(String(GOOGLE_WRITE_SECRET || '').trim());
+
+        function sheetUrlWithParam(base, key, val) {
+            const u = String(base || '').trim();
+            const sep = u.includes('?') ? '&' : '?';
+            return u + sep + encodeURIComponent(key) + '=' + encodeURIComponent(val);
+        }
+
+        function fetchLinksViaJsonp() {
+            return new Promise((resolve, reject) => {
+                const cb = 'gssync_' + Date.now() + '_' + Math.floor(Math.random() * 1e6);
+                const t = setTimeout(() => {
+                    cleanup();
+                    reject(new Error('시트 응답 시간 초과'));
+                }, 20000);
+                const script = document.createElement('script');
+                function cleanup() {
+                    clearTimeout(t);
+                    try { delete window[cb]; } catch (_) {}
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                }
+                window[cb] = function (data) {
+                    cleanup();
+                    resolve(data);
+                };
+                script.onerror = function () {
+                    cleanup();
+                    reject(new Error('시트를 불러오지 못했습니다'));
+                };
+                script.src = sheetUrlWithParam(GOOGLE_APPS_SCRIPT_URL, 'callback', cb);
+                document.head.appendChild(script);
+            });
+        }
+
+        function postLinksViaForm() {
+            return new Promise((resolve) => {
+                const frameName = 'gsFrame_' + Date.now();
+                const iframe = document.createElement('iframe');
+                iframe.name = frameName;
+                iframe.title = 'sheet-sync';
+                iframe.setAttribute('aria-hidden', 'true');
+                iframe.style.cssText = 'position:absolute;width:0;height:0;border:0;visibility:hidden';
+                document.body.appendChild(iframe);
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = GOOGLE_APPS_SCRIPT_URL;
+                form.target = frameName;
+                form.acceptCharset = 'UTF-8';
+                const secretInput = document.createElement('input');
+                secretInput.type = 'hidden';
+                secretInput.name = 'secret';
+                secretInput.value = GOOGLE_WRITE_SECRET;
+                const payloadInput = document.createElement('input');
+                payloadInput.type = 'hidden';
+                payloadInput.name = 'payload';
+                payloadInput.value = JSON.stringify(links);
+                form.appendChild(secretInput);
+                form.appendChild(payloadInput);
+                document.body.appendChild(form);
+                form.submit();
+                setTimeout(() => {
+                    form.remove();
+                    iframe.remove();
+                    resolve();
+                }, 1800);
+            });
+        }
+
         // **🔑 비밀번호 설정 (Base64 인코딩)**
         const ADMIN_PASSWORD_ENCODED = "MTA1MDM1NjM="; 
 
@@ -679,10 +801,8 @@
 
         let links = [];
 
-        // 로컬 스토리지에서 데이터 불러오기
-        function loadLinks() {
+        function loadLinksFromLocalStorage() {
             const savedLinks = localStorage.getItem('teacherLinks');
-            
             if (savedLinks) {
                 try {
                     links = JSON.parse(savedLinks);
@@ -693,19 +813,42 @@
             } else {
                 links = JSON.parse(JSON.stringify(DEFAULT_LINKS));
             }
-
-            // 데이터가 비어있으면 초기화
             if (!Array.isArray(links) || links.length === 0) {
                 links = JSON.parse(JSON.stringify(DEFAULT_LINKS));
             }
         }
 
-        // 데이터 저장
-        function saveLinks() {
-            localStorage.setItem('teacherLinks', JSON.stringify(links));
+        async function loadLinks() {
+            if (!USE_REMOTE_SYNC) {
+                loadLinksFromLocalStorage();
+                return;
+            }
+            try {
+                const data = await fetchLinksViaJsonp();
+                const remote = data && data.links;
+                if (!Array.isArray(remote)) throw new Error('시트 데이터 형식 오류');
+                links = remote;
+                localStorage.setItem('teacherLinks', JSON.stringify(links));
+            } catch (e) {
+                console.error('스프레드시트 로드 실패, 로컬 캐시 사용:', e);
+                loadLinksFromLocalStorage();
+            }
         }
 
-        loadLinks();
+        async function saveLinks() {
+            localStorage.setItem('teacherLinks', JSON.stringify(links));
+            if (!USE_REMOTE_SYNC) return;
+            if (!CAN_SAVE_TO_SHEET) {
+                showToast('스프레드시트에 저장하려면 GOOGLE_WRITE_SECRET 을 설정하세요.', true);
+                return;
+            }
+            try {
+                await postLinksViaForm();
+            } catch (e) {
+                console.error('스프레드시트 저장:', e);
+                showToast('스프레드시트 저장 요청에 실패했습니다.', true);
+            }
+        }
 
         // ==========================================
         // 🎨 화면 렌더링
@@ -859,17 +1002,16 @@
         }
 
         // 링크 삭제
-        function deleteLink(index) {
-            if (confirm('정말로 삭제하시겠습니까?')) {
-                links.splice(index, 1);
-                saveLinks();
-                renderLinks();
-                renderLinksList();
-            }
+        async function deleteLink(index) {
+            if (!confirm('정말로 삭제하시겠습니까?')) return;
+            links.splice(index, 1);
+            await saveLinks();
+            renderLinks();
+            renderLinksList();
         }
 
         // 폼 제출
-        document.getElementById('linkForm').addEventListener('submit', function(e) {
+        document.getElementById('linkForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const newLink = {
@@ -885,7 +1027,7 @@
             if (idx === '') links.push(newLink);
             else links[idx] = newLink;
             
-            saveLinks();
+            await saveLinks();
             renderLinks();
             closeAddEditModal();
             
@@ -928,8 +1070,15 @@
             }, 3000);
         }
 
-        // 초기 실행
-        renderLinks();
+        // 초기 실행 (원격 동기화 시 로드 후 렌더)
+        (async function initLinks() {
+            const container = document.getElementById('linksContainer');
+            if (USE_REMOTE_SYNC) {
+                container.innerHTML = '<p style="text-align:center;color:#888;padding:24px;">목록을 불러오는 중…</p>';
+            }
+            await loadLinks();
+            renderLinks();
+        })();
 
         // 모달 닫기 이벤트
         window.onclick = function(e) {
