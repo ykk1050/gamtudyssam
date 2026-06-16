@@ -45,7 +45,6 @@
         }
 
         .profile-image { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-
         .profile-title { font-size: 26px; font-weight: bold; color: #333; margin-bottom: 10px; }
         .profile-subtitle { font-size: 15px; color: #666; line-height: 1.6; }
 
@@ -104,14 +103,12 @@
         }
 
         .grade-btn.all-btn { border-color: #667eea; color: #667eea; }
-        .grade-btn.all-btn:hover { background: rgba(102,126,234,0.06); }
         .grade-btn.all-btn.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-color: transparent; color: white;
         }
 
         .grade-btn.mgmt-btn { border-color: #00b894; color: #00b894; }
-        .grade-btn.mgmt-btn:hover { background: rgba(0,184,148,0.08); }
         .grade-btn.mgmt-btn.active {
             background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
             border-color: transparent; color: white;
@@ -120,11 +117,9 @@
 
         .no-content-hint { opacity: 0.38; }
 
-        /* 섹션 헤더 (그룹 구분) */
+        /* 섹션 헤더 */
         .section-grade-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
+            font-size: 18px; font-weight: bold; color: #333;
             margin: 24px 0 12px;
             padding: 13px 18px;
             background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);
@@ -140,18 +135,14 @@
         }
 
         .section-subject-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: #555;
+            font-size: 15px; font-weight: 600; color: #555;
             margin: 16px 0 8px;
             padding-left: 10px;
             border-left: 3px solid #667eea;
         }
 
         .section-unit-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #888;
+            font-size: 13px; font-weight: 600; color: #888;
             margin: 12px 0 6px;
             padding: 5px 12px;
             background: #f0f4ff;
@@ -159,14 +150,8 @@
             display: inline-block;
         }
 
-        /* 링크 목록 */
-        .links-section {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            margin-top: 4px;
-        }
-
+        /* 링크 카드 */
+        .links-section { display: flex; flex-direction: column; gap: 0; margin-top: 4px; }
         .link-group { display: flex; flex-direction: column; gap: 9px; margin-bottom: 4px; }
 
         .empty-state {
@@ -174,7 +159,6 @@
             padding: 36px 20px; font-size: 15px;
         }
 
-        /* 카드 */
         .link-card {
             background: white;
             border: 2px solid #e8e8e8;
@@ -182,9 +166,7 @@
             padding: 16px 20px;
             text-decoration: none;
             color: #333;
-            display: flex;
-            align-items: center;
-            gap: 13px;
+            display: flex; align-items: center; gap: 13px;
             transition: all 0.22s ease;
             position: relative;
             overflow: hidden;
@@ -192,19 +174,12 @@
 
         .link-card::before {
             content: '';
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            opacity: 0;
-            transition: opacity 0.22s ease;
+            opacity: 0; transition: opacity 0.22s ease;
         }
 
-        .link-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 7px 20px rgba(0,0,0,0.10);
-            border-color: #667eea;
-        }
-
+        .link-card:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(0,0,0,0.10); border-color: #667eea; }
         .link-card:hover::before { opacity: 0.04; }
 
         .link-card.g1 { border-left: 4px solid #43e97b; }
@@ -221,12 +196,9 @@
         .link-description { font-size: 12px; color: #888; line-height: 1.4; }
 
         .link-meta-tag {
-            display: inline-block;
-            font-size: 11px; color: #999;
-            background: #f0f0f0;
-            border-radius: 20px;
-            padding: 2px 8px;
-            margin-top: 5px;
+            display: inline-block; font-size: 11px; color: #999;
+            background: #f0f0f0; border-radius: 20px;
+            padding: 2px 8px; margin-top: 5px;
         }
 
         .link-actions { display: flex; gap: 8px; align-items: center; z-index: 1; flex-shrink: 0; }
@@ -278,7 +250,7 @@
 
         .edit-mode-btn:hover { transform: scale(1.1); }
 
-        /* 모달 */
+        /* 모달 공통 */
         .modal {
             display: none; position: fixed; inset: 0;
             background: rgba(0,0,0,0.68);
@@ -310,6 +282,7 @@
 
         .close-btn:hover { color: #333; }
 
+        /* 폼 */
         .form-group { margin-bottom: 16px; }
 
         .form-label {
@@ -358,7 +331,7 @@
         .btn-secondary { background: #f0f0f0; color: #666; }
         .btn-secondary:hover { background: #e4e4e4; }
 
-        /* 관리 목록 */
+        /* 링크 관리 목록 */
         .link-item {
             background: #f8f9fa; border-radius: 10px;
             padding: 12px 14px; margin-bottom: 9px;
@@ -368,12 +341,7 @@
         .link-item-info { flex: 1; min-width: 0; }
         .link-item-title { font-weight: 700; color: #333; margin-bottom: 3px; font-size: 14px; }
         .link-item-meta { font-size: 12px; color: #aaa; margin-bottom: 2px; }
-
-        .link-item-url {
-            font-size: 11px; color: #ccc;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-
+        .link-item-url { font-size: 11px; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .link-item-actions { display: flex; gap: 5px; flex-shrink: 0; }
 
         .btn-sm {
@@ -398,6 +366,87 @@
             margin-left: 5px; font-weight: 700;
         }
 
+        /* 카테고리 관리 */
+        .cat-section-title {
+            font-size: 13px; font-weight: 700; color: #555;
+            margin: 18px 0 10px;
+            padding-bottom: 7px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .cat-section-title:first-child { margin-top: 0; }
+
+        .cat-toggle-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+
+        .cat-chip {
+            padding: 8px 15px;
+            border: 2px solid;
+            border-radius: 50px;
+            font-size: 13px; font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cat-chip.on {
+            border-color: #00b894; color: #00b894;
+            background: rgba(0,184,148,0.06);
+        }
+
+        .cat-chip.on:hover { background: rgba(0,184,148,0.14); }
+
+        .cat-chip.off {
+            border-color: #ff6b6b; color: #ff6b6b;
+            background: rgba(255,107,107,0.06);
+            text-decoration: line-through;
+            opacity: 0.75;
+        }
+
+        .cat-chip.off:hover { background: rgba(255,107,107,0.14); opacity: 1; }
+
+        .cat-grade-selector { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; }
+
+        .cat-grade-pick {
+            padding: 7px 13px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 13px; font-weight: 600;
+            cursor: pointer; color: #777;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .cat-grade-pick:hover { border-color: #667eea; color: #667eea; }
+
+        .cat-grade-pick.picked {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent; color: white;
+        }
+
+        .cat-hint {
+            font-size: 12px; color: #bbb; margin-bottom: 10px;
+        }
+
+        /* 관리 모달 상단 버튼 */
+        .mgmt-actions {
+            display: flex; gap: 8px; margin-bottom: 16px;
+        }
+
+        .btn-mgmt {
+            flex: 1; padding: 10px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 13px; font-weight: 600;
+            cursor: pointer; color: #555;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .btn-mgmt:hover { border-color: #667eea; color: #667eea; }
+        .btn-mgmt.active-tab { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: transparent; color: white; }
+
+        .mgmt-panel { display: none; }
+        .mgmt-panel.active { display: block; }
+
         @media (max-width: 600px) {
             .container { padding: 24px 15px; }
             .profile-title { font-size: 21px; }
@@ -409,6 +458,7 @@
             .visitor-counter { flex-direction: column; gap: 8px; align-items: center; }
             .form-row { flex-direction: column; }
             .section-grade-title { font-size: 16px; padding: 11px 14px; }
+            .mgmt-actions { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -435,28 +485,18 @@
 
         <!-- 필터 섹션 -->
         <div id="filterSection">
-            <!-- 학년 -->
             <div class="filter-group">
                 <div class="filter-row-label">학년 선택</div>
                 <div class="filter-row" id="gradeRow">
-                    <button class="grade-btn all-btn active" data-grade="all" onclick="selectGrade('all')">전체</button>
-                    <button class="grade-btn" data-grade="1" onclick="selectGrade('1')">1학년</button>
-                    <button class="grade-btn" data-grade="2" onclick="selectGrade('2')">2학년</button>
-                    <button class="grade-btn" data-grade="3" onclick="selectGrade('3')">3학년</button>
-                    <button class="grade-btn" data-grade="4" onclick="selectGrade('4')">4학년</button>
-                    <button class="grade-btn" data-grade="5" onclick="selectGrade('5')">5학년</button>
-                    <button class="grade-btn" data-grade="6" onclick="selectGrade('6')">6학년</button>
-                    <button class="grade-btn mgmt-btn" data-grade="management" onclick="selectGrade('management')">🏫 학급 경영</button>
+                    <!-- JS로 생성 -->
                 </div>
             </div>
 
-            <!-- 과목 (특정 학년 선택 후) -->
             <div class="filter-group" id="subjectGroup" style="display:none">
                 <div class="filter-row-label">과목 선택</div>
                 <div class="filter-row" id="subjectRow"></div>
             </div>
 
-            <!-- 단원 (과목 선택 후) -->
             <div class="filter-group" id="unitGroup" style="display:none">
                 <div class="filter-row-label">단원 선택</div>
                 <div class="filter-row" id="unitRow"></div>
@@ -466,26 +506,52 @@
         <!-- 링크 목록 -->
         <div class="links-section" id="linksContainer"></div>
 
-        <div class="footer">Made with ❤️ by Gamtudy ssam | 2026.06.16.</div>
+        <div class="footer">Made with ❤️ by Gamtudy ssam | 2026.06.16.21:30</div>
     </div>
 
     <button class="edit-mode-btn" onclick="openEditModal()" title="링크 관리">✏️</button>
 
-    <!-- 링크 관리 모달 -->
+    <!-- ===== 링크 관리 모달 ===== -->
     <div class="modal" id="editModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">링크 관리</h2>
+                <h2 class="modal-title">관리자 설정</h2>
                 <button class="close-btn" onclick="closeEditModal()">&times;</button>
             </div>
-            <div id="linksList"></div>
-            <button class="btn btn-primary" onclick="openAddLinkModal()" style="width:100%;margin-top:14px;">
-                ➕ 새 링크 추가
-            </button>
+
+            <!-- 탭 -->
+            <div class="mgmt-actions">
+                <button class="btn-mgmt active-tab" id="tab-links" onclick="switchTab('links')">🔗 링크 관리</button>
+                <button class="btn-mgmt" id="tab-category" onclick="switchTab('category')">🏷️ 카테고리 표시 설정</button>
+            </div>
+
+            <!-- 링크 관리 패널 -->
+            <div class="mgmt-panel active" id="panel-links">
+                <div id="linksList"></div>
+                <button class="btn btn-primary" onclick="openAddLinkModal()" style="width:100%;margin-top:14px;">
+                    ➕ 새 링크 추가
+                </button>
+            </div>
+
+            <!-- 카테고리 표시 설정 패널 -->
+            <div class="mgmt-panel" id="panel-category">
+                <!-- 학년 설정 -->
+                <div class="cat-section-title">📚 학년 표시 설정</div>
+                <p class="cat-hint">클릭하면 보임/숨김이 전환됩니다. 숨긴 학년은 방문자에게 보이지 않습니다.</p>
+                <div class="cat-toggle-row" id="gradeChips"></div>
+
+                <!-- 과목 설정 -->
+                <div class="cat-section-title">📖 과목 표시 설정 (학년별)</div>
+                <p class="cat-hint">학년을 선택한 후 숨길 과목을 설정하세요.</p>
+                <div class="cat-grade-selector" id="catGradePicker"></div>
+                <div class="cat-toggle-row" id="subjectChips">
+                    <span style="font-size:13px;color:#bbb;">← 위에서 학년을 선택해 주세요</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- 링크 추가/수정 모달 -->
+    <!-- ===== 링크 추가/수정 모달 ===== -->
     <div class="modal" id="addEditModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -497,16 +563,13 @@
                     <label class="form-label">유형</label>
                     <div class="radio-group" id="typeRadioGroup">
                         <label class="radio-label selected" id="lbl-learning">
-                            <input type="radio" name="linkType" value="learning" checked>
-                            📚 학습 게임
+                            <input type="radio" name="linkType" value="learning" checked>📚 학습 게임
                         </label>
                         <label class="radio-label" id="lbl-management">
-                            <input type="radio" name="linkType" value="management">
-                            🏫 학급 경영
+                            <input type="radio" name="linkType" value="management">🏫 학급 경영
                         </label>
                     </div>
                 </div>
-
                 <div id="learningFields">
                     <div class="form-row">
                         <div class="form-group">
@@ -555,7 +618,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="form-label">제목</label>
                     <input type="text" class="form-input" id="linkTitle" required placeholder="예: 수학몬 마스터">
@@ -572,9 +634,7 @@
                     <label class="form-label">아이콘 (이모지)</label>
                     <input type="text" class="form-input" id="linkIcon" required placeholder="예: 🎯">
                 </div>
-
                 <input type="hidden" id="editIndex" value="">
-
                 <div class="btn-group">
                     <button type="button" class="btn btn-secondary" onclick="closeAddEditModal()">취소</button>
                     <button type="submit" class="btn btn-primary">저장</button>
@@ -589,24 +649,27 @@
         // ==========================================
 
         /*
-         * [기기 간 동기화 + 방문자 카운터] Google Apps Script
+         * ★★★ 방문자 카운터 활성화 방법 ★★★
          *
-         * 방문자 카운터를 활성화하려면 Apps Script를 아래 코드로 교체 후 새 배포가 필요합니다.
-         * 링크 관리는 기존 배포에서도 계속 동작합니다.
+         * 1. Google Apps Script 편집기에서 아래 코드로 전체 교체
+         * 2. 저장(Ctrl+S)
+         * 3. [배포] → [배포 관리] → 연필 아이콘(수정) → 버전: "새 버전" → 배포
+         *    (새 배포가 아닌 기존 배포 업데이트여야 URL이 유지됩니다)
          *
-         * ===== Apps Script 코드.gs 전체 교체 =====
+         * ===== 코드.gs 전체 내용 =====
          *
          * function doGet(e) {
          *   var shouldCount = e && e.parameter && e.parameter.visit === '1';
          *   var sheet = getLinksSheet_();
          *   var raw = sheet.getRange('A1').getDisplayValue() || sheet.getRange('A1').getValue();
-         *   var list = [];
-         *   try {
-         *     if (raw && String(raw).trim()) list = JSON.parse(String(raw));
-         *     if (!Array.isArray(list)) list = [];
-         *   } catch (err) { list = []; }
+         *   var stored = parseStored_(raw);
          *   var vd = shouldCount ? incrementVisit_() : getVisitData_();
-         *   var result = { links: list, visitToday: vd.today, visitTotal: vd.total };
+         *   var result = {
+         *     links: stored.links,
+         *     hiddenCategories: stored.hiddenCategories,
+         *     visitToday: vd.today,
+         *     visitTotal: vd.total
+         *   };
          *   var cb = e && e.parameter && e.parameter.callback;
          *   if (cb && /^[A-Za-z_$][0-9A-Za-z_$]*$/.test(String(cb))) {
          *     return ContentService.createTextOutput(String(cb)+'('+JSON.stringify(result)+');')
@@ -615,29 +678,48 @@
          *   return ContentService.createTextOutput(JSON.stringify(result))
          *     .setMimeType(ContentService.MimeType.JSON);
          * }
+         *
          * function doPost(e) {
          *   var expected = PropertiesService.getScriptProperties().getProperty('SECRET') || '';
          *   var got = (e && e.parameter && e.parameter.secret) || '';
          *   if (!expected || got !== expected) return HtmlService.createHtmlOutput('denied');
          *   var payload = e && e.parameter && e.parameter.payload;
          *   if (!payload) return HtmlService.createHtmlOutput('no payload');
-         *   try { var arr = JSON.parse(payload); if (!Array.isArray(arr)) throw new Error('x'); }
-         *   catch (err) { return HtmlService.createHtmlOutput('bad json'); }
+         *   try { JSON.parse(payload); } catch(err) { return HtmlService.createHtmlOutput('bad json'); }
          *   getLinksSheet_().getRange('A1').setValue(payload);
          *   return HtmlService.createHtmlOutput('ok');
          * }
+         *
+         * function parseStored_(raw) {
+         *   var empty = { links: [], hiddenCategories: { grades: [], subjects: {} } };
+         *   if (!raw || !String(raw).trim()) return empty;
+         *   try {
+         *     var p = JSON.parse(String(raw));
+         *     if (Array.isArray(p)) return { links: p, hiddenCategories: empty.hiddenCategories };
+         *     if (p && typeof p === 'object') {
+         *       return {
+         *         links: Array.isArray(p.links) ? p.links : [],
+         *         hiddenCategories: p.hiddenCategories || empty.hiddenCategories
+         *       };
+         *     }
+         *   } catch(e) {}
+         *   return empty;
+         * }
+         *
          * function getLinksSheet_() {
          *   var ss = SpreadsheetApp.getActiveSpreadsheet();
          *   var sh = ss.getSheetByName('Links');
          *   if (!sh) sh = ss.insertSheet('Links');
          *   return sh;
          * }
+         *
          * function getVisitsSheet_() {
          *   var ss = SpreadsheetApp.getActiveSpreadsheet();
          *   var sh = ss.getSheetByName('Visits');
          *   if (!sh) { sh = ss.insertSheet('Visits'); sh.appendRow(['날짜','방문수']); }
          *   return sh;
          * }
+         *
          * function incrementVisit_() {
          *   var sh = getVisitsSheet_();
          *   var today = Utilities.formatDate(new Date(),'Asia/Seoul','yyyy-MM-dd');
@@ -657,6 +739,7 @@
          *   }
          *   return { today: todayCount, total: total };
          * }
+         *
          * function getVisitData_() {
          *   var sh = getVisitsSheet_();
          *   var today = Utilities.formatDate(new Date(),'Asia/Seoul','yyyy-MM-dd');
@@ -675,16 +758,17 @@
 
         const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwNA5mqRiEjkaUrY9s-NnRN2ZuboFV_4pjbGBfcdAGRa6QCMF4e67kqVq_o1FwLzoew/exec';
         const GOOGLE_WRITE_SECRET    = 'class2026-links-sync-xK9mP2qW7';
-        const USE_REMOTE_SYNC  = Boolean(String(GOOGLE_APPS_SCRIPT_URL || '').trim());
+        const USE_REMOTE_SYNC   = Boolean(String(GOOGLE_APPS_SCRIPT_URL || '').trim());
         const CAN_SAVE_TO_SHEET = USE_REMOTE_SYNC && Boolean(String(GOOGLE_WRITE_SECRET || '').trim());
 
         const ADMIN_PASSWORD_ENCODED = "MTA1MDM1NjM=";
 
         const SUBJECTS = ['국어','수학','영어','사회','과학','음악','미술','도덕','체육','실과'];
 
-        const GRADE_LABELS = { '1':'1학년','2':'2학년','3':'3학년','4':'4학년','5':'5학년','6':'6학년','management':'🏫 학급 경영' };
+        const ALL_GRADES  = ['1','2','3','4','5','6'];
+        const GRADE_LABEL = { '1':'1학년','2':'2학년','3':'3학년','4':'4학년','5':'5학년','6':'6학년','management':'🏫 학급 경영' };
 
-        // 구 category → {grade,subject} 하위 호환 매핑
+        // 구 category → {grade,subject} 하위 호환
         const CATEGORY_MAP = {
             'math-grade2': { grade:'2', subject:'수학' },
             'math-grade3': { grade:'3', subject:'수학' },
@@ -694,45 +778,25 @@
             'management':  { grade:'management', subject:null }
         };
 
-        // 기존 데이터 그대로 유지
         const DEFAULT_LINKS = [
-            {
-                title: "수학몬 마스터",
-                description: "분수의 곱셈을 마스터하는 몬스터 수집 게임",
-                url: "https://ykk1050.github.io/yangume_mathmon_multiplication-of-fractions_sh_open/",
-                icon: "🎯",
-                category: "math-grade5"
-            },
-            {
-                title: "Division Quest-메테오 피하기",
-                description: "나눗셈 문제를 풀며 운석을 피하는 액션 게임",
-                url: "https://ykk1050.github.io/mathmeteo/",
-                icon: "☄️",
-                category: "math-grade3"
-            },
-            {
-                title: "스쿨몬",
-                description: "점수제와 캐릭터 진화 기반 학급 경영 시스템, 오프라인 기반",
-                url: "https://drive.google.com/file/d/1MdLN6nwc5W6Av0X0WPQuoE9y-Js9uSXk/view?usp=drive_link",
-                icon: "⭐",
-                category: "management"
-            },
-            {
-                title: "소수의 검: 수학 악마 전쟁",
-                description: "소수의 곱셈으로 마왕을 무찌르는 게임",
-                url: "https://ykk1050.github.io/multiplying-decimals/",
-                icon: "⚔️",
-                category: "math-grade5"
-            }
+            { title:"수학몬 마스터", description:"분수의 곱셈을 마스터하는 몬스터 수집 게임", url:"https://ykk1050.github.io/yangume_mathmon_multiplication-of-fractions_sh_open/", icon:"🎯", category:"math-grade5" },
+            { title:"Division Quest-메테오 피하기", description:"나눗셈 문제를 풀며 운석을 피하는 액션 게임", url:"https://ykk1050.github.io/mathmeteo/", icon:"☄️", category:"math-grade3" },
+            { title:"스쿨몬", description:"점수제와 캐릭터 진화 기반 학급 경영 시스템, 오프라인 기반", url:"https://drive.google.com/file/d/1MdLN6nwc5W6Av0X0WPQuoE9y-Js9uSXk/view?usp=drive_link", icon:"⭐", category:"management" },
+            { title:"소수의 검: 수학 악마 전쟁", description:"소수의 곱셈으로 마왕을 무찌르는 게임", url:"https://ykk1050.github.io/multiplying-decimals/", icon:"⚔️", category:"math-grade5" }
         ];
 
         let links = [];
-        let selGrade   = 'all';   // 'all' | '1'~'6' | 'management'
+        // hiddenCategories: { grades: ['1','2',...], subjects: { '3': ['수학','과학'], ... } }
+        let hiddenCategories = { grades: [], subjects: {} };
+
+        let selGrade   = 'all';
         let selSubject = null;
         let selUnit    = null;
 
+        let catPickedGrade = null; // 카테고리 설정 패널에서 선택된 학년
+
         // ==========================================
-        // 링크 메타 (하위 호환)
+        // 링크 메타
         // ==========================================
         function getMeta(lk) {
             if (lk.grade !== undefined) {
@@ -747,6 +811,25 @@
             if (m.grade === 'management') return 'gm';
             if (m.grade) return 'g' + m.grade;
             return '';
+        }
+
+        // 카테고리 숨김 여부
+        function isGradeHidden(grade) {
+            return hiddenCategories.grades.includes(grade);
+        }
+
+        function isSubjectHidden(grade, subject) {
+            const arr = hiddenCategories.subjects[grade];
+            return Array.isArray(arr) && arr.includes(subject);
+        }
+
+        // 방문자가 볼 수 있는 링크인지
+        function isVisible(lk) {
+            if (lk.hidden === true) return false;
+            const m = getMeta(lk);
+            if (m.grade && isGradeHidden(m.grade)) return false;
+            if (m.grade && m.subject && isSubjectHidden(m.grade, m.subject)) return false;
+            return true;
         }
 
         // ==========================================
@@ -776,6 +859,10 @@
             });
         }
 
+        function getPayload() {
+            return JSON.stringify({ links: links, hiddenCategories: hiddenCategories });
+        }
+
         function postViaForm() {
             return new Promise((resolve) => {
                 const fname = 'gsf_' + Date.now();
@@ -789,7 +876,7 @@
                 form.action = GOOGLE_APPS_SCRIPT_URL;
                 form.target = fname;
                 form.acceptCharset = 'UTF-8';
-                [['secret', GOOGLE_WRITE_SECRET], ['payload', JSON.stringify(links)]].forEach(([n,v]) => {
+                [['secret', GOOGLE_WRITE_SECRET], ['payload', getPayload()]].forEach(([n,v]) => {
                     const inp = document.createElement('input');
                     inp.type = 'hidden'; inp.name = n; inp.value = v;
                     form.appendChild(inp);
@@ -822,14 +909,27 @@
         // ==========================================
         // 로드 / 저장
         // ==========================================
+        function parseStored(raw) {
+            const empty = { links: [], hiddenCategories: { grades: [], subjects: {} } };
+            if (!raw) return empty;
+            try {
+                const p = JSON.parse(raw);
+                if (Array.isArray(p)) return { links: p, hiddenCategories: empty.hiddenCategories };
+                if (p && typeof p === 'object') {
+                    return {
+                        links: Array.isArray(p.links) ? p.links : [],
+                        hiddenCategories: p.hiddenCategories || empty.hiddenCategories
+                    };
+                }
+            } catch(e) {}
+            return empty;
+        }
+
         function loadFromLocal() {
-            const saved = localStorage.getItem('teacherLinks');
-            if (saved) {
-                try { links = JSON.parse(saved); } catch(e) { links = null; }
-            }
-            if (!Array.isArray(links) || links.length === 0) {
-                links = JSON.parse(JSON.stringify(DEFAULT_LINKS));
-            }
+            const raw = localStorage.getItem('teacherData');
+            const stored = parseStored(raw);
+            links = stored.links.length ? stored.links : JSON.parse(JSON.stringify(DEFAULT_LINKS));
+            hiddenCategories = stored.hiddenCategories;
         }
 
         async function loadLinks() {
@@ -841,7 +941,8 @@
                 const remote = data && data.links;
                 if (!Array.isArray(remote)) throw new Error('형식 오류');
                 links = remote;
-                localStorage.setItem('teacherLinks', JSON.stringify(links));
+                hiddenCategories = data.hiddenCategories || { grades: [], subjects: {} };
+                localStorage.setItem('teacherData', getPayload());
                 if (data.visitToday != null) setVisitorUI(data.visitToday, data.visitTotal);
             } catch(e) {
                 console.error('원격 로드 실패, 로컬 사용:', e);
@@ -849,8 +950,8 @@
             }
         }
 
-        async function saveLinks() {
-            localStorage.setItem('teacherLinks', JSON.stringify(links));
+        async function saveAll() {
+            localStorage.setItem('teacherData', getPayload());
             if (!CAN_SAVE_TO_SHEET) return;
             try { await postViaForm(); } catch(e) { console.error('원격 저장 실패:', e); }
         }
@@ -858,13 +959,46 @@
         // ==========================================
         // 필터 UI
         // ==========================================
+        function buildGradeButtons() {
+            const row = document.getElementById('gradeRow');
+            row.innerHTML = '';
+
+            // 전체 버튼
+            const allBtn = document.createElement('button');
+            allBtn.className = 'grade-btn all-btn' + (selGrade === 'all' ? ' active' : '');
+            allBtn.dataset.grade = 'all';
+            allBtn.textContent = '전체';
+            allBtn.onclick = () => selectGrade('all');
+            row.appendChild(allBtn);
+
+            // 학년 버튼 (숨겨진 학년 제외)
+            ALL_GRADES.forEach(g => {
+                if (isGradeHidden(g)) return;
+                const btn = document.createElement('button');
+                btn.className = 'grade-btn' + (selGrade === g ? ' active' : '');
+                btn.dataset.grade = g;
+                btn.textContent = g + '학년';
+                btn.onclick = () => selectGrade(g);
+                row.appendChild(btn);
+            });
+
+            // 학급 경영 (숨겨진 경우 제외)
+            if (!isGradeHidden('management')) {
+                const mgmtBtn = document.createElement('button');
+                mgmtBtn.className = 'grade-btn mgmt-btn' + (selGrade === 'management' ? ' active' : '');
+                mgmtBtn.dataset.grade = 'management';
+                mgmtBtn.textContent = '🏫 학급 경영';
+                mgmtBtn.onclick = () => selectGrade('management');
+                row.appendChild(mgmtBtn);
+            }
+        }
+
         function selectGrade(grade) {
             selGrade   = grade;
             selSubject = null;
             selUnit    = null;
 
-            document.querySelectorAll('.grade-btn').forEach(b =>
-                b.classList.toggle('active', b.dataset.grade === selGrade));
+            buildGradeButtons();
 
             const sg = document.getElementById('subjectGroup');
             const ug = document.getElementById('unitGroup');
@@ -903,7 +1037,7 @@
 
         function hasContent(grade, subject, unit) {
             return links.some(lk => {
-                if (lk.hidden) return false;
+                if (!isVisible(lk)) return false;
                 const m = getMeta(lk);
                 if (m.grade !== grade) return false;
                 if (subject && m.subject !== subject) return false;
@@ -916,8 +1050,10 @@
             const row = document.getElementById('subjectRow');
             row.innerHTML = '';
             SUBJECTS.forEach(sub => {
+                if (isSubjectHidden(selGrade, sub)) return; // 숨긴 과목 제외
                 const btn = document.createElement('button');
-                btn.className = 'subject-btn' + (hasContent(selGrade, sub, null) ? '' : ' no-content-hint');
+                btn.className = 'subject-btn' + (selSubject === sub ? ' active' : '') +
+                    (hasContent(selGrade, sub, null) ? '' : ' no-content-hint');
                 btn.dataset.subject = sub;
                 btn.textContent = sub;
                 btn.onclick = () => selectSubject(sub);
@@ -931,7 +1067,8 @@
             for (let i = 1; i <= 10; i++) {
                 const u = String(i);
                 const btn = document.createElement('button');
-                btn.className = 'unit-btn' + (hasContent(selGrade, selSubject, u) ? '' : ' no-content-hint');
+                btn.className = 'unit-btn' + (selUnit === u ? ' active' : '') +
+                    (hasContent(selGrade, selSubject, u) ? '' : ' no-content-hint');
                 btn.dataset.unit = u;
                 btn.textContent = i + '단원';
                 btn.onclick = () => selectUnit(u);
@@ -940,10 +1077,8 @@
         }
 
         // ==========================================
-        // 렌더링
+        // 링크 렌더링
         // ==========================================
-
-        // 카드 DOM 생성
         function makeCard(lk) {
             const meta = getMeta(lk);
             let tag = '';
@@ -972,7 +1107,6 @@
             return a;
         }
 
-        // 그룹 헤더 DOM 생성
         function makeHeader(cls, text) {
             const d = document.createElement('div');
             d.className = cls;
@@ -980,7 +1114,6 @@
             return d;
         }
 
-        // 카드 묶음 래퍼
         function makeGroup(cards) {
             const g = document.createElement('div');
             g.className = 'link-group';
@@ -988,111 +1121,76 @@
             return g;
         }
 
-        // 단원별 그룹 렌더링 (하나의 과목 범위 내)
         function appendByUnit(container, subLinks) {
             const unitMap = {};
             const noUnit  = [];
-
             subLinks.forEach(lk => {
                 const u = getMeta(lk).unit;
                 if (u) { (unitMap[u] = unitMap[u] || []).push(lk); }
                 else   { noUnit.push(lk); }
             });
-
-            if (noUnit.length) {
-                container.appendChild(makeGroup(noUnit.map(makeCard)));
-            }
-
+            if (noUnit.length) container.appendChild(makeGroup(noUnit.map(makeCard)));
             Object.keys(unitMap).sort((a,b) => Number(a)-Number(b)).forEach(u => {
                 container.appendChild(makeHeader('section-unit-title', u + '단원'));
                 container.appendChild(makeGroup(unitMap[u].map(makeCard)));
             });
         }
 
-        // 과목별 → 단원별 렌더링 (하나의 학년 범위 내)
         function appendBySubject(container, gradeLinks) {
-            const subMap  = {};
-            const noSub   = [];
-
+            const subMap = {};
+            const noSub  = [];
             gradeLinks.forEach(lk => {
                 const s = getMeta(lk).subject;
                 if (s) { (subMap[s] = subMap[s] || []).push(lk); }
                 else   { noSub.push(lk); }
             });
-
-            if (noSub.length) {
-                container.appendChild(makeGroup(noSub.map(makeCard)));
-            }
-
-            // 과목은 SUBJECTS 순서 유지
-            const orderedSubs = SUBJECTS.filter(s => subMap[s]);
-            const otherSubs   = Object.keys(subMap).filter(s => !SUBJECTS.includes(s));
-
-            [...orderedSubs, ...otherSubs].forEach(sub => {
+            if (noSub.length) container.appendChild(makeGroup(noSub.map(makeCard)));
+            const ordered = SUBJECTS.filter(s => subMap[s]);
+            const others  = Object.keys(subMap).filter(s => !SUBJECTS.includes(s));
+            [...ordered, ...others].forEach(sub => {
                 container.appendChild(makeHeader('section-subject-title', sub));
                 appendByUnit(container, subMap[sub]);
             });
         }
 
-        // 전체 보기: 학년 → 과목 → 단원
         function renderAll(container) {
-            const gradeOrder = ['1','2','3','4','5','6','management'];
-            let anyShown = false;
-
+            const gradeOrder = [...ALL_GRADES, 'management'];
+            let any = false;
             gradeOrder.forEach(g => {
-                const gradeLinks = links.filter(lk => !lk.hidden && getMeta(lk).grade === g);
-                if (!gradeLinks.length) return;
-                anyShown = true;
-
-                const hdr = makeHeader(
+                if (isGradeHidden(g)) return;
+                const gl = links.filter(lk => isVisible(lk) && getMeta(lk).grade === g);
+                if (!gl.length) return;
+                any = true;
+                container.appendChild(makeHeader(
                     'section-grade-title' + (g === 'management' ? ' gm' : ''),
-                    GRADE_LABELS[g] || g
-                );
-                container.appendChild(hdr);
-
-                if (g === 'management') {
-                    container.appendChild(makeGroup(gradeLinks.map(makeCard)));
-                } else {
-                    appendBySubject(container, gradeLinks);
-                }
+                    GRADE_LABEL[g] || g
+                ));
+                if (g === 'management') container.appendChild(makeGroup(gl.map(makeCard)));
+                else appendBySubject(container, gl);
             });
-
-            if (!anyShown) {
-                container.innerHTML = '<p class="empty-state">😅 아직 등록된 콘텐츠가 없습니다</p>';
-            }
+            if (!any) container.innerHTML = '<p class="empty-state">😅 아직 등록된 콘텐츠가 없습니다</p>';
         }
 
-        // 특정 학년 보기: 과목 선택 여부에 따라
         function renderGrade(container) {
             const base = links.filter(lk => {
-                if (lk.hidden) return false;
+                if (!isVisible(lk)) return false;
                 const m = getMeta(lk);
                 if (m.grade !== selGrade) return false;
                 if (selSubject && m.subject !== selSubject) return false;
                 if (selUnit    && m.unit    !== selUnit)    return false;
                 return true;
             });
-
             if (!base.length) {
                 container.innerHTML = '<p class="empty-state">😅 아직 등록된 콘텐츠가 없습니다</p>';
                 return;
             }
-
-            if (selSubject && selUnit) {
-                // 단원까지 고정 → 그냥 카드 나열
-                container.appendChild(makeGroup(base.map(makeCard)));
-            } else if (selSubject) {
-                // 과목 고정 → 단원별 분류
-                appendByUnit(container, base);
-            } else {
-                // 학년만 고정 → 과목 → 단원 분류
-                appendBySubject(container, base);
-            }
+            if (selSubject && selUnit) container.appendChild(makeGroup(base.map(makeCard)));
+            else if (selSubject)       appendByUnit(container, base);
+            else                       appendBySubject(container, base);
         }
 
-        // 학급경영 보기
         function renderManagement(container) {
-            const base = links.filter(lk => !lk.hidden && getMeta(lk).grade === 'management');
+            const base = links.filter(lk => isVisible(lk) && getMeta(lk).grade === 'management');
             if (!base.length) {
                 container.innerHTML = '<p class="empty-state">😅 아직 등록된 콘텐츠가 없습니다</p>';
                 return;
@@ -1103,20 +1201,103 @@
         function renderLinks() {
             const container = document.getElementById('linksContainer');
             container.innerHTML = '';
-
-            if (selGrade === 'all')        renderAll(container);
+            if (selGrade === 'all')             renderAll(container);
             else if (selGrade === 'management') renderManagement(container);
-            else if (selGrade)             renderGrade(container);
+            else if (selGrade)                  renderGrade(container);
         }
 
         // ==========================================
-        // 관리 모달
+        // 관리 모달 탭
+        // ==========================================
+        function switchTab(tab) {
+            document.querySelectorAll('.btn-mgmt').forEach(b => b.classList.remove('active-tab'));
+            document.querySelectorAll('.mgmt-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active-tab');
+            document.getElementById('panel-' + tab).classList.add('active');
+            if (tab === 'category') buildCategoryPanel();
+        }
+
+        // ==========================================
+        // 카테고리 설정 패널
+        // ==========================================
+        function buildCategoryPanel() {
+            buildGradeChips();
+            buildCatGradePicker();
+            if (catPickedGrade) buildSubjectChips(catPickedGrade);
+            else document.getElementById('subjectChips').innerHTML =
+                '<span style="font-size:13px;color:#bbb;">← 위에서 학년을 선택해 주세요</span>';
+        }
+
+        function buildGradeChips() {
+            const row = document.getElementById('gradeChips');
+            row.innerHTML = '';
+            [...ALL_GRADES, 'management'].forEach(g => {
+                const hidden = isGradeHidden(g);
+                const chip = document.createElement('button');
+                chip.className = 'cat-chip ' + (hidden ? 'off' : 'on');
+                chip.textContent = (hidden ? '🙈 ' : '👁️ ') + (GRADE_LABEL[g] || g);
+                chip.onclick = () => toggleGradeVisibility(g);
+                row.appendChild(chip);
+            });
+        }
+
+        function buildCatGradePicker() {
+            const row = document.getElementById('catGradePicker');
+            row.innerHTML = '';
+            ALL_GRADES.forEach(g => {
+                const btn = document.createElement('button');
+                btn.className = 'cat-grade-pick' + (catPickedGrade === g ? ' picked' : '');
+                btn.textContent = g + '학년';
+                btn.onclick = () => { catPickedGrade = g; buildCatGradePicker(); buildSubjectChips(g); };
+                row.appendChild(btn);
+            });
+        }
+
+        function buildSubjectChips(grade) {
+            const row = document.getElementById('subjectChips');
+            row.innerHTML = '';
+            SUBJECTS.forEach(sub => {
+                const hidden = isSubjectHidden(grade, sub);
+                const chip = document.createElement('button');
+                chip.className = 'cat-chip ' + (hidden ? 'off' : 'on');
+                chip.textContent = (hidden ? '🙈 ' : '👁️ ') + sub;
+                chip.onclick = () => toggleSubjectVisibility(grade, sub);
+                row.appendChild(chip);
+            });
+        }
+
+        async function toggleGradeVisibility(grade) {
+            const idx = hiddenCategories.grades.indexOf(grade);
+            if (idx === -1) hiddenCategories.grades.push(grade);
+            else hiddenCategories.grades.splice(idx, 1);
+            await saveAll();
+            buildCategoryPanel();
+            buildGradeButtons();
+            renderLinks();
+            if (selGrade && selGrade !== 'all' && selGrade !== 'management') buildSubjectButtons();
+        }
+
+        async function toggleSubjectVisibility(grade, subject) {
+            if (!hiddenCategories.subjects[grade]) hiddenCategories.subjects[grade] = [];
+            const arr = hiddenCategories.subjects[grade];
+            const idx = arr.indexOf(subject);
+            if (idx === -1) arr.push(subject);
+            else arr.splice(idx, 1);
+            await saveAll();
+            buildCategoryPanel();
+            if (selGrade === grade) buildSubjectButtons();
+            renderLinks();
+        }
+
+        // ==========================================
+        // 링크 관리 모달
         // ==========================================
         function openEditModal() {
             const pw = prompt("링크 관리를 위해 비밀번호를 입력하세요:");
             if (!pw) return;
             try {
                 if (btoa(pw) === ADMIN_PASSWORD_ENCODED) {
+                    switchTab('links');
                     document.getElementById('editModal').classList.add('active');
                     renderMgmtList();
                 } else {
@@ -1164,7 +1345,7 @@
 
         async function toggleHidden(idx) {
             links[idx].hidden = !(links[idx].hidden === true);
-            await saveLinks();
+            await saveAll();
             renderMgmtList();
             renderLinks();
             if (selGrade && selGrade !== 'all' && selGrade !== 'management') {
@@ -1220,7 +1401,7 @@
         async function deleteLink(idx) {
             if (!confirm('정말로 삭제하시겠습니까?')) return;
             links.splice(idx, 1);
-            await saveLinks();
+            await saveAll();
             renderLinks();
             renderMgmtList();
         }
@@ -1246,7 +1427,7 @@
             if (idx === '') links.push(newLk);
             else links[Number(idx)] = newLk;
 
-            await saveLinks();
+            await saveAll();
             renderLinks();
             closeAddEditModal();
             if (document.getElementById('editModal').classList.contains('active')) renderMgmtList();
@@ -1289,7 +1470,8 @@
                     '<p class="empty-state">🔄 데이터를 불러오는 중…</p>';
             }
             await loadLinks();
-            renderLinks(); // selGrade = 'all' → 전체 즉시 표시
+            buildGradeButtons();
+            renderLinks();
         })();
 
         window.addEventListener('click', e => {
