@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gamtudy ssam의 교육용 프로그램 모음</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,114 +14,178 @@
             padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
         }
 
         .container {
-            max-width: 680px;
+            max-width: 720px;
             width: 100%;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
             padding: 40px 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin: 0 auto;
         }
 
+        /* 프로필 */
         .profile-section {
             text-align: center;
-            margin-bottom: 35px;
-            padding-bottom: 25px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
             border-bottom: 2px solid #f0f0f0;
         }
 
         .profile-icon {
-            width: 100px;
-            height: 100px;
-            /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+            width: 100px; height: 100px;
             border-radius: 50%;
             margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /* font-size: 50px; */
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-            overflow: hidden; /* 이미지가 원형 밖으로 나가지 않도록 */
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 8px 20px rgba(102,126,234,0.4);
+            overflow: hidden;
         }
 
-        .profile-image {
-        width: 100%; /* 부모 .profile-icon에 꽉 채움 */
-        height: 100%; /* 부모 .profile-icon에 꽉 채움 */
-        object-fit: cover; /* 이미지가 잘리지 않게 채우고, 비율 유지 */
-        border-radius: 50%; /* 부모의 둥근 모서리를 상속받도록 */
-    }
+        .profile-image { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 
-        .profile-title {
-            font-size: 28px;
-            font-weight: bold;
-            color: #333;
+        .profile-title { font-size: 26px; font-weight: bold; color: #333; margin-bottom: 10px; }
+        .profile-subtitle { font-size: 15px; color: #666; line-height: 1.6; }
+
+        /* 방문자 카운터 */
+        .visitor-counter {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin: 16px 0 24px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
+            border-radius: 50px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .vc-item { display: flex; align-items: center; gap: 6px; }
+        .vc-item strong { color: #667eea; font-size: 16px; }
+
+        /* 필터 섹션 */
+        .filter-group {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 14px 16px;
             margin-bottom: 10px;
         }
 
-        .profile-subtitle {
-            font-size: 16px;
-            color: #666;
-            line-height: 1.6;
+        .filter-row-label {
+            font-size: 11px; font-weight: bold; color: #aaa;
+            text-transform: uppercase; letter-spacing: 0.8px;
+            margin-bottom: 10px;
         }
 
-        .links-section {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .filter-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .grade-btn, .subject-btn, .unit-btn {
+            padding: 9px 17px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            background: white;
+            font-size: 14px; font-weight: 600;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            color: #555;
         }
 
-        .category-title {
-            font-size: 14px;
-            font-weight: bold;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 20px;
-            margin-bottom: 5px;
-            padding-left: 5px;
+        .grade-btn:hover, .subject-btn:hover, .unit-btn:hover {
+            border-color: #667eea; color: #667eea;
         }
 
-        .main-category-title {
-            font-size: 20px;
+        .grade-btn.active, .subject-btn.active, .unit-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 12px rgba(102,126,234,0.35);
+        }
+
+        .grade-btn.all-btn { border-color: #667eea; color: #667eea; }
+        .grade-btn.all-btn:hover { background: rgba(102,126,234,0.06); }
+        .grade-btn.all-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent; color: white;
+        }
+
+        .grade-btn.mgmt-btn { border-color: #00b894; color: #00b894; }
+        .grade-btn.mgmt-btn:hover { background: rgba(0,184,148,0.08); }
+        .grade-btn.mgmt-btn.active {
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            border-color: transparent; color: white;
+            box-shadow: 0 4px 12px rgba(0,184,148,0.35);
+        }
+
+        .no-content-hint { opacity: 0.38; }
+
+        /* 섹션 헤더 (그룹 구분) */
+        .section-grade-title {
+            font-size: 18px;
             font-weight: bold;
             color: #333;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            padding: 15px 20px;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            margin: 24px 0 12px;
+            padding: 13px 18px;
+            background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);
             border-radius: 12px;
             border-left: 4px solid #667eea;
         }
 
-        .main-category-title:first-child {
-            margin-top: 0;
+        .section-grade-title:first-child { margin-top: 0; }
+
+        .section-grade-title.gm {
+            background: linear-gradient(135deg, rgba(0,184,148,0.1) 0%, rgba(0,206,201,0.1) 100%);
+            border-left-color: #00b894;
         }
 
-        .subcategory-title {
+        .section-subject-title {
             font-size: 15px;
             font-weight: 600;
             color: #555;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin: 16px 0 8px;
             padding-left: 10px;
             border-left: 3px solid #667eea;
         }
 
+        .section-unit-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #888;
+            margin: 12px 0 6px;
+            padding: 5px 12px;
+            background: #f0f4ff;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* 링크 목록 */
+        .links-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-top: 4px;
+        }
+
+        .link-group { display: flex; flex-direction: column; gap: 9px; margin-bottom: 4px; }
+
+        .empty-state {
+            text-align: center; color: #bbb;
+            padding: 36px 20px; font-size: 15px;
+        }
+
+        /* 카드 */
         .link-card {
             background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
-            padding: 20px 25px;
+            border: 2px solid #e8e8e8;
+            border-radius: 14px;
+            padding: 16px 20px;
             text-decoration: none;
             color: #333;
             display: flex;
             align-items: center;
-            gap: 15px;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            gap: 13px;
+            transition: all 0.22s ease;
             position: relative;
             overflow: hidden;
         }
@@ -133,420 +193,228 @@
         .link-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.22s ease;
         }
 
         .link-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.10);
             border-color: #667eea;
         }
 
-        .link-card:hover::before {
-            opacity: 0.05;
+        .link-card:hover::before { opacity: 0.04; }
+
+        .link-card.g1 { border-left: 4px solid #43e97b; }
+        .link-card.g2 { border-left: 4px solid #f6d365; }
+        .link-card.g3 { border-left: 4px solid #667eea; }
+        .link-card.g4 { border-left: 4px solid #f093fb; }
+        .link-card.g5 { border-left: 4px solid #4facfe; }
+        .link-card.g6 { border-left: 4px solid #fa709a; }
+        .link-card.gm { border-left: 4px solid #00b894; }
+
+        .link-icon { font-size: 28px; min-width: 34px; text-align: center; z-index: 1; }
+        .link-content { flex: 1; z-index: 1; min-width: 0; }
+        .link-title { font-size: 16px; font-weight: bold; margin-bottom: 3px; color: #333; }
+        .link-description { font-size: 12px; color: #888; line-height: 1.4; }
+
+        .link-meta-tag {
+            display: inline-block;
+            font-size: 11px; color: #999;
+            background: #f0f0f0;
+            border-radius: 20px;
+            padding: 2px 8px;
+            margin-top: 5px;
         }
 
-        .link-icon {
-            font-size: 32px;
-            min-width: 40px;
-            text-align: center;
-            z-index: 1;
-        }
-
-        .link-content {
-            flex: 1;
-            z-index: 1;
-        }
-
-        .link-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #333;
-        }
-
-        .link-description {
-            font-size: 13px;
-            color: #777;
-            line-height: 1.4;
-        }
-
-        .link-arrow {
-            font-size: 20px;
-            color: #999;
-            z-index: 1;
-            transition: transform 0.3s ease;
-        }
-
-        .link-card:hover .link-arrow {
-            transform: translateX(5px);
-            color: #667eea;
-        }
-
-        .link-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            z-index: 1;
-        }
+        .link-actions { display: flex; gap: 8px; align-items: center; z-index: 1; flex-shrink: 0; }
 
         .copy-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            color: white; border: none;
+            padding: 7px 13px; border-radius: 8px;
+            font-size: 12px; font-weight: 600;
+            cursor: pointer; transition: all 0.22s ease;
             white-space: nowrap;
         }
 
-        .copy-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
+        .copy-btn:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(102,126,234,0.4); }
+        .copy-btn:active { transform: scale(0.95); }
+        .copy-btn.copied { background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); }
 
-        .copy-btn:active {
-            transform: scale(0.95);
-        }
+        .link-arrow { font-size: 16px; color: #ccc; z-index: 1; transition: transform 0.22s ease; }
+        .link-card:hover .link-arrow { transform: translateX(5px); color: #667eea; }
 
-        .copy-btn.copied {
-            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
-        }
-
-        /* 복사 알림 토스트 */
+        /* 토스트 */
         .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
+            position: fixed; bottom: 30px; left: 50%;
             transform: translateX(-50%) translateY(100px);
             background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            box-shadow: 0 10px 30px rgba(0, 184, 148, 0.4);
-            z-index: 3000;
-            opacity: 0;
-            transition: all 0.4s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            color: white; padding: 13px 26px; border-radius: 50px;
+            font-weight: 600; font-size: 14px;
+            box-shadow: 0 10px 30px rgba(0,184,148,0.4);
+            z-index: 3000; opacity: 0; transition: all 0.35s ease;
         }
 
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        /* 과목별 색상 구분 */
-        .link-card.math-grade2 {
-            border-left: 4px solid #f6d365;
-        }
-        .link-card.math-grade3 {
-            border-left: 4px solid #667eea;
-        }
-
-        .link-card.math-grade4 {
-            border-left: 4px solid #f093fb;
-        }
-
-        .link-card.math-grade5 {
-            border-left: 4px solid #4facfe;
-        }
-
-        .link-card.math-grade6 {
-            border-left: 4px solid #fa709a;
-        }
-
-        .link-card.management {
-            border-left: 4px solid #00b894;
-        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
         .footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #f0f0f0;
-            color: #999;
-            font-size: 13px;
+            text-align: center; margin-top: 28px; padding-top: 18px;
+            border-top: 2px solid #f0f0f0; color: #bbb; font-size: 13px;
         }
 
-        /* 편집 모드 스타일 */
+        /* 편집 버튼 */
         .edit-mode-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
+            position: fixed; bottom: 28px; right: 28px;
+            width: 54px; height: 54px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-            transition: all 0.3s ease;
-            z-index: 1000;
+            border: none; border-radius: 50%;
+            color: white; font-size: 22px; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(102,126,234,0.4);
+            transition: all 0.3s ease; z-index: 1000;
         }
 
-        .edit-mode-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
-        }
+        .edit-mode-btn:hover { transform: scale(1.1); }
 
+        /* 모달 */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.68);
             z-index: 2000;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; align-items: center;
             padding: 20px;
         }
 
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
 
         .modal-content {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
+            background: white; border-radius: 20px; padding: 28px;
+            max-width: 640px; width: 100%;
+            max-height: 90vh; overflow-y: auto;
         }
 
         .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; padding-bottom: 14px;
             border-bottom: 2px solid #f0f0f0;
         }
 
-        .modal-title {
-            font-size: 22px;
-            font-weight: bold;
-            color: #333;
-        }
+        .modal-title { font-size: 19px; font-weight: bold; color: #333; }
 
         .close-btn {
-            background: none;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: #999;
-            transition: color 0.3s ease;
+            background: none; border: none; font-size: 26px;
+            cursor: pointer; color: #aaa; line-height: 1; transition: color 0.2s;
         }
 
-        .close-btn:hover {
-            color: #333;
-        }
+        .close-btn:hover { color: #333; }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+        .form-group { margin-bottom: 16px; }
 
         .form-label {
-            display: block;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 8px;
-            font-size: 14px;
+            display: block; font-weight: 700; color: #444;
+            margin-bottom: 7px; font-size: 13px;
         }
 
-        .form-input,
-        .form-select,
-        .form-textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 15px;
-            font-family: inherit;
-            transition: border-color 0.3s ease;
+        .form-input, .form-select, .form-textarea {
+            width: 100%; padding: 10px 13px;
+            border: 2px solid #e0e0e0; border-radius: 9px;
+            font-size: 14px; font-family: inherit; transition: border-color 0.2s;
         }
 
-        .form-input:focus,
-        .form-select:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: #667eea;
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none; border-color: #667eea;
         }
 
-        .form-textarea {
-            resize: vertical;
-            min-height: 80px;
+        .form-textarea { resize: vertical; min-height: 68px; }
+        .form-row { display: flex; gap: 10px; }
+        .form-row .form-group { flex: 1; }
+
+        .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .radio-label {
+            display: flex; align-items: center; gap: 7px;
+            cursor: pointer; font-size: 14px; font-weight: 600; color: #666;
+            padding: 9px 16px; border: 2px solid #e0e0e0; border-radius: 10px;
+            transition: all 0.2s;
         }
 
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 25px;
-        }
+        .radio-label.selected { border-color: #667eea; color: #667eea; background: rgba(102,126,234,0.06); }
+        .radio-label input { display: none; }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 18px; }
 
         .btn {
-            flex: 1;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            flex: 1; padding: 12px 18px; border: none; border-radius: 10px;
+            font-size: 15px; font-weight: bold; cursor: pointer; transition: all 0.25s ease;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102,126,234,0.4); }
+        .btn-secondary { background: #f0f0f0; color: #666; }
+        .btn-secondary:hover { background: #e4e4e4; }
 
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #666;
-        }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
-        }
-
-        .btn-danger {
-            background: #ff6b6b;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #ff5252;
-        }
-
+        /* 관리 목록 */
         .link-item {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
+            background: #f8f9fa; border-radius: 10px;
+            padding: 12px 14px; margin-bottom: 9px;
+            display: flex; align-items: center; gap: 10px;
         }
 
-        .link-item-info {
-            flex: 1;
-        }
-
-        .link-item-title {
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }
+        .link-item-info { flex: 1; min-width: 0; }
+        .link-item-title { font-weight: 700; color: #333; margin-bottom: 3px; font-size: 14px; }
+        .link-item-meta { font-size: 12px; color: #aaa; margin-bottom: 2px; }
 
         .link-item-url {
-            font-size: 13px;
-            color: #777;
-            word-break: break-all;
+            font-size: 11px; color: #ccc;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
 
-        .link-item-actions {
-            display: flex;
-            gap: 8px;
+        .link-item-actions { display: flex; gap: 5px; flex-shrink: 0; }
+
+        .btn-sm {
+            padding: 6px 11px; border: none; border-radius: 7px;
+            font-size: 12px; cursor: pointer; transition: all 0.2s;
+            font-weight: 600; white-space: nowrap;
         }
 
-        .btn-small {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 8px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
+        .btn-show { background: #00b894; color: white; }
+        .btn-show:hover { background: #00a381; }
+        .btn-hide { background: #b2bec3; color: white; }
+        .btn-hide:hover { background: #95a5a6; }
+        .btn-edit-sm { background: #667eea; color: white; }
+        .btn-edit-sm:hover { background: #5568d3; }
+        .btn-del { background: #ff6b6b; color: white; }
+        .btn-del:hover { background: #ff5252; }
+
+        .hidden-badge {
+            display: inline-block; font-size: 10px;
+            background: #ff6b6b; color: white;
+            border-radius: 10px; padding: 2px 7px;
+            margin-left: 5px; font-weight: 700;
         }
 
-        .btn-edit {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-edit:hover {
-            background: #5568d3;
-        }
-
-        .btn-delete {
-            background: #ff6b6b;
-            color: white;
-        }
-
-        .btn-delete:hover {
-            background: #ff5252;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 30px 20px;
-            }
-
-            .profile-title {
-                font-size: 24px;
-            }
-
-            .link-card {
-                padding: 18px 20px;
-            }
-
-            .link-title {
-                font-size: 16px;
-            }
-
-            .copy-btn {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-
-            .link-arrow {
-                font-size: 18px;
-            }
-
-            .edit-mode-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-                bottom: 20px;
-                right: 20px;
-            }
-
-            .toast {
-                bottom: 20px;
-                padding: 12px 24px;
-                font-size: 14px;
-            }
+        @media (max-width: 600px) {
+            .container { padding: 24px 15px; }
+            .profile-title { font-size: 21px; }
+            .grade-btn, .subject-btn, .unit-btn { padding: 7px 12px; font-size: 13px; }
+            .link-card { padding: 13px 14px; }
+            .link-title { font-size: 15px; }
+            .copy-btn { padding: 6px 10px; font-size: 11px; }
+            .edit-mode-btn { width: 48px; height: 48px; font-size: 19px; bottom: 18px; right: 18px; }
+            .visitor-counter { flex-direction: column; gap: 8px; align-items: center; }
+            .form-row { flex-direction: column; }
+            .section-grade-title { font-size: 16px; padding: 11px 14px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- 프로필 -->
         <div class="profile-section">
             <div class="profile-icon">
                 <img src="gamtudy.png" alt="Gamtudy Ssam 프로필" class="profile-image">
@@ -555,17 +423,50 @@
             <div class="profile-subtitle">
                 재미있게 게임으로 공부하고<br>
                 교실을 위해 똑똑하게 프로그램 활용하자<br>
-                각종 문의 및 버그제보 : ykk1050@gmail.com 
+                각종 문의 및 버그제보 : ykk1050@gmail.com
             </div>
         </div>
 
-        <div class="links-section" id="linksContainer">
-            <!-- 링크들이 여기에 동적으로 생성됩니다 -->
+        <!-- 방문자 카운터 -->
+        <div class="visitor-counter">
+            <div class="vc-item">👀 오늘 방문자 <strong id="visitToday">-</strong>명</div>
+            <div class="vc-item">🏆 누적 방문자 <strong id="visitTotal">-</strong>명</div>
         </div>
 
-        <div class="footer">
-            Made with ❤️ by Gamtudy ssam | 2026.04.20.
+        <!-- 필터 섹션 -->
+        <div id="filterSection">
+            <!-- 학년 -->
+            <div class="filter-group">
+                <div class="filter-row-label">학년 선택</div>
+                <div class="filter-row" id="gradeRow">
+                    <button class="grade-btn all-btn active" data-grade="all" onclick="selectGrade('all')">전체</button>
+                    <button class="grade-btn" data-grade="1" onclick="selectGrade('1')">1학년</button>
+                    <button class="grade-btn" data-grade="2" onclick="selectGrade('2')">2학년</button>
+                    <button class="grade-btn" data-grade="3" onclick="selectGrade('3')">3학년</button>
+                    <button class="grade-btn" data-grade="4" onclick="selectGrade('4')">4학년</button>
+                    <button class="grade-btn" data-grade="5" onclick="selectGrade('5')">5학년</button>
+                    <button class="grade-btn" data-grade="6" onclick="selectGrade('6')">6학년</button>
+                    <button class="grade-btn mgmt-btn" data-grade="management" onclick="selectGrade('management')">🏫 학급 경영</button>
+                </div>
+            </div>
+
+            <!-- 과목 (특정 학년 선택 후) -->
+            <div class="filter-group" id="subjectGroup" style="display:none">
+                <div class="filter-row-label">과목 선택</div>
+                <div class="filter-row" id="subjectRow"></div>
+            </div>
+
+            <!-- 단원 (과목 선택 후) -->
+            <div class="filter-group" id="unitGroup" style="display:none">
+                <div class="filter-row-label">단원 선택</div>
+                <div class="filter-row" id="unitRow"></div>
+            </div>
         </div>
+
+        <!-- 링크 목록 -->
+        <div class="links-section" id="linksContainer"></div>
+
+        <div class="footer">Made with ❤️ by Gamtudy ssam | 2026.06.16.</div>
     </div>
 
     <button class="edit-mode-btn" onclick="openEditModal()" title="링크 관리">✏️</button>
@@ -577,10 +478,8 @@
                 <h2 class="modal-title">링크 관리</h2>
                 <button class="close-btn" onclick="closeEditModal()">&times;</button>
             </div>
-            
             <div id="linksList"></div>
-
-            <button class="btn btn-primary" onclick="openAddLinkModal()" style="width: 100%; margin-top: 20px;">
+            <button class="btn btn-primary" onclick="openAddLinkModal()" style="width:100%;margin-top:14px;">
                 ➕ 새 링크 추가
             </button>
         </div>
@@ -593,42 +492,85 @@
                 <h2 class="modal-title" id="formTitle">새 링크 추가</h2>
                 <button class="close-btn" onclick="closeAddEditModal()">&times;</button>
             </div>
-
             <form id="linkForm">
+                <div class="form-group">
+                    <label class="form-label">유형</label>
+                    <div class="radio-group" id="typeRadioGroup">
+                        <label class="radio-label selected" id="lbl-learning">
+                            <input type="radio" name="linkType" value="learning" checked>
+                            📚 학습 게임
+                        </label>
+                        <label class="radio-label" id="lbl-management">
+                            <input type="radio" name="linkType" value="management">
+                            🏫 학급 경영
+                        </label>
+                    </div>
+                </div>
+
+                <div id="learningFields">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">학년</label>
+                            <select class="form-select" id="linkGrade">
+                                <option value="">-- 선택 --</option>
+                                <option value="1">1학년</option>
+                                <option value="2">2학년</option>
+                                <option value="3">3학년</option>
+                                <option value="4">4학년</option>
+                                <option value="5">5학년</option>
+                                <option value="6">6학년</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">과목</label>
+                            <select class="form-select" id="linkSubject">
+                                <option value="">-- 선택 --</option>
+                                <option value="국어">국어</option>
+                                <option value="수학">수학</option>
+                                <option value="영어">영어</option>
+                                <option value="사회">사회</option>
+                                <option value="과학">과학</option>
+                                <option value="음악">음악</option>
+                                <option value="미술">미술</option>
+                                <option value="도덕">도덕</option>
+                                <option value="체육">체육</option>
+                                <option value="실과">실과</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">단원 (선택)</label>
+                            <select class="form-select" id="linkUnit">
+                                <option value="">-- 없음 --</option>
+                                <option value="1">1단원</option>
+                                <option value="2">2단원</option>
+                                <option value="3">3단원</option>
+                                <option value="4">4단원</option>
+                                <option value="5">5단원</option>
+                                <option value="6">6단원</option>
+                                <option value="7">7단원</option>
+                                <option value="8">8단원</option>
+                                <option value="9">9단원</option>
+                                <option value="10">10단원</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="form-label">제목</label>
                     <input type="text" class="form-input" id="linkTitle" required placeholder="예: 수학몬 마스터">
                 </div>
-
                 <div class="form-group">
                     <label class="form-label">설명</label>
                     <textarea class="form-textarea" id="linkDescription" required placeholder="예: 분수의 곱셈을 재미있게 배우는 몬스터 수집 RPG"></textarea>
                 </div>
-
                 <div class="form-group">
                     <label class="form-label">URL</label>
                     <input type="url" class="form-input" id="linkUrl" required placeholder="https://...">
                 </div>
-
                 <div class="form-group">
                     <label class="form-label">아이콘 (이모지)</label>
-                    <input type="text" class="form-input" id="linkIcon" required placeholder="예: 🎯" maxlength="2">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">카테고리</label>
-                    <select class="form-select" id="linkCategory" required>
-                        <optgroup label="📚 학습 게임">
-                            <option value="math-grade2">2학년</option>
-                            <option value="math-grade3">3학년</option>
-                            <option value="math-grade4">4학년</option>
-                            <option value="math-grade5">5학년</option>
-                            <option value="math-grade6">6학년</option>
-                        </optgroup>
-                        <optgroup label="🏫 학급 경영">
-                            <option value="management">학급 경영 프로그램</option>
-                        </optgroup>
-                    </select>
+                    <input type="text" class="form-input" id="linkIcon" required placeholder="예: 🎯">
                 </div>
 
                 <input type="hidden" id="editIndex" value="">
@@ -643,24 +585,19 @@
 
     <script>
         // ==========================================
-        // 💾 데이터 저장소 & 설정
+        // 설정
         // ==========================================
 
         /*
-         * [기기 간 동기화] Google 스프레드시트 + Apps Script
+         * [기기 간 동기화 + 방문자 카운터] Google Apps Script
          *
-         * 준비
-         * 1) 스프레드시트 생성 → 시트 이름을 "Links" 로 지정 (없으면 스크립트가 자동 생성)
-         * 2) A1 셀에 링크 배열 JSON. 처음엔 [] 또는 DEFAULT_LINKS 를 복사해 붙여넣기
-         * 3) 확장 프로그램 > Apps Script → 아래 "Apps Script 붙여넣기" 블록 전체 복사 후 저장
-         * 4) 톱니바퀴 > 스크립트 속성 > SECRET (임의의 긴 문자열) → GOOGLE_WRITE_SECRET 과 동일하게
-         * 5) 배포 > 새 배포 > 웹 앱 / 실행: 나 / 액세스: 모든 사용자(익명 포함)
-         * 6) 웹 앱 URL(/exec 로 끝남) → GOOGLE_APPS_SCRIPT_URL
+         * 방문자 카운터를 활성화하려면 Apps Script를 아래 코드로 교체 후 새 배포가 필요합니다.
+         * 링크 관리는 기존 배포에서도 계속 동작합니다.
          *
-         * 읽기: JSONP(callback) / 저장: 숨은 iframe + form POST (CORS 회피)
+         * ===== Apps Script 코드.gs 전체 교체 =====
          *
-         * ----- Apps Script 붙여넣기 (코드.gs) -----
          * function doGet(e) {
+         *   var shouldCount = e && e.parameter && e.parameter.visit === '1';
          *   var sheet = getLinksSheet_();
          *   var raw = sheet.getRange('A1').getDisplayValue() || sheet.getRange('A1').getValue();
          *   var list = [];
@@ -668,12 +605,14 @@
          *     if (raw && String(raw).trim()) list = JSON.parse(String(raw));
          *     if (!Array.isArray(list)) list = [];
          *   } catch (err) { list = []; }
+         *   var vd = shouldCount ? incrementVisit_() : getVisitData_();
+         *   var result = { links: list, visitToday: vd.today, visitTotal: vd.total };
          *   var cb = e && e.parameter && e.parameter.callback;
          *   if (cb && /^[A-Za-z_$][0-9A-Za-z_$]*$/.test(String(cb))) {
-         *     return ContentService.createTextOutput(String(cb) + '(' + JSON.stringify({ links: list }) + ');')
+         *     return ContentService.createTextOutput(String(cb)+'('+JSON.stringify(result)+');')
          *       .setMimeType(ContentService.MimeType.JAVASCRIPT);
          *   }
-         *   return ContentService.createTextOutput(JSON.stringify({ links: list }))
+         *   return ContentService.createTextOutput(JSON.stringify(result))
          *     .setMimeType(ContentService.MimeType.JSON);
          * }
          * function doPost(e) {
@@ -682,10 +621,8 @@
          *   if (!expected || got !== expected) return HtmlService.createHtmlOutput('denied');
          *   var payload = e && e.parameter && e.parameter.payload;
          *   if (!payload) return HtmlService.createHtmlOutput('no payload');
-         *   try {
-         *     var arr = JSON.parse(payload);
-         *     if (!Array.isArray(arr)) throw new Error('x');
-         *   } catch (err) { return HtmlService.createHtmlOutput('bad json'); }
+         *   try { var arr = JSON.parse(payload); if (!Array.isArray(arr)) throw new Error('x'); }
+         *   catch (err) { return HtmlService.createHtmlOutput('bad json'); }
          *   getLinksSheet_().getRange('A1').setValue(payload);
          *   return HtmlService.createHtmlOutput('ok');
          * }
@@ -695,83 +632,69 @@
          *   if (!sh) sh = ss.insertSheet('Links');
          *   return sh;
          * }
-         * ----- 끝 -----
+         * function getVisitsSheet_() {
+         *   var ss = SpreadsheetApp.getActiveSpreadsheet();
+         *   var sh = ss.getSheetByName('Visits');
+         *   if (!sh) { sh = ss.insertSheet('Visits'); sh.appendRow(['날짜','방문수']); }
+         *   return sh;
+         * }
+         * function incrementVisit_() {
+         *   var sh = getVisitsSheet_();
+         *   var today = Utilities.formatDate(new Date(),'Asia/Seoul','yyyy-MM-dd');
+         *   var lr = sh.getLastRow();
+         *   var data = lr > 1 ? sh.getRange(2,1,lr-1,2).getValues() : [];
+         *   var todayRow = -1, total = 0;
+         *   for (var i=0; i<data.length; i++) {
+         *     var c = Number(data[i][1])||0; total += c;
+         *     if (String(data[i][0]) === today) todayRow = i;
+         *   }
+         *   var todayCount;
+         *   if (todayRow === -1) { sh.appendRow([today, 1]); todayCount = 1; total += 1; }
+         *   else {
+         *     todayCount = (Number(data[todayRow][1])||0) + 1;
+         *     sh.getRange(todayRow+2, 2).setValue(todayCount);
+         *     total = total - (Number(data[todayRow][1])||0) + todayCount;
+         *   }
+         *   return { today: todayCount, total: total };
+         * }
+         * function getVisitData_() {
+         *   var sh = getVisitsSheet_();
+         *   var today = Utilities.formatDate(new Date(),'Asia/Seoul','yyyy-MM-dd');
+         *   var lr = sh.getLastRow();
+         *   var data = lr > 1 ? sh.getRange(2,1,lr-1,2).getValues() : [];
+         *   var todayCount = 0, total = 0;
+         *   for (var i=0; i<data.length; i++) {
+         *     var c = Number(data[i][1])||0; total += c;
+         *     if (String(data[i][0]) === today) todayCount = c;
+         *   }
+         *   return { today: todayCount, total: total };
+         * }
+         *
+         * ===== 끝 =====
          */
+
         const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwNA5mqRiEjkaUrY9s-NnRN2ZuboFV_4pjbGBfcdAGRa6QCMF4e67kqVq_o1FwLzoew/exec';
-        const GOOGLE_WRITE_SECRET = 'class2026-links-sync-xK9mP2qW7';
-        const USE_REMOTE_SYNC = Boolean(String(GOOGLE_APPS_SCRIPT_URL || '').trim());
+        const GOOGLE_WRITE_SECRET    = 'class2026-links-sync-xK9mP2qW7';
+        const USE_REMOTE_SYNC  = Boolean(String(GOOGLE_APPS_SCRIPT_URL || '').trim());
         const CAN_SAVE_TO_SHEET = USE_REMOTE_SYNC && Boolean(String(GOOGLE_WRITE_SECRET || '').trim());
 
-        function sheetUrlWithParam(base, key, val) {
-            const u = String(base || '').trim();
-            const sep = u.includes('?') ? '&' : '?';
-            return u + sep + encodeURIComponent(key) + '=' + encodeURIComponent(val);
-        }
+        const ADMIN_PASSWORD_ENCODED = "MTA1MDM1NjM=";
 
-        function fetchLinksViaJsonp() {
-            return new Promise((resolve, reject) => {
-                const cb = 'gssync_' + Date.now() + '_' + Math.floor(Math.random() * 1e6);
-                const t = setTimeout(() => {
-                    cleanup();
-                    reject(new Error('시트 응답 시간 초과'));
-                }, 20000);
-                const script = document.createElement('script');
-                function cleanup() {
-                    clearTimeout(t);
-                    try { delete window[cb]; } catch (_) {}
-                    if (script.parentNode) script.parentNode.removeChild(script);
-                }
-                window[cb] = function (data) {
-                    cleanup();
-                    resolve(data);
-                };
-                script.onerror = function () {
-                    cleanup();
-                    reject(new Error('시트를 불러오지 못했습니다'));
-                };
-                script.src = sheetUrlWithParam(GOOGLE_APPS_SCRIPT_URL, 'callback', cb);
-                document.head.appendChild(script);
-            });
-        }
+        const SUBJECTS = ['국어','수학','영어','사회','과학','음악','미술','도덕','체육','실과'];
 
-        function postLinksViaForm() {
-            return new Promise((resolve) => {
-                const frameName = 'gsFrame_' + Date.now();
-                const iframe = document.createElement('iframe');
-                iframe.name = frameName;
-                iframe.title = 'sheet-sync';
-                iframe.setAttribute('aria-hidden', 'true');
-                iframe.style.cssText = 'position:absolute;width:0;height:0;border:0;visibility:hidden';
-                document.body.appendChild(iframe);
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = GOOGLE_APPS_SCRIPT_URL;
-                form.target = frameName;
-                form.acceptCharset = 'UTF-8';
-                const secretInput = document.createElement('input');
-                secretInput.type = 'hidden';
-                secretInput.name = 'secret';
-                secretInput.value = GOOGLE_WRITE_SECRET;
-                const payloadInput = document.createElement('input');
-                payloadInput.type = 'hidden';
-                payloadInput.name = 'payload';
-                payloadInput.value = JSON.stringify(links);
-                form.appendChild(secretInput);
-                form.appendChild(payloadInput);
-                document.body.appendChild(form);
-                form.submit();
-                setTimeout(() => {
-                    form.remove();
-                    iframe.remove();
-                    resolve();
-                }, 1800);
-            });
-        }
+        const GRADE_LABELS = { '1':'1학년','2':'2학년','3':'3학년','4':'4학년','5':'5학년','6':'6학년','management':'🏫 학급 경영' };
 
-        // **🔑 비밀번호 설정 (Base64 인코딩)**
-        const ADMIN_PASSWORD_ENCODED = "MTA1MDM1NjM="; 
+        // 구 category → {grade,subject} 하위 호환 매핑
+        const CATEGORY_MAP = {
+            'math-grade2': { grade:'2', subject:'수학' },
+            'math-grade3': { grade:'3', subject:'수학' },
+            'math-grade4': { grade:'4', subject:'수학' },
+            'math-grade5': { grade:'5', subject:'수학' },
+            'math-grade6': { grade:'6', subject:'수학' },
+            'management':  { grade:'management', subject:null }
+        };
 
-        // 초기 링크 데이터
+        // 기존 데이터 그대로 유지
         const DEFAULT_LINKS = [
             {
                 title: "수학몬 마스터",
@@ -804,18 +727,105 @@
         ];
 
         let links = [];
+        let selGrade   = 'all';   // 'all' | '1'~'6' | 'management'
+        let selSubject = null;
+        let selUnit    = null;
 
-        function loadLinksFromLocalStorage() {
-            const savedLinks = localStorage.getItem('teacherLinks');
-            if (savedLinks) {
-                try {
-                    links = JSON.parse(savedLinks);
-                } catch (e) {
-                    console.error("데이터 로딩 실패, 기본값 사용", e);
-                    links = JSON.parse(JSON.stringify(DEFAULT_LINKS));
+        // ==========================================
+        // 링크 메타 (하위 호환)
+        // ==========================================
+        function getMeta(lk) {
+            if (lk.grade !== undefined) {
+                return { grade: lk.grade || null, subject: lk.subject || null, unit: lk.unit || null };
+            }
+            const m = CATEGORY_MAP[lk.category] || {};
+            return { grade: m.grade || null, subject: m.subject || null, unit: null };
+        }
+
+        function getCardClass(lk) {
+            const m = getMeta(lk);
+            if (m.grade === 'management') return 'gm';
+            if (m.grade) return 'g' + m.grade;
+            return '';
+        }
+
+        // ==========================================
+        // 원격 동기화
+        // ==========================================
+        function buildUrl(base, params) {
+            const u = String(base || '').trim();
+            const q = Object.entries(params).map(([k,v]) =>
+                encodeURIComponent(k) + '=' + encodeURIComponent(v)).join('&');
+            return u + (u.includes('?') ? '&' : '?') + q;
+        }
+
+        function fetchViaJsonp(extraParams) {
+            return new Promise((resolve, reject) => {
+                const cb = 'gs_' + Date.now() + '_' + Math.floor(Math.random() * 1e6);
+                const timer = setTimeout(() => { cleanup(); reject(new Error('응답 시간 초과')); }, 20000);
+                const script = document.createElement('script');
+                function cleanup() {
+                    clearTimeout(timer);
+                    try { delete window[cb]; } catch(_) {}
+                    if (script.parentNode) script.parentNode.removeChild(script);
                 }
-            } else {
-                links = JSON.parse(JSON.stringify(DEFAULT_LINKS));
+                window[cb] = (data) => { cleanup(); resolve(data); };
+                script.onerror = () => { cleanup(); reject(new Error('로드 실패')); };
+                script.src = buildUrl(GOOGLE_APPS_SCRIPT_URL, { callback: cb, ...extraParams });
+                document.head.appendChild(script);
+            });
+        }
+
+        function postViaForm() {
+            return new Promise((resolve) => {
+                const fname = 'gsf_' + Date.now();
+                const iframe = document.createElement('iframe');
+                iframe.name = fname;
+                iframe.setAttribute('aria-hidden','true');
+                iframe.style.cssText = 'position:absolute;width:0;height:0;border:0;visibility:hidden';
+                document.body.appendChild(iframe);
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = GOOGLE_APPS_SCRIPT_URL;
+                form.target = fname;
+                form.acceptCharset = 'UTF-8';
+                [['secret', GOOGLE_WRITE_SECRET], ['payload', JSON.stringify(links)]].forEach(([n,v]) => {
+                    const inp = document.createElement('input');
+                    inp.type = 'hidden'; inp.name = n; inp.value = v;
+                    form.appendChild(inp);
+                });
+                document.body.appendChild(form);
+                form.submit();
+                setTimeout(() => { form.remove(); iframe.remove(); resolve(); }, 1800);
+            });
+        }
+
+        // ==========================================
+        // 방문자
+        // ==========================================
+        function shouldCountVisit() {
+            const today = new Date().toISOString().slice(0, 10);
+            if (localStorage.getItem('visitDate') !== today) {
+                localStorage.setItem('visitDate', today);
+                return true;
+            }
+            return false;
+        }
+
+        function setVisitorUI(today, total) {
+            const t = document.getElementById('visitToday');
+            const tl = document.getElementById('visitTotal');
+            if (t  && today != null) t.textContent  = Number(today).toLocaleString();
+            if (tl && total != null) tl.textContent = Number(total).toLocaleString();
+        }
+
+        // ==========================================
+        // 로드 / 저장
+        // ==========================================
+        function loadFromLocal() {
+            const saved = localStorage.getItem('teacherLinks');
+            if (saved) {
+                try { links = JSON.parse(saved); } catch(e) { links = null; }
             }
             if (!Array.isArray(links) || links.length === 0) {
                 links = JSON.parse(JSON.stringify(DEFAULT_LINKS));
@@ -823,274 +833,468 @@
         }
 
         async function loadLinks() {
-            if (!USE_REMOTE_SYNC) {
-                loadLinksFromLocalStorage();
-                return;
-            }
+            if (!USE_REMOTE_SYNC) { loadFromLocal(); return; }
+            const doCount = shouldCountVisit();
             try {
-                const data = await fetchLinksViaJsonp();
+                const params = doCount ? { visit: '1' } : {};
+                const data = await fetchViaJsonp(params);
                 const remote = data && data.links;
-                if (!Array.isArray(remote)) throw new Error('시트 데이터 형식 오류');
+                if (!Array.isArray(remote)) throw new Error('형식 오류');
                 links = remote;
                 localStorage.setItem('teacherLinks', JSON.stringify(links));
-            } catch (e) {
-                console.error('스프레드시트 로드 실패, 로컬 캐시 사용:', e);
-                loadLinksFromLocalStorage();
+                if (data.visitToday != null) setVisitorUI(data.visitToday, data.visitTotal);
+            } catch(e) {
+                console.error('원격 로드 실패, 로컬 사용:', e);
+                loadFromLocal();
             }
         }
 
         async function saveLinks() {
             localStorage.setItem('teacherLinks', JSON.stringify(links));
-            if (!USE_REMOTE_SYNC) return;
-            if (!CAN_SAVE_TO_SHEET) {
-                showToast('스프레드시트에 저장하려면 GOOGLE_WRITE_SECRET 을 설정하세요.', true);
-                return;
+            if (!CAN_SAVE_TO_SHEET) return;
+            try { await postViaForm(); } catch(e) { console.error('원격 저장 실패:', e); }
+        }
+
+        // ==========================================
+        // 필터 UI
+        // ==========================================
+        function selectGrade(grade) {
+            selGrade   = grade;
+            selSubject = null;
+            selUnit    = null;
+
+            document.querySelectorAll('.grade-btn').forEach(b =>
+                b.classList.toggle('active', b.dataset.grade === selGrade));
+
+            const sg = document.getElementById('subjectGroup');
+            const ug = document.getElementById('unitGroup');
+
+            if (selGrade && selGrade !== 'all' && selGrade !== 'management') {
+                sg.style.display = '';
+                buildSubjectButtons();
+            } else {
+                sg.style.display = 'none';
+                ug.style.display = 'none';
             }
-            try {
-                await postLinksViaForm();
-            } catch (e) {
-                console.error('스프레드시트 저장:', e);
-                showToast('스프레드시트 저장 요청에 실패했습니다.', true);
+
+            renderLinks();
+        }
+
+        function selectSubject(subject) {
+            selSubject = (selSubject === subject) ? null : subject;
+            selUnit    = null;
+
+            document.querySelectorAll('.subject-btn').forEach(b =>
+                b.classList.toggle('active', b.dataset.subject === selSubject));
+
+            const ug = document.getElementById('unitGroup');
+            if (selSubject) { ug.style.display = ''; buildUnitButtons(); }
+            else ug.style.display = 'none';
+
+            renderLinks();
+        }
+
+        function selectUnit(unit) {
+            selUnit = (selUnit === unit) ? null : unit;
+            document.querySelectorAll('.unit-btn').forEach(b =>
+                b.classList.toggle('active', b.dataset.unit === selUnit));
+            renderLinks();
+        }
+
+        function hasContent(grade, subject, unit) {
+            return links.some(lk => {
+                if (lk.hidden) return false;
+                const m = getMeta(lk);
+                if (m.grade !== grade) return false;
+                if (subject && m.subject !== subject) return false;
+                if (unit    && m.unit    !== unit)    return false;
+                return true;
+            });
+        }
+
+        function buildSubjectButtons() {
+            const row = document.getElementById('subjectRow');
+            row.innerHTML = '';
+            SUBJECTS.forEach(sub => {
+                const btn = document.createElement('button');
+                btn.className = 'subject-btn' + (hasContent(selGrade, sub, null) ? '' : ' no-content-hint');
+                btn.dataset.subject = sub;
+                btn.textContent = sub;
+                btn.onclick = () => selectSubject(sub);
+                row.appendChild(btn);
+            });
+        }
+
+        function buildUnitButtons() {
+            const row = document.getElementById('unitRow');
+            row.innerHTML = '';
+            for (let i = 1; i <= 10; i++) {
+                const u = String(i);
+                const btn = document.createElement('button');
+                btn.className = 'unit-btn' + (hasContent(selGrade, selSubject, u) ? '' : ' no-content-hint');
+                btn.dataset.unit = u;
+                btn.textContent = i + '단원';
+                btn.onclick = () => selectUnit(u);
+                row.appendChild(btn);
             }
         }
 
         // ==========================================
-        // 🎨 화면 렌더링
+        // 렌더링
         // ==========================================
+
+        // 카드 DOM 생성
+        function makeCard(lk) {
+            const meta = getMeta(lk);
+            let tag = '';
+            if (meta.grade && meta.grade !== 'management') tag += meta.grade + '학년';
+            if (meta.subject) tag += (tag ? ' · ' : '') + meta.subject;
+            if (meta.unit)    tag += ' · ' + meta.unit + '단원';
+
+            const a = document.createElement('a');
+            a.className = 'link-card ' + getCardClass(lk);
+            a.href = lk.url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+
+            const safeUrl = lk.url.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+            a.innerHTML =
+                `<div class="link-icon">${lk.icon}</div>` +
+                `<div class="link-content">` +
+                  `<div class="link-title">${lk.title}</div>` +
+                  `<div class="link-description">${lk.description}</div>` +
+                  (tag ? `<span class="link-meta-tag">${tag}</span>` : '') +
+                `</div>` +
+                `<div class="link-actions">` +
+                  `<button class="copy-btn" onclick="copyLink(event,'${safeUrl}',this)">📋 링크 복사</button>` +
+                  `<div class="link-arrow">→</div>` +
+                `</div>`;
+            return a;
+        }
+
+        // 그룹 헤더 DOM 생성
+        function makeHeader(cls, text) {
+            const d = document.createElement('div');
+            d.className = cls;
+            d.textContent = text;
+            return d;
+        }
+
+        // 카드 묶음 래퍼
+        function makeGroup(cards) {
+            const g = document.createElement('div');
+            g.className = 'link-group';
+            cards.forEach(c => g.appendChild(c));
+            return g;
+        }
+
+        // 단원별 그룹 렌더링 (하나의 과목 범위 내)
+        function appendByUnit(container, subLinks) {
+            const unitMap = {};
+            const noUnit  = [];
+
+            subLinks.forEach(lk => {
+                const u = getMeta(lk).unit;
+                if (u) { (unitMap[u] = unitMap[u] || []).push(lk); }
+                else   { noUnit.push(lk); }
+            });
+
+            if (noUnit.length) {
+                container.appendChild(makeGroup(noUnit.map(makeCard)));
+            }
+
+            Object.keys(unitMap).sort((a,b) => Number(a)-Number(b)).forEach(u => {
+                container.appendChild(makeHeader('section-unit-title', u + '단원'));
+                container.appendChild(makeGroup(unitMap[u].map(makeCard)));
+            });
+        }
+
+        // 과목별 → 단원별 렌더링 (하나의 학년 범위 내)
+        function appendBySubject(container, gradeLinks) {
+            const subMap  = {};
+            const noSub   = [];
+
+            gradeLinks.forEach(lk => {
+                const s = getMeta(lk).subject;
+                if (s) { (subMap[s] = subMap[s] || []).push(lk); }
+                else   { noSub.push(lk); }
+            });
+
+            if (noSub.length) {
+                container.appendChild(makeGroup(noSub.map(makeCard)));
+            }
+
+            // 과목은 SUBJECTS 순서 유지
+            const orderedSubs = SUBJECTS.filter(s => subMap[s]);
+            const otherSubs   = Object.keys(subMap).filter(s => !SUBJECTS.includes(s));
+
+            [...orderedSubs, ...otherSubs].forEach(sub => {
+                container.appendChild(makeHeader('section-subject-title', sub));
+                appendByUnit(container, subMap[sub]);
+            });
+        }
+
+        // 전체 보기: 학년 → 과목 → 단원
+        function renderAll(container) {
+            const gradeOrder = ['1','2','3','4','5','6','management'];
+            let anyShown = false;
+
+            gradeOrder.forEach(g => {
+                const gradeLinks = links.filter(lk => !lk.hidden && getMeta(lk).grade === g);
+                if (!gradeLinks.length) return;
+                anyShown = true;
+
+                const hdr = makeHeader(
+                    'section-grade-title' + (g === 'management' ? ' gm' : ''),
+                    GRADE_LABELS[g] || g
+                );
+                container.appendChild(hdr);
+
+                if (g === 'management') {
+                    container.appendChild(makeGroup(gradeLinks.map(makeCard)));
+                } else {
+                    appendBySubject(container, gradeLinks);
+                }
+            });
+
+            if (!anyShown) {
+                container.innerHTML = '<p class="empty-state">😅 아직 등록된 콘텐츠가 없습니다</p>';
+            }
+        }
+
+        // 특정 학년 보기: 과목 선택 여부에 따라
+        function renderGrade(container) {
+            const base = links.filter(lk => {
+                if (lk.hidden) return false;
+                const m = getMeta(lk);
+                if (m.grade !== selGrade) return false;
+                if (selSubject && m.subject !== selSubject) return false;
+                if (selUnit    && m.unit    !== selUnit)    return false;
+                return true;
+            });
+
+            if (!base.length) {
+                container.innerHTML = '<p class="empty-state">😅 아직 등록된 콘텐츠가 없습니다</p>';
+                return;
+            }
+
+            if (selSubject && selUnit) {
+                // 단원까지 고정 → 그냥 카드 나열
+                container.appendChild(makeGroup(base.map(makeCard)));
+            } else if (selSubject) {
+                // 과목 고정 → 단원별 분류
+                appendByUnit(container, base);
+            } else {
+                // 학년만 고정 → 과목 → 단원 분류
+                appendBySubject(container, base);
+            }
+        }
+
+        // 학급경영 보기
+        function renderManagement(container) {
+            const base = links.filter(lk => !lk.hidden && getMeta(lk).grade === 'management');
+            if (!base.length) {
+                container.innerHTML = '<p class="empty-state">😅 아직 등록된 콘텐츠가 없습니다</p>';
+                return;
+            }
+            container.appendChild(makeGroup(base.map(makeCard)));
+        }
+
         function renderLinks() {
             const container = document.getElementById('linksContainer');
             container.innerHTML = '';
 
-            const categories = {
-                'math-grade2': { main: '📚 학습 게임', sub: '2학년' },
-                'math-grade3': { main: '📚 학습 게임', sub: '3학년' },
-                'math-grade4': { main: '📚 학습 게임', sub: '4학년' },
-                'math-grade5': { main: '📚 학습 게임', sub: '5학년' },
-                'math-grade6': { main: '📚 학습 게임', sub: '6학년' },
-                'management': { main: '🏫 학급 경영', sub: null }
-            };
+            if (selGrade === 'all')        renderAll(container);
+            else if (selGrade === 'management') renderManagement(container);
+            else if (selGrade)             renderGrade(container);
+        }
 
-            const groupedLinks = {};
-            
-            // 데이터 분류
-            links.forEach(link => {
-                const catInfo = categories[link.category];
-                if (catInfo) {
-                    if (!groupedLinks[catInfo.main]) {
-                        groupedLinks[catInfo.main] = { items: {} };
-                    }
-                    const mainCat = groupedLinks[catInfo.main];
-                    const subKey = catInfo.sub || 'general';
-                    
-                    if (!mainCat.items[subKey]) mainCat.items[subKey] = [];
-                    mainCat.items[subKey].push(link);
+        // ==========================================
+        // 관리 모달
+        // ==========================================
+        function openEditModal() {
+            const pw = prompt("링크 관리를 위해 비밀번호를 입력하세요:");
+            if (!pw) return;
+            try {
+                if (btoa(pw) === ADMIN_PASSWORD_ENCODED) {
+                    document.getElementById('editModal').classList.add('active');
+                    renderMgmtList();
+                } else {
+                    alert("비밀번호가 틀렸습니다. 🚫");
                 }
-            });
-
-            // 화면 그리기
-            Object.keys(groupedLinks).forEach(mainTitle => {
-                const mainTitleDiv = document.createElement('div');
-                mainTitleDiv.className = 'main-category-title';
-                mainTitleDiv.textContent = mainTitle;
-                container.appendChild(mainTitleDiv);
-
-                const mainCat = groupedLinks[mainTitle];
-                Object.keys(mainCat.items).forEach(subKey => {
-                    if (subKey !== 'general') {
-                        const subTitleDiv = document.createElement('div');
-                        subTitleDiv.className = 'subcategory-title';
-                        subTitleDiv.textContent = subKey;
-                        container.appendChild(subTitleDiv);
-                    }
-                    mainCat.items[subKey].forEach(link => {
-                        container.appendChild(createLinkCard(link));
-                    });
-                });
-            });
+            } catch(e) { alert("오류가 발생했습니다."); }
         }
 
-        function createLinkCard(link) {
-            const a = document.createElement('a');
-            a.className = `link-card ${link.category}`;
-            a.href = link.url;
-            a.target = '_blank';
-            a.innerHTML = `
-                <div class="link-icon">${link.icon}</div>
-                <div class="link-content">
-                    <div class="link-title">${link.title}</div>
-                    <div class="link-description">${link.description}</div>
-                </div>
-                <div class="link-actions">
-                    <button class="copy-btn" onclick="copyLink(event, '${link.url}', this)">📋 접속 링크 복사</button>
-                    <div class="link-arrow">→</div>
-                </div>
-            `;
-            return a;
-        }
+        function closeEditModal() { document.getElementById('editModal').classList.remove('active'); }
 
-        function renderLinksList() {
+        function renderMgmtList() {
             const list = document.getElementById('linksList');
             list.innerHTML = '';
-            
-            if (links.length === 0) {
-                list.innerHTML = '<p style="text-align:center;color:#999;padding:20px;">링크가 없습니다.</p>';
+            if (!links.length) {
+                list.innerHTML = '<p style="text-align:center;color:#aaa;padding:20px;">링크가 없습니다.</p>';
                 return;
             }
-
-            links.forEach((link, index) => {
+            links.forEach((lk, idx) => {
+                const m = getMeta(lk);
+                let metaTxt = '';
+                if (m.grade === 'management') metaTxt = '🏫 학급 경영';
+                else {
+                    if (m.grade)   metaTxt += m.grade + '학년';
+                    if (m.subject) metaTxt += (metaTxt ? ' · ' : '') + m.subject;
+                    if (m.unit)    metaTxt += ' · ' + m.unit + '단원';
+                }
+                const hidden = lk.hidden === true;
                 const item = document.createElement('div');
                 item.className = 'link-item';
-                item.innerHTML = `
-                    <div class="link-item-info">
-                        <div class="link-item-title">${link.icon} ${link.title}</div>
-                        <div class="link-item-url">${link.url}</div>
-                    </div>
-                    <div class="link-item-actions">
-                        <button class="btn-small btn-edit" onclick="editLink(${index})">수정</button>
-                        <button class="btn-small btn-delete" onclick="deleteLink(${index})">삭제</button>
-                    </div>
-                `;
+                item.style.opacity = hidden ? '0.55' : '1';
+                item.innerHTML =
+                    `<div class="link-item-info">` +
+                      `<div class="link-item-title">${lk.icon} ${lk.title}${hidden ? '<span class="hidden-badge">숨김</span>' : ''}</div>` +
+                      `<div class="link-item-meta">${metaTxt}</div>` +
+                      `<div class="link-item-url">${lk.url}</div>` +
+                    `</div>` +
+                    `<div class="link-item-actions">` +
+                      `<button class="btn-sm ${hidden ? 'btn-show' : 'btn-hide'}" onclick="toggleHidden(${idx})">${hidden ? '👁️ 보이기' : '🙈 숨기기'}</button>` +
+                      `<button class="btn-sm btn-edit-sm" onclick="editLink(${idx})">수정</button>` +
+                      `<button class="btn-sm btn-del" onclick="deleteLink(${idx})">삭제</button>` +
+                    `</div>`;
                 list.appendChild(item);
             });
         }
 
-        // ==========================================
-        // 🔧 관리 기능 (비밀번호 인증)
-        // ==========================================
-        function openEditModal() {
-            const password = prompt("링크 관리를 위해 비밀번호를 입력하세요:");
-
-            if (password === null || password === "") return;
-
-            // 브라우저 내장 함수 btoa()를 사용하여 입력값을 인코딩 후 비교
-            // btoa("10503563") === "MTA1MDM1NjM="
-            try {
-                if (btoa(password) === ADMIN_PASSWORD_ENCODED) {
-                    document.getElementById('editModal').classList.add('active');
-                    renderLinksList();
-                } else {
-                    alert("비밀번호가 틀렸습니다. 🚫");
-                }
-            } catch (e) {
-                alert("비밀번호 확인 중 오류가 발생했습니다.");
+        async function toggleHidden(idx) {
+            links[idx].hidden = !(links[idx].hidden === true);
+            await saveLinks();
+            renderMgmtList();
+            renderLinks();
+            if (selGrade && selGrade !== 'all' && selGrade !== 'management') {
+                buildSubjectButtons();
+                if (selSubject) buildUnitButtons();
             }
-        }
-
-        function closeEditModal() {
-            document.getElementById('editModal').classList.remove('active');
         }
 
         function openAddLinkModal() {
             document.getElementById('formTitle').textContent = '새 링크 추가';
             document.getElementById('linkForm').reset();
             document.getElementById('editIndex').value = '';
+            setRadio('learning');
             document.getElementById('addEditModal').classList.add('active');
         }
 
-        function closeAddEditModal() {
-            document.getElementById('addEditModal').classList.remove('active');
+        function closeAddEditModal() { document.getElementById('addEditModal').classList.remove('active'); }
+
+        function setRadio(val) {
+            document.querySelectorAll('input[name="linkType"]').forEach(r => r.checked = r.value === val);
+            document.getElementById('lbl-learning').classList.toggle('selected', val === 'learning');
+            document.getElementById('lbl-management').classList.toggle('selected', val === 'management');
+            document.getElementById('learningFields').style.display = val === 'learning' ? '' : 'none';
         }
 
-        // 링크 추가/수정
-        function editLink(index) {
-            const link = links[index];
+        document.getElementById('typeRadioGroup').addEventListener('change', e => {
+            if (e.target.name === 'linkType') setRadio(e.target.value);
+        });
+
+        function editLink(idx) {
+            const lk = links[idx];
+            const m  = getMeta(lk);
             document.getElementById('formTitle').textContent = '링크 수정';
-            document.getElementById('linkTitle').value = link.title;
-            document.getElementById('linkDescription').value = link.description;
-            document.getElementById('linkUrl').value = link.url;
-            document.getElementById('linkIcon').value = link.icon;
-            document.getElementById('linkCategory').value = link.category;
-            document.getElementById('editIndex').value = index;
-            
+            document.getElementById('linkTitle').value       = lk.title;
+            document.getElementById('linkDescription').value = lk.description;
+            document.getElementById('linkUrl').value         = lk.url;
+            document.getElementById('linkIcon').value        = lk.icon;
+            document.getElementById('editIndex').value       = idx;
+
+            if (m.grade === 'management') {
+                setRadio('management');
+            } else {
+                setRadio('learning');
+                document.getElementById('linkGrade').value   = m.grade   || '';
+                document.getElementById('linkSubject').value = m.subject || '';
+                document.getElementById('linkUnit').value    = m.unit    || '';
+            }
+
             closeEditModal();
             document.getElementById('addEditModal').classList.add('active');
         }
 
-        // 링크 삭제
-        async function deleteLink(index) {
+        async function deleteLink(idx) {
             if (!confirm('정말로 삭제하시겠습니까?')) return;
-            links.splice(index, 1);
+            links.splice(idx, 1);
             await saveLinks();
             renderLinks();
-            renderLinksList();
+            renderMgmtList();
         }
 
-        // 폼 제출
         document.getElementById('linkForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            const newLink = {
-                title: document.getElementById('linkTitle').value,
-                description: document.getElementById('linkDescription').value,
-                url: document.getElementById('linkUrl').value,
-                icon: document.getElementById('linkIcon').value,
-                category: document.getElementById('linkCategory').value
-            };
-            
+            const isMgmt = document.querySelector('input[name="linkType"]:checked')?.value === 'management';
             const idx = document.getElementById('editIndex').value;
-            
-            if (idx === '') links.push(newLink);
-            else links[idx] = newLink;
-            
+            const wasHidden = idx !== '' ? (links[idx]?.hidden === true) : false;
+
+            const newLk = {
+                title:       document.getElementById('linkTitle').value.trim(),
+                description: document.getElementById('linkDescription').value.trim(),
+                url:         document.getElementById('linkUrl').value.trim(),
+                icon:        document.getElementById('linkIcon').value.trim(),
+                grade:   isMgmt ? 'management' : (document.getElementById('linkGrade').value || null),
+                subject: isMgmt ? null : (document.getElementById('linkSubject').value || null),
+                unit:    isMgmt ? null : (document.getElementById('linkUnit').value || null),
+                category: isMgmt ? 'management' : null,
+                hidden:  wasHidden
+            };
+
+            if (idx === '') links.push(newLk);
+            else links[Number(idx)] = newLk;
+
             await saveLinks();
             renderLinks();
             closeAddEditModal();
-            
-            if (document.getElementById('editModal').classList.contains('active')) {
-                renderLinksList();
-            }
+            if (document.getElementById('editModal').classList.contains('active')) renderMgmtList();
             showToast('저장되었습니다!');
         });
 
-        // 링크 복사
+        // ==========================================
+        // 복사 / 토스트
+        // ==========================================
         function copyLink(e, url, btn) {
             e.preventDefault();
             e.stopPropagation();
             navigator.clipboard.writeText(url).then(() => {
-                const original = btn.innerHTML;
+                const orig = btn.innerHTML;
                 btn.innerHTML = '✅ 복사됨!';
                 btn.classList.add('copied');
                 showToast('링크 복사 완료!');
-                setTimeout(() => {
-                    btn.innerHTML = original;
-                    btn.classList.remove('copied');
-                }, 2000);
+                setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
             }).catch(() => showToast('복사 실패', true));
         }
 
         function showToast(msg, isError = false) {
             const old = document.querySelector('.toast');
             if (old) old.remove();
-            
             const t = document.createElement('div');
             t.className = 'toast';
             t.textContent = msg;
             if (isError) t.style.background = '#ff6b6b';
             document.body.appendChild(t);
-            
             setTimeout(() => t.classList.add('show'), 10);
-            setTimeout(() => {
-                t.classList.remove('show');
-                setTimeout(() => t.remove(), 400);
-            }, 3000);
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3000);
         }
 
-        // 초기 실행 (원격 동기화 시 로드 후 렌더)
-        (async function initLinks() {
-            const container = document.getElementById('linksContainer');
+        // ==========================================
+        // 초기화
+        // ==========================================
+        (async function init() {
             if (USE_REMOTE_SYNC) {
-                container.innerHTML = '<p style="text-align:center;color:#888;padding:24px;">목록을 불러오는 중…</p>';
+                document.getElementById('linksContainer').innerHTML =
+                    '<p class="empty-state">🔄 데이터를 불러오는 중…</p>';
             }
             await loadLinks();
-            renderLinks();
+            renderLinks(); // selGrade = 'all' → 전체 즉시 표시
         })();
 
-        // 모달 닫기 이벤트
-        window.onclick = function(e) {
-            if (e.target.classList.contains('modal')) {
-                e.target.classList.remove('active');
-            }
-        }
+        window.addEventListener('click', e => {
+            if (e.target.classList.contains('modal')) e.target.classList.remove('active');
+        });
     </script>
 </body>
 </html>
