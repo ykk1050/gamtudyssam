@@ -7,219 +7,199 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        :root {
+            --brand: #667eea;
+            --brand2: #764ba2;
+            --grad: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --ink: #2d3142;
+            --muted: #7a7f95;
+            --line: #e6e8f0;
+            --bg: #f4f5fb;
+            --card: #ffffff;
+            --mint: #00b894;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
             min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
         }
 
-        .container {
-            max-width: 720px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            padding: 40px 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            margin: 0 auto;
-        }
-
-        /* 프로필 */
-        .profile-section {
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .profile-icon {
-            width: 100px; height: 100px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 8px 20px rgba(102,126,234,0.4);
-            overflow: hidden;
-        }
-
-        .profile-image { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .profile-title { font-size: 26px; font-weight: bold; color: #333; margin-bottom: 10px; }
-        .profile-subtitle { font-size: 15px; color: #666; line-height: 1.6; }
-
-        /* 방문자 카운터 */
-        .visitor-counter {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            margin: 16px 0 24px;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
-            border-radius: 50px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .vc-item { display: flex; align-items: center; gap: 6px; }
-        .vc-item strong { color: #667eea; font-size: 16px; }
-
-        /* 필터 섹션 */
-        .filter-group {
-            background: #f8f9fa;
-            border-radius: 16px;
-            padding: 14px 16px;
-            margin-bottom: 10px;
-        }
-
-        .filter-row-label {
-            font-size: 11px; font-weight: bold; color: #aaa;
-            text-transform: uppercase; letter-spacing: 0.8px;
-            margin-bottom: 10px;
-        }
-
-        .filter-row { display: flex; flex-wrap: wrap; gap: 8px; }
-
-        .grade-btn, .subject-btn, .unit-btn {
-            padding: 9px 17px;
-            border: 2px solid #e0e0e0;
-            border-radius: 50px;
-            background: white;
-            font-size: 14px; font-weight: 600;
-            cursor: pointer;
-            transition: all 0.22s ease;
-            color: #555;
-        }
-
-        .grade-btn:hover, .subject-btn:hover, .unit-btn:hover {
-            border-color: #667eea; color: #667eea;
-        }
-
-        .grade-btn.active, .subject-btn.active, .unit-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: transparent;
+        /* ===== 상단 ===== */
+        .hero {
+            background: var(--grad);
             color: white;
-            box-shadow: 0 4px 12px rgba(102,126,234,0.35);
+            padding: 22px 16px 70px;
+        }
+        .hero-inner {
+            max-width: 1100px; margin: 0 auto;
+            display: flex; align-items: center; gap: 16px;
+        }
+        .profile-image {
+            width: 64px; height: 64px; border-radius: 50%;
+            object-fit: cover; border: 3px solid rgba(255,255,255,0.7);
+            flex-shrink: 0;
+        }
+        .hero-title { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
+        .hero-sub { font-size: 14px; opacity: 0.9; margin-top: 4px; line-height: 1.5; }
+
+        .wrap { max-width: 1100px; margin: -50px auto 0; padding: 0 16px 40px; }
+
+        /* ===== 검색·필터 패널 ===== */
+        .finder {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: 0 10px 30px rgba(60,60,120,0.12);
+            position: sticky; top: 8px; z-index: 50;
+        }
+        .search-box { position: relative; }
+        .search-box input {
+            width: 100%;
+            padding: 14px 44px 14px 46px;
+            font-size: 16px; font-family: inherit;
+            border: 2px solid var(--line); border-radius: 14px;
+            background: #fafbff; color: var(--ink);
+            transition: border-color .2s;
+        }
+        .search-box input:focus { outline: none; border-color: var(--brand); background: white; }
+        .search-box .s-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; }
+        .search-box .s-clear {
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+            border: none; background: #eceef5; color: var(--muted);
+            width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-size: 14px;
+            display: none;
+        }
+        .search-box.has-text .s-clear { display: block; }
+
+        .type-tabs { display: flex; gap: 6px; margin-top: 14px; overflow-x: auto; scrollbar-width: none; }
+        .type-tabs::-webkit-scrollbar { display: none; }
+        .type-tab {
+            flex-shrink: 0;
+            padding: 10px 16px; border-radius: 12px;
+            border: none; background: #f1f2f8; color: #555b70;
+            font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer;
+            transition: all .2s;
+        }
+        .type-tab:hover { background: #e7e9f6; }
+        .type-tab.active { background: var(--grad); color: white; box-shadow: 0 4px 12px rgba(102,126,234,.35); }
+        .type-tab .cnt { font-weight: 600; opacity: .7; margin-left: 4px; font-size: 13px; }
+
+        .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; align-items: center; }
+        .chip-label { font-size: 12px; font-weight: 700; color: #a0a4b8; margin-right: 4px; min-width: 30px; }
+        .chip {
+            padding: 7px 13px; border-radius: 50px;
+            border: 1.5px solid var(--line); background: white; color: #555b70;
+            font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer;
+            transition: all .18s;
+        }
+        .chip:hover { border-color: var(--brand); color: var(--brand); }
+        .chip.active { background: var(--ink); border-color: var(--ink); color: white; }
+        .chip .cnt { font-size: 12px; opacity: .6; margin-left: 3px; }
+
+        .result-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            margin: 22px 4px 4px; font-size: 14px; color: var(--muted);
+        }
+        .reset-btn {
+            border: none; background: none; color: var(--brand);
+            font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;
         }
 
-        .grade-btn.all-btn { border-color: #667eea; color: #667eea; }
-        .grade-btn.all-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: transparent; color: white;
+        /* ===== 섹션 ===== */
+        .section { margin-top: 26px; }
+        .section-title {
+            font-size: 19px; font-weight: 800; margin: 0 4px 12px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .section-title .cnt { font-size: 14px; color: var(--muted); font-weight: 600; }
+        .sub-title { font-size: 15px; font-weight: 700; color: #555b70; margin: 16px 4px 10px; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 14px;
         }
 
-        .grade-btn.mgmt-btn { border-color: #00b894; color: #00b894; }
-        .grade-btn.mgmt-btn.active {
-            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
-            border-color: transparent; color: white;
-            box-shadow: 0 4px 12px rgba(0,184,148,0.35);
-        }
-
-        .no-content-hint { opacity: 0.38; }
-
-        /* 섹션 헤더 */
-        .section-grade-title {
-            font-size: 18px; font-weight: bold; color: #333;
-            margin: 24px 0 12px;
-            padding: 13px 18px;
-            background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);
-            border-radius: 12px;
-            border-left: 4px solid #667eea;
-        }
-
-        .section-grade-title:first-child { margin-top: 0; }
-
-        .section-grade-title.gm {
-            background: linear-gradient(135deg, rgba(0,184,148,0.1) 0%, rgba(0,206,201,0.1) 100%);
-            border-left-color: #00b894;
-        }
-
-        .section-subject-title {
-            font-size: 15px; font-weight: 600; color: #555;
-            margin: 16px 0 8px;
-            padding-left: 10px;
-            border-left: 3px solid #667eea;
-        }
-
-        .section-unit-title {
-            font-size: 13px; font-weight: 600; color: #888;
-            margin: 12px 0 6px;
-            padding: 5px 12px;
-            background: #f0f4ff;
-            border-radius: 8px;
-            display: inline-block;
-        }
-
-        /* 링크 카드 */
-        .links-section { display: flex; flex-direction: column; gap: 0; margin-top: 4px; }
-        .link-group { display: flex; flex-direction: column; gap: 9px; margin-bottom: 4px; }
-
-        .empty-state {
-            text-align: center; color: #bbb;
-            padding: 36px 20px; font-size: 15px;
-        }
-
-        .link-card {
-            background: white;
-            border: 2px solid #e8e8e8;
-            border-radius: 14px;
-            padding: 16px 20px;
-            text-decoration: none;
-            color: #333;
-            display: flex; align-items: center; gap: 13px;
-            transition: all 0.22s ease;
-            position: relative;
+        /* ===== 카드 ===== */
+        .card {
+            background: var(--card);
+            border: 1.5px solid var(--line);
+            border-radius: 18px;
+            display: flex; flex-direction: column;
             overflow: hidden;
+            transition: transform .2s, box-shadow .2s, border-color .2s;
         }
-
-        .link-card::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            opacity: 0; transition: opacity 0.22s ease;
+        .card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(60,60,120,.12); border-color: #cfd4f5; }
+        .card-main { display: flex; gap: 14px; padding: 16px 16px 12px; text-decoration: none; color: inherit; flex: 1; }
+        .card-icon {
+            width: 54px; height: 54px; border-radius: 14px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px; background: #f1f2fb;
         }
-
-        .link-card:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(0,0,0,0.10); border-color: #667eea; }
-        .link-card:hover::before { opacity: 0.04; }
-
-        .link-card.g1 { border-left: 4px solid #43e97b; }
-        .link-card.g2 { border-left: 4px solid #f6d365; }
-        .link-card.g3 { border-left: 4px solid #667eea; }
-        .link-card.g4 { border-left: 4px solid #f093fb; }
-        .link-card.g5 { border-left: 4px solid #4facfe; }
-        .link-card.g6 { border-left: 4px solid #fa709a; }
-        .link-card.gm { border-left: 4px solid #00b894; }
-
-        .link-icon { font-size: 28px; min-width: 34px; text-align: center; z-index: 1; }
-        .link-content { flex: 1; z-index: 1; min-width: 0; }
-        .link-title { font-size: 16px; font-weight: bold; margin-bottom: 3px; color: #333; }
-        .link-description { font-size: 12px; color: #888; line-height: 1.4; }
-
-        .link-meta-tag {
-            display: inline-block; font-size: 11px; color: #999;
-            background: #f0f0f0; border-radius: 20px;
-            padding: 2px 8px; margin-top: 5px;
+        .card.g2 .card-icon { background: #fff6dc; }
+        .card.g3 .card-icon { background: #eceffe; }
+        .card.g5 .card-icon { background: #e4f3ff; }
+        .card.gm .card-icon { background: #dcf7ef; }
+        .card-body { min-width: 0; flex: 1; }
+        .card-title { font-size: 16px; font-weight: 800; line-height: 1.35; word-break: keep-all; }
+        .badge-new {
+            display: inline-block; vertical-align: 2px;
+            font-size: 10px; font-weight: 800; color: white;
+            background: #ff6b6b; border-radius: 6px; padding: 2px 6px; margin-left: 4px;
         }
+        .card-desc {
+            font-size: 13px; color: var(--muted); line-height: 1.5; margin-top: 4px;
+            display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+            word-break: keep-all;
+        }
+        .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+        .tag { font-size: 11px; font-weight: 700; color: #6b7088; background: #f0f1f7; border-radius: 6px; padding: 3px 7px; }
+        .tag.t-game { color: #5a4fcf; background: #efedff; }
+        .tag.t-practice { color: #0c7a5a; background: #e2f7ef; }
+        .tag.t-tool { color: #a35c00; background: #fff1dc; }
 
-        .link-actions { display: flex; gap: 8px; align-items: center; z-index: 1; flex-shrink: 0; }
-
-        .copy-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; border: none;
-            padding: 7px 13px; border-radius: 8px;
-            font-size: 12px; font-weight: 600;
-            cursor: pointer; transition: all 0.22s ease;
+        .card-foot {
+            display: flex; gap: 8px; align-items: center;
+            padding: 10px 16px 14px;
+        }
+        .btn-open {
+            flex: 1; text-align: center; text-decoration: none;
+            background: var(--grad); color: white;
+            padding: 9px 12px; border-radius: 10px;
+            font-size: 14px; font-weight: 700;
+        }
+        .btn-copy {
+            border: 1.5px solid var(--line); background: white; color: #555b70;
+            padding: 8px 11px; border-radius: 10px;
+            font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;
             white-space: nowrap;
         }
+        .btn-copy:hover { border-color: var(--brand); color: var(--brand); }
+        .btn-copy.copied { border-color: var(--mint); color: var(--mint); }
 
-        .copy-btn:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(102,126,234,0.4); }
-        .copy-btn:active { transform: scale(0.95); }
-        .copy-btn.copied { background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); }
+        .variants { display: flex; flex-direction: column; gap: 6px; padding: 0 16px 14px; }
+        .variant { display: flex; gap: 6px; }
+        .variant .btn-open { font-size: 13px; padding: 8px 10px; }
 
-        .link-arrow { font-size: 16px; color: #ccc; z-index: 1; transition: transform 0.22s ease; }
-        .link-card:hover .link-arrow { transform: translateX(5px); color: #667eea; }
+        .empty-state {
+            text-align: center; color: #a0a4b8;
+            padding: 50px 20px; font-size: 15px; line-height: 1.8;
+        }
 
-        /* 토스트 */
+        /* ===== 하단 ===== */
+        .footer {
+            text-align: center; margin-top: 40px; padding-top: 20px;
+            border-top: 1px solid var(--line); color: #a0a4b8; font-size: 13px; line-height: 1.9;
+        }
+        .footer strong { color: var(--brand); }
+        .admin-link {
+            border: none; background: none; color: #b8bbcc; font-size: 12px;
+            cursor: pointer; text-decoration: underline; font-family: inherit;
+        }
+
+        /* ===== 토스트 ===== */
         .toast {
             position: fixed; bottom: 30px; left: 50%;
             transform: translateX(-50%) translateY(100px);
@@ -229,28 +209,9 @@
             box-shadow: 0 10px 30px rgba(0,184,148,0.4);
             z-index: 3000; opacity: 0; transition: all 0.35s ease;
         }
-
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-        .footer {
-            text-align: center; margin-top: 28px; padding-top: 18px;
-            border-top: 2px solid #f0f0f0; color: #bbb; font-size: 13px;
-        }
-
-        /* 편집 버튼 */
-        .edit-mode-btn {
-            position: fixed; bottom: 28px; right: 28px;
-            width: 54px; height: 54px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none; border-radius: 50%;
-            color: white; font-size: 22px; cursor: pointer;
-            box-shadow: 0 8px 20px rgba(102,126,234,0.4);
-            transition: all 0.3s ease; z-index: 1000;
-        }
-
-        .edit-mode-btn:hover { transform: scale(1.1); }
-
-        /* 모달 공통 */
+        /* ===== 모달 공통 ===== */
         .modal {
             display: none; position: fixed; inset: 0;
             background: rgba(0,0,0,0.68);
@@ -258,258 +219,132 @@
             justify-content: center; align-items: center;
             padding: 20px;
         }
-
         .modal.active { display: flex; }
-
         .modal-content {
             background: white; border-radius: 20px; padding: 28px;
             max-width: 640px; width: 100%;
             max-height: 90vh; overflow-y: auto;
         }
-
         .modal-header {
             display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 20px; padding-bottom: 14px;
             border-bottom: 2px solid #f0f0f0;
         }
-
         .modal-title { font-size: 19px; font-weight: bold; color: #333; }
-
-        .close-btn {
-            background: none; border: none; font-size: 26px;
-            cursor: pointer; color: #aaa; line-height: 1; transition: color 0.2s;
-        }
-
+        .close-btn { background: none; border: none; font-size: 26px; cursor: pointer; color: #aaa; line-height: 1; }
         .close-btn:hover { color: #333; }
 
-        /* 폼 */
         .form-group { margin-bottom: 16px; }
-
-        .form-label {
-            display: block; font-weight: 700; color: #444;
-            margin-bottom: 7px; font-size: 13px;
-        }
-
+        .form-label { display: block; font-weight: 700; color: #444; margin-bottom: 7px; font-size: 13px; }
+        .form-hint { font-weight: 400; color: #aaa; font-size: 12px; }
         .form-input, .form-select, .form-textarea {
             width: 100%; padding: 10px 13px;
             border: 2px solid #e0e0e0; border-radius: 9px;
             font-size: 14px; font-family: inherit; transition: border-color 0.2s;
         }
-
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            outline: none; border-color: #667eea;
-        }
-
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--brand); }
         .form-textarea { resize: vertical; min-height: 68px; }
         .form-row { display: flex; gap: 10px; }
         .form-row .form-group { flex: 1; }
 
         .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
-
         .radio-label {
             display: flex; align-items: center; gap: 7px;
             cursor: pointer; font-size: 14px; font-weight: 600; color: #666;
             padding: 9px 16px; border: 2px solid #e0e0e0; border-radius: 10px;
             transition: all 0.2s;
         }
-
-        .radio-label.selected { border-color: #667eea; color: #667eea; background: rgba(102,126,234,0.06); }
+        .radio-label.selected { border-color: var(--brand); color: var(--brand); background: rgba(102,126,234,0.06); }
         .radio-label input { display: none; }
 
         .btn-group { display: flex; gap: 10px; margin-top: 18px; }
-
-        .btn {
-            flex: 1; padding: 12px 18px; border: none; border-radius: 10px;
-            font-size: 15px; font-weight: bold; cursor: pointer; transition: all 0.25s ease;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;
-        }
-
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102,126,234,0.4); }
+        .btn { flex: 1; padding: 12px 18px; border: none; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; font-family: inherit; }
+        .btn-primary { background: var(--grad); color: white; }
         .btn-secondary { background: #f0f0f0; color: #666; }
-        .btn-secondary:hover { background: #e4e4e4; }
 
-        /* 링크 관리 목록 */
         .link-item {
             background: #f8f9fa; border-radius: 10px;
             padding: 12px 14px; margin-bottom: 9px;
             display: flex; align-items: center; gap: 10px;
         }
-
         .link-item-info { flex: 1; min-width: 0; }
         .link-item-title { font-weight: 700; color: #333; margin-bottom: 3px; font-size: 14px; }
-        .link-item-meta { font-size: 12px; color: #aaa; margin-bottom: 2px; }
+        .link-item-meta { font-size: 12px; color: #999; margin-bottom: 2px; }
         .link-item-url { font-size: 11px; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .link-item-actions { display: flex; gap: 5px; flex-shrink: 0; }
-
-        .btn-sm {
-            padding: 6px 11px; border: none; border-radius: 7px;
-            font-size: 12px; cursor: pointer; transition: all 0.2s;
-            font-weight: 600; white-space: nowrap;
-        }
-
+        .btn-sm { padding: 6px 11px; border: none; border-radius: 7px; font-size: 12px; cursor: pointer; font-weight: 600; white-space: nowrap; font-family: inherit; }
         .btn-show { background: #00b894; color: white; }
-        .btn-show:hover { background: #00a381; }
         .btn-hide { background: #b2bec3; color: white; }
-        .btn-hide:hover { background: #95a5a6; }
-        .btn-edit-sm { background: #667eea; color: white; }
-        .btn-edit-sm:hover { background: #5568d3; }
+        .btn-edit-sm { background: var(--brand); color: white; }
         .btn-del { background: #ff6b6b; color: white; }
-        .btn-del:hover { background: #ff5252; }
+        .hidden-badge { display: inline-block; font-size: 10px; background: #ff6b6b; color: white; border-radius: 10px; padding: 2px 7px; margin-left: 5px; font-weight: 700; }
 
-        .hidden-badge {
-            display: inline-block; font-size: 10px;
-            background: #ff6b6b; color: white;
-            border-radius: 10px; padding: 2px 7px;
-            margin-left: 5px; font-weight: 700;
-        }
-
-        /* 카테고리 관리 */
-        .cat-section-title {
-            font-size: 13px; font-weight: 700; color: #555;
-            margin: 18px 0 10px;
-            padding-bottom: 7px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
+        .cat-section-title { font-size: 13px; font-weight: 700; color: #555; margin: 18px 0 10px; padding-bottom: 7px; border-bottom: 1px solid #f0f0f0; }
         .cat-section-title:first-child { margin-top: 0; }
-
         .cat-toggle-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
-
-        .cat-chip {
-            padding: 8px 15px;
-            border: 2px solid;
-            border-radius: 50px;
-            font-size: 13px; font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .cat-chip.on {
-            border-color: #00b894; color: #00b894;
-            background: rgba(0,184,148,0.06);
-        }
-
-        .cat-chip.on:hover { background: rgba(0,184,148,0.14); }
-
-        .cat-chip.off {
-            border-color: #ff6b6b; color: #ff6b6b;
-            background: rgba(255,107,107,0.06);
-            text-decoration: line-through;
-            opacity: 0.75;
-        }
-
-        .cat-chip.off:hover { background: rgba(255,107,107,0.14); opacity: 1; }
-
+        .cat-chip { padding: 8px 15px; border: 2px solid; border-radius: 50px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .cat-chip.on { border-color: #00b894; color: #00b894; background: rgba(0,184,148,0.06); }
+        .cat-chip.off { border-color: #ff6b6b; color: #ff6b6b; background: rgba(255,107,107,0.06); text-decoration: line-through; opacity: 0.75; }
         .cat-grade-selector { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; }
+        .cat-grade-pick { padding: 7px 13px; border: 2px solid #e0e0e0; border-radius: 50px; font-size: 13px; font-weight: 600; cursor: pointer; color: #777; background: white; font-family: inherit; }
+        .cat-grade-pick.picked { background: var(--grad); border-color: transparent; color: white; }
+        .cat-hint { font-size: 12px; color: #bbb; margin-bottom: 10px; }
 
-        .cat-grade-pick {
-            padding: 7px 13px;
-            border: 2px solid #e0e0e0;
-            border-radius: 50px;
-            font-size: 13px; font-weight: 600;
-            cursor: pointer; color: #777;
-            transition: all 0.2s;
-            background: white;
-        }
-
-        .cat-grade-pick:hover { border-color: #667eea; color: #667eea; }
-
-        .cat-grade-pick.picked {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: transparent; color: white;
-        }
-
-        .cat-hint {
-            font-size: 12px; color: #bbb; margin-bottom: 10px;
-        }
-
-        /* 관리 모달 상단 버튼 */
-        .mgmt-actions {
-            display: flex; gap: 8px; margin-bottom: 16px;
-        }
-
-        .btn-mgmt {
-            flex: 1; padding: 10px 14px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 13px; font-weight: 600;
-            cursor: pointer; color: #555;
-            background: white;
-            transition: all 0.2s;
-        }
-
-        .btn-mgmt:hover { border-color: #667eea; color: #667eea; }
-        .btn-mgmt.active-tab { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: transparent; color: white; }
-
+        .mgmt-actions { display: flex; gap: 8px; margin-bottom: 16px; }
+        .btn-mgmt { flex: 1; padding: 10px 14px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; color: #555; background: white; font-family: inherit; }
+        .btn-mgmt.active-tab { background: var(--grad); border-color: transparent; color: white; }
         .mgmt-panel { display: none; }
         .mgmt-panel.active { display: block; }
 
         @media (max-width: 600px) {
-            .container { padding: 24px 15px; }
-            .profile-title { font-size: 21px; }
-            .grade-btn, .subject-btn, .unit-btn { padding: 7px 12px; font-size: 13px; }
-            .link-card { padding: 13px 14px; }
-            .link-title { font-size: 15px; }
-            .copy-btn { padding: 6px 10px; font-size: 11px; }
-            .edit-mode-btn { width: 48px; height: 48px; font-size: 19px; bottom: 18px; right: 18px; }
-            .visitor-counter { flex-direction: column; gap: 8px; align-items: center; }
-            .form-row { flex-direction: column; }
-            .section-grade-title { font-size: 16px; padding: 11px 14px; }
-            .mgmt-actions { flex-wrap: wrap; }
+            .hero { padding: 18px 16px 64px; }
+            .profile-image { width: 52px; height: 52px; }
+            .hero-title { font-size: 19px; }
+            .hero-sub { font-size: 13px; }
+            .finder { padding: 14px; border-radius: 16px; position: static; }
+            .type-tab { padding: 9px 13px; font-size: 14px; }
+            .chip { padding: 6px 11px; font-size: 13px; }
+            .grid { grid-template-columns: 1fr; }
+            .form-row { flex-direction: column; gap: 0; }
+            .modal-content { padding: 20px; }
+            .link-item { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 프로필 -->
-        <div class="profile-section">
-            <div class="profile-icon">
-                <img src="gamtudy.png" alt="Gamtudy Ssam 프로필" class="profile-image">
-            </div>
-            <div class="profile-title">Gamtudy ssam의 교육용 프로그램</div>
-            <div class="profile-subtitle">
-                재미있게 게임으로 공부하고<br>
-                교실을 위해 똑똑하게 프로그램 활용하자<br>
-                각종 문의 및 버그제보 : ykk1050@gmail.com
+    <header class="hero">
+        <div class="hero-inner">
+            <img src="gamtudy.png" alt="Gamtudy ssam 프로필" class="profile-image">
+            <div>
+                <div class="hero-title">Gamtudy ssam의 교육용 프로그램</div>
+                <div class="hero-sub">재미있게 게임으로 공부하고, 교실을 위해 똑똑하게 프로그램 활용하자</div>
             </div>
         </div>
+    </header>
 
-        <!-- 방문자 카운터 -->
-        <div class="visitor-counter">
-            <div class="vc-item">👀 오늘 방문자 <strong id="visitToday">-</strong>명</div>
-            <div class="vc-item">🏆 누적 방문자 <strong id="visitTotal">-</strong>명</div>
-        </div>
-
-        <!-- 필터 섹션 -->
-        <div id="filterSection">
-            <div class="filter-group">
-                <div class="filter-row-label">학년 선택</div>
-                <div class="filter-row" id="gradeRow">
-                    <!-- JS로 생성 -->
-                </div>
+    <main class="wrap">
+        <!-- 검색·필터 -->
+        <section class="finder" aria-label="자료 찾기">
+            <div class="search-box" id="searchBox">
+                <span class="s-icon">🔍</span>
+                <input type="search" id="searchInput" placeholder="게임 이름이나 단원으로 찾기 (예: 분수, 구구단, 역사)" autocomplete="off">
+                <button class="s-clear" id="searchClear" aria-label="검색어 지우기">✕</button>
             </div>
+            <div class="type-tabs" id="typeTabs"></div>
+            <div class="chip-row" id="gradeRow"></div>
+            <div class="chip-row" id="subjectRow"></div>
+        </section>
 
-            <div class="filter-group" id="subjectGroup" style="display:none">
-                <div class="filter-row-label">과목 선택</div>
-                <div class="filter-row" id="subjectRow"></div>
-            </div>
+        <div class="result-bar" id="resultBar"></div>
+        <div id="linksContainer"></div>
 
-            <div class="filter-group" id="unitGroup" style="display:none">
-                <div class="filter-row-label">단원 선택</div>
-                <div class="filter-row" id="unitRow"></div>
-            </div>
-        </div>
-
-        <!-- 링크 목록 -->
-        <div class="links-section" id="linksContainer"></div>
-
-        <div class="footer">Made with ❤️ by Gamtudy ssam | 2026.11.13</div>
-    </div>
-
-    <button class="edit-mode-btn" onclick="openEditModal()" title="링크 관리">✏️</button>
+        <footer class="footer">
+            👀 오늘 방문자 <strong id="visitToday">-</strong>명 · 🏆 누적 방문자 <strong id="visitTotal">-</strong>명<br>
+            각종 문의 및 버그제보 : ykk1050@gmail.com<br>
+            Made with ❤️ by Gamtudy ssam | 2026.11.13 ·
+            <button class="admin-link" onclick="openEditModal()">관리</button>
+        </footer>
+    </main>
 
     <!-- ===== 링크 관리 모달 ===== -->
     <div class="modal" id="editModal">
@@ -518,29 +353,18 @@
                 <h2 class="modal-title">관리자 설정</h2>
                 <button class="close-btn" onclick="closeEditModal()">&times;</button>
             </div>
-
-            <!-- 탭 -->
             <div class="mgmt-actions">
                 <button class="btn-mgmt active-tab" id="tab-links" onclick="switchTab('links')">🔗 링크 관리</button>
                 <button class="btn-mgmt" id="tab-category" onclick="switchTab('category')">🏷️ 카테고리 표시 설정</button>
             </div>
-
-            <!-- 링크 관리 패널 -->
             <div class="mgmt-panel active" id="panel-links">
                 <div id="linksList"></div>
-                <button class="btn btn-primary" onclick="openAddLinkModal()" style="width:100%;margin-top:14px;">
-                    ➕ 새 링크 추가
-                </button>
+                <button class="btn btn-primary" onclick="openAddLinkModal()" style="width:100%;margin-top:14px;">➕ 새 링크 추가</button>
             </div>
-
-            <!-- 카테고리 표시 설정 패널 -->
             <div class="mgmt-panel" id="panel-category">
-                <!-- 학년 설정 -->
                 <div class="cat-section-title">📚 학년 표시 설정</div>
                 <p class="cat-hint">클릭하면 보임/숨김이 전환됩니다. 숨긴 학년은 방문자에게 보이지 않습니다.</p>
                 <div class="cat-toggle-row" id="gradeChips"></div>
-
-                <!-- 과목 설정 -->
                 <div class="cat-section-title">📖 과목 표시 설정 (학년별)</div>
                 <p class="cat-hint">학년을 선택한 후 숨길 과목을 설정하세요.</p>
                 <div class="cat-grade-selector" id="catGradePicker"></div>
@@ -560,18 +384,25 @@
             </div>
             <form id="linkForm">
                 <div class="form-group">
-                    <label class="form-label">유형</label>
+                    <label class="form-label">분류</label>
                     <div class="radio-group" id="typeRadioGroup">
                         <label class="radio-label selected" id="lbl-learning">
-                            <input type="radio" name="linkType" value="learning" checked>📚 학습 게임
+                            <input type="radio" name="linkType" value="learning" checked>📚 학습 자료
                         </label>
                         <label class="radio-label" id="lbl-management">
-                            <input type="radio" name="linkType" value="management">🏫 학급 경영
+                            <input type="radio" name="linkType" value="management">🏫 학급 경영·도구
                         </label>
                     </div>
                 </div>
                 <div id="learningFields">
                     <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">유형</label>
+                            <select class="form-select" id="linkKind">
+                                <option value="game">🎮 학습 게임</option>
+                                <option value="practice">✏️ 연습 웹앱·활동지</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label class="form-label">학년</label>
                             <select class="form-select" id="linkGrade">
@@ -584,6 +415,8 @@
                                 <option value="6">6학년</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">과목</label>
                             <select class="form-select" id="linkSubject">
@@ -631,10 +464,27 @@
                     <label class="form-label">URL</label>
                     <input type="url" class="form-input" id="linkUrl" required placeholder="https://...">
                 </div>
-                <div class="form-group">
-                    <label class="form-label">아이콘 (이모지)</label>
-                    <input type="text" class="form-input" id="linkIcon" required placeholder="예: 🎯">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">아이콘 (이모지)</label>
+                        <input type="text" class="form-input" id="linkIcon" required placeholder="예: 🎯">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">올린 날짜 <span class="form-hint">(최근 순서·NEW 표시)</span></label>
+                        <input type="date" class="form-input" id="linkDate">
+                    </div>
                 </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">묶음 이름 <span class="form-hint">(선택)</span></label>
+                        <input type="text" class="form-input" id="linkGroup" placeholder="예: 구구단 대장간">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">버전 이름 <span class="form-hint">(선택)</span></label>
+                        <input type="text" class="form-input" id="linkVariant" placeholder="예: 2편 · 전자칠판 4인">
+                    </div>
+                </div>
+                <p class="cat-hint">묶음 이름이 같은 링크는 카드 하나로 합쳐지고, 버전 이름이 버튼으로 표시됩니다. 카드 설명과 아이콘은 묶음의 첫 번째 링크 것을 씁니다.</p>
                 <input type="hidden" id="editIndex" value="">
                 <div class="btn-group">
                     <button type="button" class="btn btn-secondary" onclick="closeAddEditModal()">취소</button>
@@ -764,10 +614,20 @@
 
         const ADMIN_PASSWORD_ENCODED = "MTA1MDM1NjM=";
 
-        const SUBJECTS = ['국어','수학','영어','사회','과학','음악','미술','도덕','체육','실과'];
+        const SUBJECTS   = ['국어','수학','영어','사회','과학','음악','미술','도덕','체육','실과'];
+        const ALL_GRADES = ['1','2','3','4','5','6'];
+        const GRADE_LABEL = { '1':'1학년','2':'2학년','3':'3학년','4':'4학년','5':'5학년','6':'6학년','management':'🏫 학급 경영·도구' };
 
-        const ALL_GRADES  = ['1','2','3','4','5','6'];
-        const GRADE_LABEL = { '1':'1학년','2':'2학년','3':'3학년','4':'4학년','5':'5학년','6':'6학년','management':'🏫 학급 경영' };
+        const TYPES = [
+            { key: 'all',      label: '전체' },
+            { key: 'game',     label: '🎮 학습 게임' },
+            { key: 'practice', label: '✏️ 연습 웹앱·활동지' },
+            { key: 'tool',     label: '🏫 학급 경영·도구' }
+        ];
+        const TYPE_TAG = { game: '게임', practice: '연습 웹앱', tool: '도구' };
+
+        const NEW_DAYS = 45;      // 이 기간 안에 올린 자료에 NEW 표시
+        const RECENT_COUNT = 4;   // '새로 올라왔어요'에 보여줄 개수
 
         // 구 category → {grade,subject} 하위 호환
         const CATEGORY_MAP = {
@@ -780,76 +640,131 @@
         };
 
         const DEFAULT_LINKS = [
-            {"title": "수학몬 마스터 2", "description": "분수의 곱셈을 무한 연습하는 몬스터 수집 게임. 2026.10 두 번째 버전으로 업데이트(링크 동일).", "url": "https://ykk1050.github.io/yangume_mathmon_multiplication-of-fractions_sh_open/", "icon": "🎯", "category": "math-grade5"},
-            {"title": "Division Quest-메테오 피하기", "description": "나눗셈 문제를 풀며 운석을 피하는 액션 게임", "url": "https://ykk1050.github.io/mathmeteo/", "icon": "☄️", "category": "math-grade3"},
-            {"title": "스쿨몬", "description": "점수제와 캐릭터 진화 기반 학급 경영 시스템, 오프라인 기반", "url": "https://drive.google.com/drive/folders/1wFzxu5gihBmFWllus6EtjPVlbUOdOleD?usp=drive_link", "icon": "😼", "category": "management"},
-            {"title": "소수의 검: 수학 악마 전쟁", "description": "소수의 곱셈으로 마왕을 무찌르는 게임", "url": "https://ykk1050.github.io/multiplying-decimals/", "icon": "⚔️", "category": "math-grade5"},
-            {"title": "우주의 수호자", "description": "평균 관련 문장제 문제를 풀며 우주의 나쁜 로봇들과 싸우는 용사를 지원하는 게임. ", "url": "https://ykk1050.github.io/the-hero-robot-invasion/", "icon": "🤖", "category": "math-grade5"},
-            {"title": "라스트 노바: 인류의 마지막 빛", "description": "5학년 과학 전범위 내용을 우주 비행선 슈팅 게임 형식으로 되돌아보는 게임.(2015 교육과정)", "url": "https://ykk1050.github.io/science_fifth/", "icon": "🛸", "grade": "5", "subject": "과학"},
-            {"title": "계산왕 바리스타", "description": "５학년 자연수의 혼합계산 연산 연습을 위한 자율 학습형 카페 경영 게임", "url": "https://ykk1050.github.io/Mixed-calculations-cafe/", "icon": "☕", "category": "math-grade5"},
-            {"title": "구구단 대장간 : 검 강화하기", "description": "곱셈구구를 재미있게 익히기 위한 검 강화 게임 ", "url": "https://ykk1050.github.io/multiplication-table-game/", "icon": "⚒️", "category": "math-grade2"},
-            {"title": "무한 수학 던전 ", "description": "약수와 배수 개념을 활용한 카드 게임", "url": "https://ykk1050.github.io/Infinite-Math-Dungeon_Factors-_Multiples-Roguelike/", "icon": "🃏", "category": "math-grade5"},
-            {"title": "아누비스의 재판 : 진실의 저울", "description": "약분 연습형 학습게임. 플레이어는 이집트 죽음의 신 아누비스가 되어 제시된 분수를 약분하여 가장 간단한 형태로 만들어 저울의 균형을 맞추며 망자들을 재판한다.", "url": "https://ykk1050.github.io/judgement-of-anubis", "icon": "⚖️", "category": "math-grade5"},
-            {"title": "구구단 대장간 2 : 창 강화하기", "description": "곱셈구구를 익히기 위한 심화버전 게임. 단계별로 무작위로 나오는 곱셈구구 문제를 해결하며 창을 강화하는 방식으로 진행.", "url": "https://ykk1050.github.io/multiplication-table-game2", "icon": "🔨", "category": "math-grade2"},
-            {"title": "[전자칠판 4인용] 구구단 대장간 : 검 강화하기", "description": "곱셈구구를 익히기 위한 검 강화하기의 전자칠판용 4인 플레이 버전.", "url": "https://ykk1050.github.io/multiplication-table-game-multi", "icon": "⚒️", "category": "math-grade2"},
-            {"title": "[전자칠판용 4인용]구구단 대장간 2 : 창 강화하기", "description": "곱셈구구를 익히기 위한 창 강화하기의 전자칠판용 4인 플레이 버전.", "url": "https://ykk1050.github.io/multiplication-table-game2-multi", "icon": "🔨", "category": "math-grade2"},
-            {"title": "우주 피자 가게 경영", "description": "통분을 하며 피자 조각을 서빙하고 피자 가게를 경영하는 게임. ", "url": "https://ykk1050.github.io/Cosmic-Pizza-Serve-Slice-Master/", "icon": "🍕", "category": "math-grade5"},
-            {"title": "분수 고양이 게임", "description": "높은 단계의 고양이를 만들면서 자연스럽게 분수의 덧셈 뺄셈을 연습하게 되는 게임. ", "url": "https://ykk1050.github.io/Fraction-Cat-Evolution/", "icon": "😸", "category": "math-grade5"},
-            {"title": "아기 오리 구출 대작전", "description": "늑대를 피해가며 5학년 1학기 전 범위 사회 문제를 풀며 아기 오리를 구하는 대장 오리의 대모험.", "url": "https://ykk1050.github.io/Duckling-Rescue-Quest/", "icon": "🦆", "grade": "5", "subject": "사회", "unit": "11"},
-            {"title": "역사의 선택: 광복을 향하여", "description": "고조선부터 광복까지, 역사 속 선택의 순간을 미니게임으로 체험하며 한국사 흐름을 익히는 게임.", "url": "https://ykk1050.github.io/korean-history-master/", "icon": "🇰🇷", "grade": "5", "subject": "사회"},
-            {"title": "소리 콩콩 ASMR 학습 산책", "description": "선사시대~삼국시대 한국사 문제의 답을 한 글자씩 밟으면 발소리가 ASMR이 되는 복습 게임.", "url": "https://ykk1050.github.io/kongkongASMR/", "icon": "🎧", "grade": "5", "subject": "사회"},
-            {"title": "미스터리 역사 박물관", "description": "고려시대까지의 2학기 사회 내용을 박물관을 탐험하며 복습하는 게임. 무서운 장면을 끄는 순한 맛 모드 지원.", "url": "https://ykk1050.github.io/Mystery-History-Museum/", "icon": "🏛️", "grade": "5", "subject": "사회"},
-            {"title": "분수의 통분 무한 연습", "description": "최소공배수로 통분 10문제 + 두 분모의 곱으로 통분 10문제가 한 세트. 다시 풀기마다 새 문제가 나오고 '통분 마스터' 칭호를 딸 수 있는 웹앱.", "url": "https://yangume.my.canva.site/c92nhvhq7v4aew50", "icon": "🧮", "grade": "5", "subject": "수학"},
-            {"title": "약분 반복 연습 (칭호 버전)", "description": "기약분수로 약분하며 결과에 따라 칭호를 얻는 무한 연습 웹앱. 정답률이 누적 집계됩니다.", "url": "https://yangume.my.canva.site/bpjhcdhphqkx4yy1", "icon": "🏅", "grade": "5", "subject": "수학"},
-            {"title": "약분 반복 연습 (기본 버전)", "description": "게임 요소 없이 기약분수 약분 20문제씩 계속 푸는 웹앱. 다시 풀기를 누르면 새 문제가 자동 생성됩니다.", "url": "https://yangume.my.canva.site/bv67pch6h828rvf7", "icon": "✏️", "grade": "5", "subject": "수학"},
-            {"title": "시간 표현 익히기", "description": "[2단원 체험한 일을 글로 써요] 교과서의 시간 표현을 퀴즈로 풀며 5단계 칭호를 얻는 웹앱. 수업 후 활동·부진 학생 지도용.", "url": "https://yangume.my.canva.site/timelanguage", "icon": "⏰", "grade": "5", "subject": "국어", "unit": "2"},
-            {"title": "한글 뷰어 (HWP·HWPX)", "description": "광고 없이 한글 문서를 바로 여는 뷰어. 파일은 기기 안에서만 열려요. 홈 화면에 앱으로 설치 가능.", "url": "https://ykk1050.github.io/hwp-viewer/", "icon": "📄", "grade": "management", "category": "management"}
+            {"title": "수학몬 마스터 2", "description": "분수의 곱셈을 무한 연습하는 몬스터 수집 게임. 2026.10 두 번째 버전으로 업데이트(링크 동일).", "url": "https://ykk1050.github.io/yangume_mathmon_multiplication-of-fractions_sh_open/", "icon": "🎯", "category": "math-grade5", "type": "game", "addedAt": "2026-10-07"},
+            {"title": "Division Quest-메테오 피하기", "description": "나눗셈 문제를 풀며 운석을 피하는 액션 게임", "url": "https://ykk1050.github.io/mathmeteo/", "icon": "☄️", "category": "math-grade3", "type": "game", "addedAt": "2025-11-17"},
+            {"title": "스쿨몬", "description": "점수제와 캐릭터 진화 기반 학급 경영 시스템, 오프라인 기반", "url": "https://drive.google.com/drive/folders/1wFzxu5gihBmFWllus6EtjPVlbUOdOleD?usp=drive_link", "icon": "😼", "category": "management", "type": "tool", "addedAt": "2026-02-24"},
+            {"title": "소수의 검: 수학 악마 전쟁", "description": "소수의 곱셈으로 마왕을 무찌르는 게임", "url": "https://ykk1050.github.io/multiplying-decimals/", "icon": "⚔️", "category": "math-grade5", "type": "game", "addedAt": "2025-11-18"},
+            {"title": "우주의 수호자", "description": "평균 관련 문장제 문제를 풀며 우주의 나쁜 로봇들과 싸우는 용사를 지원하는 게임. ", "url": "https://ykk1050.github.io/the-hero-robot-invasion/", "icon": "🤖", "category": "math-grade5", "type": "game", "addedAt": "2025-12-06"},
+            {"title": "라스트 노바: 인류의 마지막 빛", "description": "5학년 과학 전범위 내용을 우주 비행선 슈팅 게임 형식으로 되돌아보는 게임.(2015 교육과정)", "url": "https://ykk1050.github.io/science_fifth/", "icon": "🛸", "grade": "5", "subject": "과학", "type": "game", "addedAt": "2026-01-23"},
+            {"title": "계산왕 바리스타", "description": "５학년 자연수의 혼합계산 연산 연습을 위한 자율 학습형 카페 경영 게임", "url": "https://ykk1050.github.io/Mixed-calculations-cafe/", "icon": "☕", "category": "math-grade5", "type": "game", "addedAt": "2026-04-01"},
+            {"title": "구구단 대장간 : 검 강화하기", "description": "곱셈구구를 문제로 풀며 검과 창을 강화하는 게임. 개인용과 전자칠판 4인 동시 플레이 버전이 있어요.", "url": "https://ykk1050.github.io/multiplication-table-game/", "icon": "⚒️", "category": "math-grade2", "type": "game", "addedAt": "2026-09-28", "group": "구구단 대장간", "variant": "1편 · 검 강화"},
+            {"title": "무한 수학 던전 ", "description": "약수와 배수 개념을 활용한 카드 게임", "url": "https://ykk1050.github.io/Infinite-Math-Dungeon_Factors-_Multiples-Roguelike/", "icon": "🃏", "category": "math-grade5", "type": "game", "addedAt": "2026-04-21"},
+            {"title": "아누비스의 재판 : 진실의 저울", "description": "약분 연습형 학습게임. 플레이어는 이집트 죽음의 신 아누비스가 되어 제시된 분수를 약분하여 가장 간단한 형태로 만들어 저울의 균형을 맞추며 망자들을 재판한다.", "url": "https://ykk1050.github.io/judgement-of-anubis", "icon": "⚖️", "category": "math-grade5", "type": "game", "addedAt": "2026-05-22"},
+            {"title": "구구단 대장간 2 : 창 강화하기", "description": "곱셈구구를 익히기 위한 심화버전 게임. 단계별로 무작위로 나오는 곱셈구구 문제를 해결하며 창을 강화하는 방식으로 진행.", "url": "https://ykk1050.github.io/multiplication-table-game2", "icon": "🔨", "category": "math-grade2", "type": "game", "addedAt": "2026-09-28", "group": "구구단 대장간", "variant": "2편 · 창 강화"},
+            {"title": "[전자칠판 4인용] 구구단 대장간 : 검 강화하기", "description": "곱셈구구를 익히기 위한 검 강화하기의 전자칠판용 4인 플레이 버전.", "url": "https://ykk1050.github.io/multiplication-table-game-multi", "icon": "⚒️", "category": "math-grade2", "type": "game", "addedAt": "2026-09-28", "group": "구구단 대장간", "variant": "1편 · 전자칠판 4인"},
+            {"title": "[전자칠판용 4인용]구구단 대장간 2 : 창 강화하기", "description": "곱셈구구를 익히기 위한 창 강화하기의 전자칠판용 4인 플레이 버전.", "url": "https://ykk1050.github.io/multiplication-table-game2-multi", "icon": "🔨", "category": "math-grade2", "type": "game", "addedAt": "2026-09-28", "group": "구구단 대장간", "variant": "2편 · 전자칠판 4인"},
+            {"title": "우주 피자 가게 경영", "description": "통분을 하며 피자 조각을 서빙하고 피자 가게를 경영하는 게임. ", "url": "https://ykk1050.github.io/Cosmic-Pizza-Serve-Slice-Master/", "icon": "🍕", "category": "math-grade5", "type": "game", "addedAt": "2026-05-29"},
+            {"title": "분수 고양이 게임", "description": "높은 단계의 고양이를 만들면서 자연스럽게 분수의 덧셈 뺄셈을 연습하게 되는 게임. ", "url": "https://ykk1050.github.io/Fraction-Cat-Evolution/", "icon": "😸", "category": "math-grade5", "type": "game", "addedAt": "2026-06-12"},
+            {"title": "아기 오리 구출 대작전", "description": "늑대를 피해가며 5학년 1학기 전 범위 사회 문제를 풀며 아기 오리를 구하는 대장 오리의 대모험.", "url": "https://ykk1050.github.io/Duckling-Rescue-Quest/", "icon": "🦆", "grade": "5", "subject": "사회", "unit": "11", "type": "game", "addedAt": "2026-07-13"},
+            {"title": "역사의 선택: 광복을 향하여", "description": "고조선부터 광복까지, 역사 속 선택의 순간을 미니게임으로 체험하며 한국사 흐름을 익히는 게임.", "url": "https://ykk1050.github.io/korean-history-master/", "icon": "🇰🇷", "grade": "5", "subject": "사회", "type": "game", "addedAt": "2026-01-02"},
+            {"title": "소리 콩콩 ASMR 학습 산책", "description": "선사시대~삼국시대 한국사 문제의 답을 한 글자씩 밟으면 발소리가 ASMR이 되는 복습 게임.", "url": "https://ykk1050.github.io/kongkongASMR/", "icon": "🎧", "grade": "5", "subject": "사회", "type": "game", "addedAt": "2026-09-29"},
+            {"title": "미스터리 역사 박물관", "description": "고려시대까지의 2학기 사회 내용을 박물관을 탐험하며 복습하는 게임. 무서운 장면을 끄는 순한 맛 모드 지원.", "url": "https://ykk1050.github.io/Mystery-History-Museum/", "icon": "🏛️", "grade": "5", "subject": "사회", "type": "game", "addedAt": "2026-11-04"},
+            {"title": "분수의 통분 무한 연습", "description": "최소공배수로 통분 10문제 + 두 분모의 곱으로 통분 10문제가 한 세트. 다시 풀기마다 새 문제가 나오고 '통분 마스터' 칭호를 딸 수 있는 웹앱.", "url": "https://yangume.my.canva.site/c92nhvhq7v4aew50", "icon": "🧮", "grade": "5", "subject": "수학", "type": "practice", "addedAt": "2026-05-20"},
+            {"title": "약분 반복 연습 (칭호 버전)", "description": "기약분수로 약분하는 무한 반복 연습 웹앱. 칭호를 얻는 버전과 20문제씩 계속 푸는 기본 버전이 있어요.", "url": "https://yangume.my.canva.site/bpjhcdhphqkx4yy1", "icon": "🏅", "grade": "5", "subject": "수학", "type": "practice", "addedAt": "2025-09-30", "group": "약분 반복 연습", "variant": "칭호 버전"},
+            {"title": "약분 반복 연습 (기본 버전)", "description": "게임 요소 없이 기약분수 약분 20문제씩 계속 푸는 웹앱. 다시 풀기를 누르면 새 문제가 자동 생성됩니다.", "url": "https://yangume.my.canva.site/bv67pch6h828rvf7", "icon": "✏️", "grade": "5", "subject": "수학", "type": "practice", "addedAt": "2025-09-30", "group": "약분 반복 연습", "variant": "기본 버전"},
+            {"title": "시간 표현 익히기", "description": "[2단원 체험한 일을 글로 써요] 교과서의 시간 표현을 퀴즈로 풀며 5단계 칭호를 얻는 웹앱. 수업 후 활동·부진 학생 지도용.", "url": "https://yangume.my.canva.site/timelanguage", "icon": "⏰", "grade": "5", "subject": "국어", "unit": "2", "type": "practice", "addedAt": "2026-04-28"},
+            {"title": "한글 뷰어 (HWP·HWPX)", "description": "광고 없이 한글 문서를 바로 여는 뷰어. 파일은 기기 안에서만 열려요. 홈 화면에 앱으로 설치 가능.", "url": "https://ykk1050.github.io/hwp-viewer/", "icon": "📄", "grade": "management", "category": "management", "type": "tool", "addedAt": "2026-10-30"}
         ];
 
+        const DEFAULT_HIDDEN = {"grades": ["1", "4", "6"], "subjects": {"2": ["국어", "미술", "도덕", "체육", "영어", "사회", "실과", "과학", "음악"], "3": ["국어", "미술", "도덕", "체육", "영어", "사회", "실과", "음악", "과학"], "5": ["미술", "도덕", "체육", "영어", "실과", "음악"]}};
+
         let links = [];
-        // hiddenCategories: { grades: ['1','2',...], subjects: { '3': ['수학','과학'], ... } }
         let hiddenCategories = { grades: [], subjects: {} };
 
-        let selGrade   = 'all';
-        let selSubject = null;
-        let selUnit    = null;
+        // 화면 상태 (주소 #해시에 저장)
+        const state = { type: 'all', grade: null, subject: null, q: '' };
 
-        let catPickedGrade = null; // 카테고리 설정 패널에서 선택된 학년
+        let catPickedGrade = null;
 
         // ==========================================
         // 링크 메타
         // ==========================================
         function getMeta(lk) {
-            if (lk.grade !== undefined) {
+            if (lk.grade !== undefined && lk.grade !== null) {
                 return { grade: lk.grade || null, subject: lk.subject || null, unit: lk.unit || null };
             }
             const m = CATEGORY_MAP[lk.category] || {};
-            return { grade: m.grade || null, subject: m.subject || null, unit: null };
+            return { grade: m.grade || null, subject: m.subject || null, unit: lk.unit || null };
         }
 
-        function getCardClass(lk) {
-            const m = getMeta(lk);
-            if (m.grade === 'management') return 'gm';
-            if (m.grade) return 'g' + m.grade;
-            return '';
+        function getType(lk) {
+            if (getMeta(lk).grade === 'management') return 'tool';
+            if (lk.type === 'practice' || lk.type === 'game') return lk.type;
+            return /canva\.site/.test(lk.url || '') ? 'practice' : 'game';
         }
 
-        // 카테고리 숨김 여부
-        function isGradeHidden(grade) {
-            return hiddenCategories.grades.includes(grade);
-        }
-
+        function isGradeHidden(grade) { return hiddenCategories.grades.includes(grade); }
         function isSubjectHidden(grade, subject) {
             const arr = hiddenCategories.subjects[grade];
             return Array.isArray(arr) && arr.includes(subject);
         }
-
-        // 방문자가 볼 수 있는 링크인지
         function isVisible(lk) {
             if (lk.hidden === true) return false;
             const m = getMeta(lk);
             if (m.grade && isGradeHidden(m.grade)) return false;
             if (m.grade && m.subject && isSubjectHidden(m.grade, m.subject)) return false;
+            return true;
+        }
+
+        function esc(s) {
+            return String(s == null ? '' : s).replace(/[&<>"']/g, c =>
+                ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+        }
+
+        function isNew(dateStr) {
+            if (!dateStr) return false;
+            const t = Date.parse(dateStr);
+            if (isNaN(t)) return false;
+            return (Date.now() - t) / 86400000 <= NEW_DAYS;
+        }
+
+        // ==========================================
+        // 카드 단위로 묶기 (같은 group → 카드 1장)
+        // ==========================================
+        function buildItems() {
+            const items = [];
+            const byGroup = {};
+            links.forEach(lk => {
+                if (!isVisible(lk)) return;
+                const g = (lk.group || '').trim();
+                if (g) {
+                    if (!byGroup[g]) {
+                        byGroup[g] = { group: g, members: [] };
+                        items.push(byGroup[g]);
+                    }
+                    byGroup[g].members.push(lk);
+                } else {
+                    items.push({ group: null, members: [lk] });
+                }
+            });
+            items.forEach(it => {
+                const first = it.members[0];
+                const m = getMeta(first);
+                it.title = it.group || first.title;
+                it.description = first.description;
+                it.icon = first.icon;
+                it.url = first.url;
+                it.grade = m.grade;
+                it.subject = m.subject;
+                it.unit = m.unit;
+                it.type = getType(first);
+                it.addedAt = it.members.map(x => x.addedAt || '').sort().pop() || '';
+                it.search = it.members.map(x => [x.title, x.description, x.variant].join(' ')).join(' ')
+                    + ' ' + it.title + ' ' + (m.subject || '') + ' ' + (GRADE_LABEL[m.grade] || '')
+                    + ' ' + (TYPE_TAG[it.type] || '');
+                it.search = it.search.toLowerCase();
+            });
+            return items;
+        }
+
+        function matches(it, s, skip) {
+            if (s.q) {
+                const words = s.q.toLowerCase().split(/\s+/).filter(Boolean);
+                if (!words.every(w => it.search.includes(w))) return false;
+            }
+            if (skip !== 'type' && s.type !== 'all' && it.type !== s.type) return false;
+            if (skip !== 'grade' && s.grade && it.grade !== s.grade) return false;
+            if (skip !== 'subject' && s.subject && it.subject !== s.subject) return false;
             return true;
         }
 
@@ -912,11 +827,13 @@
         // 방문자
         // ==========================================
         function shouldCountVisit() {
-            const today = new Date().toISOString().slice(0, 10);
-            if (localStorage.getItem('visitDate') !== today) {
-                localStorage.setItem('visitDate', today);
-                return true;
-            }
+            try {
+                const today = new Date().toISOString().slice(0, 10);
+                if (localStorage.getItem('visitDate') !== today) {
+                    localStorage.setItem('visitDate', today);
+                    return true;
+                }
+            } catch(e) {}
             return false;
         }
 
@@ -947,10 +864,11 @@
         }
 
         function loadFromLocal() {
-            const raw = localStorage.getItem('teacherData');
+            let raw = null;
+            try { raw = localStorage.getItem('teacherData'); } catch(e) {}
             const stored = parseStored(raw);
             links = stored.links.length ? stored.links : JSON.parse(JSON.stringify(DEFAULT_LINKS));
-            hiddenCategories = stored.hiddenCategories;
+            hiddenCategories = stored.links.length ? stored.hiddenCategories : JSON.parse(JSON.stringify(DEFAULT_HIDDEN));
         }
 
         async function loadLinks() {
@@ -963,269 +881,274 @@
                 if (!Array.isArray(remote)) throw new Error('형식 오류');
                 links = remote;
                 hiddenCategories = data.hiddenCategories || { grades: [], subjects: {} };
-                localStorage.setItem('teacherData', getPayload());
+                try { localStorage.setItem('teacherData', getPayload()); } catch(e) {}
                 if (data.visitToday != null) setVisitorUI(data.visitToday, data.visitTotal);
             } catch(e) {
                 console.error('원격 로드 실패, 로컬 사용:', e);
                 loadFromLocal();
             }
+            if (!hiddenCategories.grades) hiddenCategories.grades = [];
+            if (!hiddenCategories.subjects) hiddenCategories.subjects = {};
         }
 
         async function saveAll() {
-            localStorage.setItem('teacherData', getPayload());
+            try { localStorage.setItem('teacherData', getPayload()); } catch(e) {}
             if (!CAN_SAVE_TO_SHEET) return;
             try { await postViaForm(); } catch(e) { console.error('원격 저장 실패:', e); }
         }
 
         // ==========================================
+        // 주소 해시 ↔ 상태
+        // ==========================================
+        function readHash() {
+            const p = new URLSearchParams(location.hash.slice(1));
+            state.type    = TYPES.some(t => t.key === p.get('type')) ? p.get('type') : 'all';
+            state.grade   = p.get('grade') || null;
+            state.subject = p.get('subject') || null;
+            state.q       = p.get('q') || '';
+        }
+
+        function writeHash() {
+            const p = new URLSearchParams();
+            if (state.type !== 'all') p.set('type', state.type);
+            if (state.grade)   p.set('grade', state.grade);
+            if (state.subject) p.set('subject', state.subject);
+            if (state.q)       p.set('q', state.q);
+            const h = p.toString();
+            history.replaceState(null, '', h ? '#' + h : location.pathname + location.search);
+        }
+
+        // ==========================================
         // 필터 UI
         // ==========================================
-        function buildGradeButtons() {
-            const row = document.getElementById('gradeRow');
-            row.innerHTML = '';
+        let ITEMS = [];
 
-            // 전체 버튼
-            const allBtn = document.createElement('button');
-            allBtn.className = 'grade-btn all-btn' + (selGrade === 'all' ? ' active' : '');
-            allBtn.dataset.grade = 'all';
-            allBtn.textContent = '전체';
-            allBtn.onclick = () => selectGrade('all');
-            row.appendChild(allBtn);
-
-            // 학년 버튼 (숨겨진 학년 제외)
-            ALL_GRADES.forEach(g => {
-                if (isGradeHidden(g)) return;
-                const btn = document.createElement('button');
-                btn.className = 'grade-btn' + (selGrade === g ? ' active' : '');
-                btn.dataset.grade = g;
-                btn.textContent = g + '학년';
-                btn.onclick = () => selectGrade(g);
-                row.appendChild(btn);
-            });
-
-            // 학급 경영 (숨겨진 경우 제외)
-            if (!isGradeHidden('management')) {
-                const mgmtBtn = document.createElement('button');
-                mgmtBtn.className = 'grade-btn mgmt-btn' + (selGrade === 'management' ? ' active' : '');
-                mgmtBtn.dataset.grade = 'management';
-                mgmtBtn.textContent = '🏫 학급 경영';
-                mgmtBtn.onclick = () => selectGrade('management');
-                row.appendChild(mgmtBtn);
-            }
+        function setState(patch) {
+            Object.assign(state, patch);
+            if (state.type === 'tool') { state.grade = null; state.subject = null; }
+            writeHash();
+            render();
         }
 
-        function selectGrade(grade) {
-            selGrade   = grade;
-            selSubject = null;
-            selUnit    = null;
+        function renderFilters() {
+            // 유형 탭
+            const tabs = document.getElementById('typeTabs');
+            tabs.innerHTML = '';
+            TYPES.forEach(t => {
+                const s = t.key === 'tool' ? { ...state, type: t.key, grade: null, subject: null } : { ...state, type: t.key };
+                const n = ITEMS.filter(it => matches(it, s, null)).length;
+                const b = document.createElement('button');
+                b.className = 'type-tab' + (state.type === t.key ? ' active' : '');
+                b.innerHTML = esc(t.label) + `<span class="cnt">${n}</span>`;
+                b.onclick = () => setState({ type: t.key });
+                tabs.appendChild(b);
+            });
 
-            buildGradeButtons();
+            const gradeRow = document.getElementById('gradeRow');
+            const subjectRow = document.getElementById('subjectRow');
+            gradeRow.innerHTML = '';
+            subjectRow.innerHTML = '';
+            if (state.type === 'tool') {
+                gradeRow.style.display = 'none';
+                subjectRow.style.display = 'none';
+                return;
+            }
+            gradeRow.style.display = '';
 
-            const sg = document.getElementById('subjectGroup');
-            const ug = document.getElementById('unitGroup');
+            // 학년 칩: 자료가 있는 학년만
+            const gradeCounts = {};
+            ITEMS.filter(it => it.grade !== 'management' && matches(it, state, 'grade'))
+                 .forEach(it => { if (it.grade) gradeCounts[it.grade] = (gradeCounts[it.grade] || 0) + 1; });
+            addChipLabel(gradeRow, '학년');
+            addChip(gradeRow, '전체', null, !state.grade, () => setState({ grade: null, subject: null }));
+            ALL_GRADES.filter(g => gradeCounts[g] || state.grade === g).forEach(g =>
+                addChip(gradeRow, g + '학년', gradeCounts[g] || 0, state.grade === g,
+                    () => setState({ grade: state.grade === g ? null : g, subject: null })));
 
-            if (selGrade && selGrade !== 'all' && selGrade !== 'management') {
-                sg.style.display = '';
-                buildSubjectButtons();
+            // 과목 칩: 자료가 있는 과목만
+            const subCounts = {};
+            ITEMS.filter(it => it.grade !== 'management' && matches(it, state, 'subject'))
+                 .forEach(it => { if (it.subject) subCounts[it.subject] = (subCounts[it.subject] || 0) + 1; });
+            const subs = SUBJECTS.filter(s => subCounts[s] || state.subject === s);
+            if (subs.length < 2 && !state.subject) { subjectRow.style.display = 'none'; return; }
+            subjectRow.style.display = '';
+            addChipLabel(subjectRow, '과목');
+            addChip(subjectRow, '전체', null, !state.subject, () => setState({ subject: null }));
+            subs.forEach(s =>
+                addChip(subjectRow, s, subCounts[s] || 0, state.subject === s,
+                    () => setState({ subject: state.subject === s ? null : s })));
+        }
+
+        function addChipLabel(row, text) {
+            const l = document.createElement('span');
+            l.className = 'chip-label';
+            l.textContent = text;
+            row.appendChild(l);
+        }
+
+        function addChip(row, text, count, active, onclick) {
+            const b = document.createElement('button');
+            b.className = 'chip' + (active ? ' active' : '');
+            b.innerHTML = esc(text) + (count != null ? `<span class="cnt">${count}</span>` : '');
+            b.onclick = onclick;
+            row.appendChild(b);
+        }
+
+        // ==========================================
+        // 카드
+        // ==========================================
+        function makeCard(it) {
+            const card = document.createElement('div');
+            card.className = 'card ' + (it.grade === 'management' ? 'gm' : (it.grade ? 'g' + it.grade : ''));
+
+            const tags = [];
+            if (it.grade && it.grade !== 'management') tags.push(`<span class="tag">${it.grade}학년</span>`);
+            if (it.subject) tags.push(`<span class="tag">${esc(it.subject)}</span>`);
+            if (it.unit) tags.push(`<span class="tag">${it.unit === '11' ? '전범위' : esc(it.unit) + '단원'}</span>`);
+            tags.push(`<span class="tag t-${it.type}">${TYPE_TAG[it.type]}</span>`);
+            if (it.members.length > 1) tags.push(`<span class="tag">버전 ${it.members.length}개</span>`);
+
+            const main =
+                `<a class="card-main" href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">` +
+                  `<div class="card-icon">${esc(it.icon)}</div>` +
+                  `<div class="card-body">` +
+                    `<div class="card-title">${esc(it.title)}${isNew(it.addedAt) ? '<span class="badge-new">NEW</span>' : ''}</div>` +
+                    `<div class="card-desc">${esc(it.description)}</div>` +
+                    `<div class="tags">${tags.join('')}</div>` +
+                  `</div>` +
+                `</a>`;
+
+            let foot;
+            if (it.members.length > 1) {
+                foot = `<div class="variants">` + it.members.map(m =>
+                    `<div class="variant">` +
+                      `<a class="btn-open" href="${esc(m.url)}" target="_blank" rel="noopener noreferrer">${esc(m.variant || m.title)} →</a>` +
+                      `<button class="btn-copy" data-url="${esc(m.url)}" title="링크 복사">📋</button>` +
+                    `</div>`).join('') + `</div>`;
             } else {
-                sg.style.display = 'none';
-                ug.style.display = 'none';
+                foot =
+                    `<div class="card-foot">` +
+                      `<a class="btn-open" href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">열기 →</a>` +
+                      `<button class="btn-copy" data-url="${esc(it.url)}">📋 링크 복사</button>` +
+                    `</div>`;
             }
-
-            renderLinks();
+            card.innerHTML = main + foot;
+            card.querySelectorAll('.btn-copy').forEach(b =>
+                b.addEventListener('click', e => copyLink(e, b.dataset.url, b)));
+            return card;
         }
 
-        function selectSubject(subject) {
-            selSubject = (selSubject === subject) ? null : subject;
-            selUnit    = null;
-
-            document.querySelectorAll('.subject-btn').forEach(b =>
-                b.classList.toggle('active', b.dataset.subject === selSubject));
-
-            const ug = document.getElementById('unitGroup');
-            if (selSubject) { ug.style.display = ''; buildUnitButtons(); }
-            else ug.style.display = 'none';
-
-            renderLinks();
-        }
-
-        function selectUnit(unit) {
-            selUnit = (selUnit === unit) ? null : unit;
-            document.querySelectorAll('.unit-btn').forEach(b =>
-                b.classList.toggle('active', b.dataset.unit === selUnit));
-            renderLinks();
-        }
-
-        function hasContent(grade, subject, unit) {
-            return links.some(lk => {
-                if (!isVisible(lk)) return false;
-                const m = getMeta(lk);
-                if (m.grade !== grade) return false;
-                if (subject && m.subject !== subject) return false;
-                if (unit    && m.unit    !== unit)    return false;
-                return true;
-            });
-        }
-
-        function buildSubjectButtons() {
-            const row = document.getElementById('subjectRow');
-            row.innerHTML = '';
-            SUBJECTS.forEach(sub => {
-                if (isSubjectHidden(selGrade, sub)) return; // 숨긴 과목 제외
-                const btn = document.createElement('button');
-                btn.className = 'subject-btn' + (selSubject === sub ? ' active' : '') +
-                    (hasContent(selGrade, sub, null) ? '' : ' no-content-hint');
-                btn.dataset.subject = sub;
-                btn.textContent = sub;
-                btn.onclick = () => selectSubject(sub);
-                row.appendChild(btn);
-            });
-        }
-
-        function buildUnitButtons() {
-            const row = document.getElementById('unitRow');
-            row.innerHTML = '';
-            for (let i = 1; i <= 10; i++) {
-                const u = String(i);
-                const btn = document.createElement('button');
-                btn.className = 'unit-btn' + (selUnit === u ? ' active' : '') +
-                    (hasContent(selGrade, selSubject, u) ? '' : ' no-content-hint');
-                btn.dataset.unit = u;
-                btn.textContent = i + '단원';
-                btn.onclick = () => selectUnit(u);
-                row.appendChild(btn);
+        function makeSection(title, items, opts = {}) {
+            const sec = document.createElement('section');
+            sec.className = 'section';
+            const h = document.createElement('h2');
+            h.className = 'section-title';
+            h.innerHTML = esc(title) + (opts.hideCount ? '' : `<span class="cnt">${items.length}</span>`);
+            sec.appendChild(h);
+            if (opts.bySubject) {
+                const subMap = {};
+                items.forEach(it => { const s = it.subject || '기타'; (subMap[s] = subMap[s] || []).push(it); });
+                const order = [...SUBJECTS, '기타'].filter(s => subMap[s]);
+                if (order.length === 1) {
+                    sec.appendChild(makeGrid(items));
+                } else {
+                    order.forEach(s => {
+                        const st = document.createElement('div');
+                        st.className = 'sub-title';
+                        st.textContent = s + ' (' + subMap[s].length + ')';
+                        sec.appendChild(st);
+                        sec.appendChild(makeGrid(subMap[s]));
+                    });
+                }
+            } else {
+                sec.appendChild(makeGrid(items));
             }
+            return sec;
         }
 
-        // ==========================================
-        // 링크 렌더링
-        // ==========================================
-        function makeCard(lk) {
-            const meta = getMeta(lk);
-            let tag = '';
-            if (meta.grade && meta.grade !== 'management') tag += meta.grade + '학년';
-            if (meta.subject) tag += (tag ? ' · ' : '') + meta.subject;
-            if (meta.unit)    tag += ' · ' + meta.unit + '단원';
-
-            const a = document.createElement('a');
-            a.className = 'link-card ' + getCardClass(lk);
-            a.href = lk.url;
-            a.target = '_blank';
-            a.rel = 'noopener noreferrer';
-
-            const safeUrl = lk.url.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-            a.innerHTML =
-                `<div class="link-icon">${lk.icon}</div>` +
-                `<div class="link-content">` +
-                  `<div class="link-title">${lk.title}</div>` +
-                  `<div class="link-description">${lk.description}</div>` +
-                  (tag ? `<span class="link-meta-tag">${tag}</span>` : '') +
-                `</div>` +
-                `<div class="link-actions">` +
-                  `<button class="copy-btn" onclick="copyLink(event,'${safeUrl}',this)">📋 링크 복사</button>` +
-                  `<div class="link-arrow">→</div>` +
-                `</div>`;
-            return a;
-        }
-
-        function makeHeader(cls, text) {
-            const d = document.createElement('div');
-            d.className = cls;
-            d.textContent = text;
-            return d;
-        }
-
-        function makeGroup(cards) {
+        function makeGrid(items) {
             const g = document.createElement('div');
-            g.className = 'link-group';
-            cards.forEach(c => g.appendChild(c));
+            g.className = 'grid';
+            items.forEach(it => g.appendChild(makeCard(it)));
             return g;
         }
 
-        function appendByUnit(container, subLinks) {
-            const unitMap = {};
-            const noUnit  = [];
-            subLinks.forEach(lk => {
-                const u = getMeta(lk).unit;
-                if (u) { (unitMap[u] = unitMap[u] || []).push(lk); }
-                else   { noUnit.push(lk); }
-            });
-            if (noUnit.length) container.appendChild(makeGroup(noUnit.map(makeCard)));
-            Object.keys(unitMap).sort((a,b) => Number(a)-Number(b)).forEach(u => {
-                container.appendChild(makeHeader('section-unit-title', u + '단원'));
-                container.appendChild(makeGroup(unitMap[u].map(makeCard)));
-            });
-        }
+        const byDateDesc = (a, b) => (b.addedAt || '').localeCompare(a.addedAt || '');
 
-        function appendBySubject(container, gradeLinks) {
-            const subMap = {};
-            const noSub  = [];
-            gradeLinks.forEach(lk => {
-                const s = getMeta(lk).subject;
-                if (s) { (subMap[s] = subMap[s] || []).push(lk); }
-                else   { noSub.push(lk); }
-            });
-            if (noSub.length) container.appendChild(makeGroup(noSub.map(makeCard)));
-            const ordered = SUBJECTS.filter(s => subMap[s]);
-            const others  = Object.keys(subMap).filter(s => !SUBJECTS.includes(s));
-            [...ordered, ...others].forEach(sub => {
-                container.appendChild(makeHeader('section-subject-title', sub));
-                appendByUnit(container, subMap[sub]);
-            });
-        }
+        function render() {
+            ITEMS = buildItems();
+            renderFilters();
 
-        function renderAll(container) {
-            const gradeOrder = [...ALL_GRADES, 'management'];
-            let any = false;
-            gradeOrder.forEach(g => {
-                if (isGradeHidden(g)) return;
-                const gl = links.filter(lk => isVisible(lk) && getMeta(lk).grade === g);
-                if (!gl.length) return;
-                any = true;
-                container.appendChild(makeHeader(
-                    'section-grade-title' + (g === 'management' ? ' gm' : ''),
-                    GRADE_LABEL[g] || g
-                ));
-                if (g === 'management') container.appendChild(makeGroup(gl.map(makeCard)));
-                else appendBySubject(container, gl);
-            });
-            if (!any) container.innerHTML = '<p class="empty-state">😅 아직 등록된 콘텐츠가 없습니다</p>';
-        }
+            const box = document.getElementById('searchBox');
+            const input = document.getElementById('searchInput');
+            if (input.value !== state.q) input.value = state.q;
+            box.classList.toggle('has-text', !!state.q);
 
-        function renderGrade(container) {
-            const base = links.filter(lk => {
-                if (!isVisible(lk)) return false;
-                const m = getMeta(lk);
-                if (m.grade !== selGrade) return false;
-                if (selSubject && m.subject !== selSubject) return false;
-                if (selUnit    && m.unit    !== selUnit)    return false;
-                return true;
-            });
-            if (!base.length) {
-                container.innerHTML = '<p class="empty-state">😅 아직 등록된 콘텐츠가 없습니다</p>';
-                return;
-            }
-            if (selSubject && selUnit) container.appendChild(makeGroup(base.map(makeCard)));
-            else if (selSubject)       appendByUnit(container, base);
-            else                       appendBySubject(container, base);
-        }
-
-        function renderManagement(container) {
-            const base = links.filter(lk => isVisible(lk) && getMeta(lk).grade === 'management');
-            if (!base.length) {
-                container.innerHTML = '<p class="empty-state">😅 아직 등록된 콘텐츠가 없습니다</p>';
-                return;
-            }
-            container.appendChild(makeGroup(base.map(makeCard)));
-        }
-
-        function renderLinks() {
             const container = document.getElementById('linksContainer');
+            const bar = document.getElementById('resultBar');
             container.innerHTML = '';
-            if (selGrade === 'all')             renderAll(container);
-            else if (selGrade === 'management') renderManagement(container);
-            else if (selGrade)                  renderGrade(container);
+
+            const list = ITEMS.filter(it => matches(it, state, null)).sort(byDateDesc);
+            const filtered = state.q || state.type !== 'all' || state.grade || state.subject;
+
+            bar.innerHTML = filtered
+                ? `<span>자료 <strong>${list.length}</strong>개</span><button class="reset-btn" onclick="resetFilters()">↺ 처음으로</button>`
+                : `<span>전체 자료 <strong>${list.length}</strong>개 · 최근 올린 순</span>`;
+
+            if (!list.length) {
+                container.innerHTML =
+                    `<p class="empty-state">😅 조건에 맞는 자료가 없어요.<br>` +
+                    `<button class="reset-btn" onclick="resetFilters()">필터 모두 지우기</button></p>`;
+                return;
+            }
+
+            // 검색 중이면 한 번에 보여주기
+            if (state.q) {
+                container.appendChild(makeGrid(list));
+                return;
+            }
+
+            // 처음 화면: 새로 올라온 자료 + 학년별
+            if (!filtered) {
+                const recent = list.filter(it => it.addedAt).slice(0, RECENT_COUNT);
+                if (recent.length) container.appendChild(makeSection('🆕 새로 올라왔어요', recent, { hideCount: true }));
+            }
+
+            const groups = {};
+            list.forEach(it => { const g = it.grade || 'etc'; (groups[g] = groups[g] || []).push(it); });
+            const order = [...ALL_GRADES, 'management', 'etc'].filter(g => groups[g]);
+            if (order.length === 1 && state.grade) {
+                container.appendChild(makeSection(GRADE_LABEL[state.grade] || '자료', groups[order[0]], { bySubject: true }));
+                return;
+            }
+            order.forEach(g => {
+                const label = g === 'etc' ? '기타' : (g === 'management' ? GRADE_LABEL[g] : '📘 ' + GRADE_LABEL[g]);
+                container.appendChild(makeSection(label, groups[g], { bySubject: g !== 'management' && !state.subject }));
+            });
         }
+
+        function resetFilters() {
+            setState({ type: 'all', grade: null, subject: null, q: '' });
+        }
+
+        function renderLinks() { render(); }
+
+        // 검색 입력
+        (function wireSearch() {
+            const input = document.getElementById('searchInput');
+            let t = null;
+            input.addEventListener('input', () => {
+                clearTimeout(t);
+                t = setTimeout(() => setState({ q: input.value.trim() }), 150);
+            });
+            document.getElementById('searchClear').addEventListener('click', () => {
+                input.value = '';
+                setState({ q: '' });
+                input.focus();
+            });
+        })();
+
+        window.addEventListener('hashchange', () => { readHash(); render(); });
 
         // ==========================================
         // 관리 모달 탭
@@ -1293,9 +1216,7 @@
             else hiddenCategories.grades.splice(idx, 1);
             await saveAll();
             buildCategoryPanel();
-            buildGradeButtons();
-            renderLinks();
-            if (selGrade && selGrade !== 'all' && selGrade !== 'management') buildSubjectButtons();
+            render();
         }
 
         async function toggleSubjectVisibility(grade, subject) {
@@ -1306,8 +1227,7 @@
             else arr.splice(idx, 1);
             await saveAll();
             buildCategoryPanel();
-            if (selGrade === grade) buildSubjectButtons();
-            renderLinks();
+            render();
         }
 
         // ==========================================
@@ -1338,22 +1258,25 @@
             }
             links.forEach((lk, idx) => {
                 const m = getMeta(lk);
-                let metaTxt = '';
-                if (m.grade === 'management') metaTxt = '🏫 학급 경영';
+                const parts = [];
+                if (m.grade === 'management') parts.push('🏫 학급 경영·도구');
                 else {
-                    if (m.grade)   metaTxt += m.grade + '학년';
-                    if (m.subject) metaTxt += (metaTxt ? ' · ' : '') + m.subject;
-                    if (m.unit)    metaTxt += ' · ' + m.unit + '단원';
+                    if (m.grade)   parts.push(m.grade + '학년');
+                    if (m.subject) parts.push(m.subject);
+                    if (m.unit)    parts.push(m.unit === '11' ? '전범위' : m.unit + '단원');
+                    parts.push(TYPE_TAG[getType(lk)]);
                 }
+                if (lk.group)   parts.push('묶음: ' + lk.group + (lk.variant ? ' / ' + lk.variant : ''));
+                if (lk.addedAt) parts.push(lk.addedAt);
                 const hidden = lk.hidden === true;
                 const item = document.createElement('div');
                 item.className = 'link-item';
                 item.style.opacity = hidden ? '0.55' : '1';
                 item.innerHTML =
                     `<div class="link-item-info">` +
-                      `<div class="link-item-title">${lk.icon} ${lk.title}${hidden ? '<span class="hidden-badge">숨김</span>' : ''}</div>` +
-                      `<div class="link-item-meta">${metaTxt}</div>` +
-                      `<div class="link-item-url">${lk.url}</div>` +
+                      `<div class="link-item-title">${esc(lk.icon)} ${esc(lk.title)}${hidden ? '<span class="hidden-badge">숨김</span>' : ''}</div>` +
+                      `<div class="link-item-meta">${esc(parts.join(' · '))}</div>` +
+                      `<div class="link-item-url">${esc(lk.url)}</div>` +
                     `</div>` +
                     `<div class="link-item-actions">` +
                       `<button class="btn-sm ${hidden ? 'btn-show' : 'btn-hide'}" onclick="toggleHidden(${idx})">${hidden ? '👁️ 보이기' : '🙈 숨기기'}</button>` +
@@ -1368,17 +1291,14 @@
             links[idx].hidden = !(links[idx].hidden === true);
             await saveAll();
             renderMgmtList();
-            renderLinks();
-            if (selGrade && selGrade !== 'all' && selGrade !== 'management') {
-                buildSubjectButtons();
-                if (selSubject) buildUnitButtons();
-            }
+            render();
         }
 
         function openAddLinkModal() {
             document.getElementById('formTitle').textContent = '새 링크 추가';
             document.getElementById('linkForm').reset();
             document.getElementById('editIndex').value = '';
+            document.getElementById('linkDate').value = new Date().toISOString().slice(0, 10);
             setRadio('learning');
             document.getElementById('addEditModal').classList.add('active');
         }
@@ -1400,16 +1320,21 @@
             const lk = links[idx];
             const m  = getMeta(lk);
             document.getElementById('formTitle').textContent = '링크 수정';
+            document.getElementById('linkForm').reset();
             document.getElementById('linkTitle').value       = lk.title;
             document.getElementById('linkDescription').value = lk.description;
             document.getElementById('linkUrl').value         = lk.url;
             document.getElementById('linkIcon').value        = lk.icon;
+            document.getElementById('linkDate').value        = lk.addedAt || '';
+            document.getElementById('linkGroup').value       = lk.group || '';
+            document.getElementById('linkVariant').value     = lk.variant || '';
             document.getElementById('editIndex').value       = idx;
 
             if (m.grade === 'management') {
                 setRadio('management');
             } else {
                 setRadio('learning');
+                document.getElementById('linkKind').value    = getType(lk) === 'practice' ? 'practice' : 'game';
                 document.getElementById('linkGrade').value   = m.grade   || '';
                 document.getElementById('linkSubject').value = m.subject || '';
                 document.getElementById('linkUnit').value    = m.unit    || '';
@@ -1423,7 +1348,7 @@
             if (!confirm('정말로 삭제하시겠습니까?')) return;
             links.splice(idx, 1);
             await saveAll();
-            renderLinks();
+            render();
             renderMgmtList();
         }
 
@@ -1432,16 +1357,21 @@
             const isMgmt = document.querySelector('input[name="linkType"]:checked')?.value === 'management';
             const idx = document.getElementById('editIndex').value;
             const wasHidden = idx !== '' ? (links[idx]?.hidden === true) : false;
+            const val = id => document.getElementById(id).value.trim();
 
             const newLk = {
-                title:       document.getElementById('linkTitle').value.trim(),
-                description: document.getElementById('linkDescription').value.trim(),
-                url:         document.getElementById('linkUrl').value.trim(),
-                icon:        document.getElementById('linkIcon').value.trim(),
-                grade:   isMgmt ? 'management' : (document.getElementById('linkGrade').value || null),
-                subject: isMgmt ? null : (document.getElementById('linkSubject').value || null),
-                unit:    isMgmt ? null : (document.getElementById('linkUnit').value || null),
+                title:       val('linkTitle'),
+                description: val('linkDescription'),
+                url:         val('linkUrl'),
+                icon:        val('linkIcon'),
+                grade:   isMgmt ? 'management' : (val('linkGrade') || null),
+                subject: isMgmt ? null : (val('linkSubject') || null),
+                unit:    isMgmt ? null : (val('linkUnit') || null),
                 category: isMgmt ? 'management' : null,
+                type:    isMgmt ? 'tool' : (val('linkKind') || 'game'),
+                addedAt: val('linkDate') || null,
+                group:   val('linkGroup') || null,
+                variant: val('linkVariant') || null,
                 hidden:  wasHidden
             };
 
@@ -1449,7 +1379,7 @@
             else links[Number(idx)] = newLk;
 
             await saveAll();
-            renderLinks();
+            render();
             closeAddEditModal();
             if (document.getElementById('editModal').classList.contains('active')) renderMgmtList();
             showToast('저장되었습니다!');
@@ -1463,7 +1393,7 @@
             e.stopPropagation();
             navigator.clipboard.writeText(url).then(() => {
                 const orig = btn.innerHTML;
-                btn.innerHTML = '✅ 복사됨!';
+                btn.innerHTML = btn.textContent.trim() === '📋' ? '✅' : '✅ 복사됨!';
                 btn.classList.add('copied');
                 showToast('링크 복사 완료!');
                 setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
@@ -1486,13 +1416,13 @@
         // 초기화
         // ==========================================
         (async function init() {
+            readHash();
             if (USE_REMOTE_SYNC) {
                 document.getElementById('linksContainer').innerHTML =
                     '<p class="empty-state">🔄 데이터를 불러오는 중…</p>';
             }
             await loadLinks();
-            buildGradeButtons();
-            renderLinks();
+            render();
         })();
 
         window.addEventListener('click', e => {
