@@ -608,11 +608,17 @@
          */
 
         const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwNA5mqRiEjkaUrY9s-NnRN2ZuboFV_4pjbGBfcdAGRa6QCMF4e67kqVq_o1FwLzoew/exec';
-        const GOOGLE_WRITE_SECRET    = 'class2026-links-sync-xK9mP2qW7';
-        const USE_REMOTE_SYNC   = Boolean(String(GOOGLE_APPS_SCRIPT_URL || '').trim());
-        const CAN_SAVE_TO_SHEET = USE_REMOTE_SYNC && Boolean(String(GOOGLE_WRITE_SECRET || '').trim());
+        const USE_REMOTE_SYNC = Boolean(String(GOOGLE_APPS_SCRIPT_URL || '').trim());
 
-        const ADMIN_PASSWORD_ENCODED = "MTA1MDM1NjM=";
+        /*
+         * 관리자 키
+         * - 키 자체는 소스에 넣지 않습니다. 관리 화면에 들어갈 때 입력한 키를 시트 저장에 그대로 씁니다.
+         * - Apps Script [프로젝트 설정] → [스크립트 속성]의 SECRET 값이 이 키와 같아야 저장됩니다.
+         * - 아래는 키의 SHA-256 해시입니다. 해시만으로는 키를 알아낼 수 없습니다.
+         * - 키를 바꾸면: 브라우저 콘솔에서 await adminKeyHash('새 키') 를 실행해 나온 값으로 교체하세요.
+         */
+        const ADMIN_KEY_SHA256 = '5239e138a661f5a13414da46d3babf206ed73e894f5503f02479f17b9af78d59';
+        let adminKey = null; // 이 탭에서 로그인한 동안만 메모리에 보관
 
         const SUBJECTS   = ['국어','수학','영어','사회','과학','음악','미술','도덕','체육','실과'];
         const ALL_GRADES = ['1','2','3','4','5','6'];
@@ -812,7 +818,7 @@
                 form.action = GOOGLE_APPS_SCRIPT_URL;
                 form.target = fname;
                 form.acceptCharset = 'UTF-8';
-                [['secret', GOOGLE_WRITE_SECRET], ['payload', getPayload()]].forEach(([n,v]) => {
+                [['secret', adminKey || ''], ['payload', getPayload()]].forEach(([n,v]) => {
                     const inp = document.createElement('input');
                     inp.type = 'hidden'; inp.name = n; inp.value = v;
                     form.appendChild(inp);
@@ -891,10 +897,31 @@
             if (!hiddenCategories.subjects) hiddenCategories.subjects = {};
         }
 
+        // 저장 후 시트를 다시 읽어 실제로 반영됐는지 확인합니다. (반영되면 true)
         async function saveAll() {
             try { localStorage.setItem('teacherData', getPayload()); } catch(e) {}
-            if (!CAN_SAVE_TO_SHEET) return;
-            try { await postViaForm(); } catch(e) { console.error('원격 저장 실패:', e); }
+            if (!USE_REMOTE_SYNC) return true;
+            if (!adminKey) {
+                showToast('관리자 키가 없어 시트에 저장하지 못했습니다', true);
+                return false;
+            }
+            const expected = JSON.stringify({ links: links, hiddenCategories: hiddenCategories });
+            try {
+                await postViaForm();
+                for (let i = 0; i < 4; i++) {
+                    if (i) await new Promise(r => setTimeout(r, 1500));
+                    const data = await fetchViaJsonp({});
+                    const got = JSON.stringify({ links: data.links, hiddenCategories: data.hiddenCategories });
+                    if (got === expected) return true;
+                }
+            } catch(e) { console.error('원격 저장 확인 실패:', e); }
+            showToast('⚠️ 시트에 저장되지 않았습니다. Apps Script의 SECRET 값이 관리자 키와 같은지 확인하세요.', true);
+            return false;
+        }
+
+        async function adminKeyHash(text) {
+            const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+            return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
         // ==========================================
@@ -1233,18 +1260,21 @@
         // ==========================================
         // 링크 관리 모달
         // ==========================================
-        function openEditModal() {
-            const pw = prompt("링크 관리를 위해 비밀번호를 입력하세요:");
-            if (!pw) return;
-            try {
-                if (btoa(pw) === ADMIN_PASSWORD_ENCODED) {
-                    switchTab('links');
-                    document.getElementById('editModal').classList.add('active');
-                    renderMgmtList();
-                } else {
-                    alert("비밀번호가 틀렸습니다. 🚫");
-                }
-            } catch(e) { alert("오류가 발생했습니다."); }
+        async function openEditModal() {
+            if (!adminKey) {
+                const pw = prompt("링크 관리를 위해 관리자 키를 입력하세요:");
+                if (!pw) return;
+                try {
+                    if (await adminKeyHash(pw.trim()) !== ADMIN_KEY_SHA256) {
+                        alert("관리자 키가 틀렸습니다. 🚫");
+                        return;
+                    }
+                    adminKey = pw.trim();
+                } catch(e) { alert("오류가 발생했습니다. (https 주소에서 열어 주세요)"); return; }
+            }
+            switchTab('links');
+            document.getElementById('editModal').classList.add('active');
+            renderMgmtList();
         }
 
         function closeEditModal() { document.getElementById('editModal').classList.remove('active'); }
@@ -1378,11 +1408,11 @@
             if (idx === '') links.push(newLk);
             else links[Number(idx)] = newLk;
 
-            await saveAll();
-            render();
             closeAddEditModal();
+            render();
             if (document.getElementById('editModal').classList.contains('active')) renderMgmtList();
-            showToast('저장되었습니다!');
+            showToast('시트에 저장하는 중…');
+            if (await saveAll()) showToast('저장되었습니다!');
         });
 
         // ==========================================
@@ -1409,7 +1439,7 @@
             if (isError) t.style.background = '#ff6b6b';
             document.body.appendChild(t);
             setTimeout(() => t.classList.add('show'), 10);
-            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3000);
+            setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, isError ? 7000 : 3000);
         }
 
         // ==========================================
