@@ -48,15 +48,32 @@
         :focus-visible { outline: none; box-shadow: var(--ring); border-radius: 8px; }
 
         /* ===== 상단 ===== */
-        .hero { padding: 88px 22px 40px; }
-        .hero-inner { max-width: 980px; margin: 0 auto; }
+        .hero { padding: 72px 22px 48px; overflow: hidden; }
+        .hero-inner {
+            max-width: 980px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 380px; align-items: center; gap: 24px;
+        }
+        .hero-art { position: relative; height: 340px; }
+        .hero-art .bubble {
+            position: absolute; display: flex; align-items: center; justify-content: center;
+            border-radius: 32%; box-shadow: 0 20px 40px -18px rgba(0,0,0,.25);
+            animation: float 7s ease-in-out infinite;
+        }
+        .hero-art .bubble img { width: 62%; height: 62%; }
+        .hero-art .b1 { width: 150px; height: 150px; left: 110px; top: 90px; background: linear-gradient(150deg,#eef4ff,#d4e3ff); z-index: 2; }
+        .hero-art .b2 { width: 104px; height: 104px; left: 10px;  top: 20px;  background: linear-gradient(150deg,#fff6e6,#ffe1b0); animation-delay: -1.2s; }
+        .hero-art .b3 { width: 112px; height: 112px; left: 262px; top: 0;    background: linear-gradient(150deg,#fff0f3,#ffd3de); animation-delay: -2.4s; }
+        .hero-art .b4 { width: 96px;  height: 96px;  left: 0;    top: 196px; background: linear-gradient(150deg,#ebf8f0,#cbeed8); animation-delay: -3.1s; }
+        .hero-art .b5 { width: 120px; height: 120px; left: 250px; top: 176px; background: linear-gradient(150deg,#f3efff,#ddd2ff); animation-delay: -4.3s; }
+        .hero-art .b6 { width: 78px;  height: 78px;  left: 150px; top: 262px; background: linear-gradient(150deg,#f2f2f5,#e0e0e8); animation-delay: -5.2s; }
+        @keyframes float { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-10px) rotate(3deg); } }
         .profile-image {
             display: block;
             width: 64px; height: 64px; border-radius: 50%;
             object-fit: cover; margin-bottom: 28px;
         }
         .hero-title {
-            font-size: 56px; font-weight: 700; line-height: 1.07;
+            font-size: 60px; font-weight: 700; line-height: 1.07;
             letter-spacing: -0.04em; word-break: keep-all;
             max-width: 12em;
         }
@@ -142,56 +159,100 @@
         .section { margin-top: 56px; }
         .section-title {
             font-size: 32px; font-weight: 700; letter-spacing: -0.035em; line-height: 1.15;
-            padding-bottom: 14px; border-bottom: 1px solid var(--line);
+            margin-bottom: 20px;
         }
         .section-title .cnt { font-size: 17px; font-weight: 500; margin-left: 10px; letter-spacing: 0; }
         .sec-mark { display: none; }
         .sub-title {
-            font-size: 14px; font-weight: 600; color: var(--muted);
-            margin: 28px 0 0; padding-bottom: 8px;
+            font-size: 17px; font-weight: 700; color: var(--ink-2);
+            margin: 32px 0 14px;
         }
         .sub-title .cnt { margin-left: 6px; }
 
-        /* ===== 목록 ===== */
-        .list { list-style: none; }
-        .row {
-            display: flex; align-items: flex-start; gap: 18px;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--hair);
+        /* ===== 타일 ===== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
         }
-        .row-icon { width: 44px; height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 36px; line-height: 1; margin-top: 2px; }
-        .row-icon img { width: 44px; height: 44px; display: block; }
-        .row-body { flex: 1; min-width: 0; }
-        .row-title { font-size: 19px; font-weight: 600; letter-spacing: -0.022em; line-height: 1.3; color: var(--ink); word-break: keep-all; }
-        a.row-title:hover { color: var(--link); }
-        .badge-new { font-size: 12px; font-weight: 600; color: #bf4800; margin-left: 8px; letter-spacing: 0; vertical-align: 2px; }
-        .row-desc {
-            font-size: 15px; color: var(--muted); line-height: 1.5; margin-top: 4px;
-            max-width: 40em; word-break: keep-all;
+        @media (max-width: 999px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        .tile {
+            --tile: #f5f5f7; --tile-2: #ececf0; --kick: #6e6e73;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            min-height: 340px; padding: 28px 28px 24px;
+            border-radius: 28px;
+            background: linear-gradient(160deg, var(--tile) 0%, var(--tile-2) 100%);
+            isolation: isolate;
         }
-        .row-meta { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 8px; font-size: 13px; color: var(--faint); }
-        .row-links { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 12px; }
-        .v-link { display: inline-flex; align-items: center; gap: 2px; font-size: 15px; color: var(--link); }
-        .v-link:hover { text-decoration: underline; }
-        .v-link .ic { font-size: 13px; stroke-width: 2.4; }
-        .v-item { display: inline-flex; align-items: center; gap: 4px; }
-
-        .row-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; align-self: center; }
+        .tile.s-math    { --tile: #eef4ff; --tile-2: #dce8ff; --kick: #2e62d9; }
+        .tile.s-social  { --tile: #fff6e6; --tile-2: #ffe8c2; --kick: #b45d00; }
+        .tile.s-science { --tile: #ebf8f0; --tile-2: #d2f0dd; --kick: #1d8048; }
+        .tile.s-korean  { --tile: #fff0f3; --tile-2: #ffdbe3; --kick: #c4325a; }
+        .tile.s-english { --tile: #f3efff; --tile-2: #e3dbff; --kick: #6a46d6; }
+        .tile.s-etc     { --tile: #f2f2f5; --tile-2: #e4e4ea; --kick: #5b5b66; }
+        .tile-kicker { font-size: 14px; font-weight: 600; color: var(--kick); letter-spacing: -0.01em; }
+        .tile-kicker .badge-new {
+            display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px;
+            background: #1d1d1f; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .02em; vertical-align: 1px;
+        }
+        .tile-title {
+            margin-top: 8px; font-size: 26px; font-weight: 700; line-height: 1.2;
+            letter-spacing: -0.035em; color: var(--ink); word-break: keep-all;
+            max-width: 13em;
+        }
+        a.tile-title:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+        .tile-desc {
+            margin-top: 10px; font-size: 15px; line-height: 1.5; color: var(--ink-2);
+            max-width: 22em; word-break: keep-all;
+            display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .tile-art {
+            position: absolute; right: -18px; bottom: -22px; z-index: -1;
+            width: 168px; height: 168px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 130px; line-height: 1;
+            transform: rotate(-8deg);
+            filter: drop-shadow(0 18px 24px rgba(0,0,0,.14));
+            transition: transform .4s cubic-bezier(.2,.8,.2,1);
+        }
+        .tile-art img { width: 100%; height: 100%; display: block; }
+        .tile:hover .tile-art { transform: rotate(-2deg) scale(1.06); }
+        .tile-actions { margin-top: auto; padding-top: 22px; display: flex; align-items: center; gap: 8px; }
         .btn-open {
             display: inline-flex; align-items: center; justify-content: center;
-            padding: 7px 18px; border-radius: 999px;
-            background: var(--fill); color: var(--link);
-            font-size: 14px; font-weight: 600; white-space: nowrap;
+            padding: 9px 20px; border-radius: 999px;
+            background: #1d1d1f; color: #fff;
+            font-size: 15px; font-weight: 600; white-space: nowrap;
+            transition: background .15s;
         }
-        .btn-open:hover { background: var(--fill-2); }
+        .btn-open:hover { background: #3a3a3c; }
         .btn-copy {
             display: inline-flex; align-items: center; justify-content: center;
-            width: 34px; height: 34px; border-radius: 50%;
-            border: none; background: none; color: var(--faint); cursor: pointer; font-size: 16px;
+            width: 38px; height: 38px; border-radius: 50%;
+            border: none; background: rgba(255,255,255,.7); color: var(--ink-2); cursor: pointer; font-size: 16px;
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
         }
-        .btn-copy.small { width: 26px; height: 26px; font-size: 13px; }
-        .btn-copy:hover { background: var(--fill); color: var(--ink); }
+        .btn-copy.small { width: 32px; height: 32px; font-size: 14px; }
+        .btn-copy:hover { background: #fff; color: var(--ink); }
         .btn-copy.copied { color: var(--ok); }
+        .tile-links { margin-top: auto; padding-top: 18px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+        .v-item { display: inline-flex; align-items: center; gap: 6px; }
+        .v-link {
+            display: inline-flex; align-items: center; gap: 2px;
+            padding: 7px 10px 7px 14px; border-radius: 999px;
+            background: rgba(255,255,255,.75); color: var(--ink);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            font-size: 14px; font-weight: 600;
+        }
+        .v-link:hover { background: #fff; }
+        .v-link .ic { font-size: 14px; stroke-width: 2.4; color: var(--faint); }
+
+        /* 새로 올라왔어요: 첫 타일을 크게 */
+        .grid.featured > .tile:first-child { grid-column: span 2; min-height: 400px; padding: 40px; }
+        .grid.featured > .tile:first-child .tile-title { font-size: 40px; max-width: 11em; }
+        .grid.featured > .tile:first-child .tile-desc { font-size: 17px; max-width: 24em; }
+        .grid.featured > .tile:first-child .tile-art { width: 260px; height: 260px; font-size: 210px; right: 24px; bottom: -10px; }
 
         .empty-state {
             display: flex; flex-direction: column; align-items: center; gap: 10px;
@@ -326,6 +387,10 @@
         .mgmt-panel { display: none; }
         .mgmt-panel.active { display: block; }
 
+        @media (max-width: 900px) and (min-width: 735px) {
+            .hero-inner { grid-template-columns: 1fr 300px; }
+            .hero-art { transform: scale(.8); transform-origin: left center; }
+        }
         @media (max-width: 734px) {
             body { font-size: 16px; }
             .hero { padding: 48px 20px 28px; }
@@ -337,16 +402,26 @@
             .type-tab { padding: 6px 12px; font-size: 13px; }
             .section { margin-top: 44px; }
             .section-title { font-size: 26px; }
-            .row { gap: 14px; padding: 18px 0; flex-wrap: wrap; }
-            .row-icon, .row-icon img { width: 36px; height: 36px; }
-            .row-title { font-size: 17px; }
-            .row-desc { font-size: 14px; }
-            .row-actions { width: 100%; padding-left: 50px; margin-top: -4px; }
+            .hero-inner { grid-template-columns: 1fr; gap: 8px; }
+            .hero-art { order: -1; height: 120px; margin: 0 -20px; }
+            .hero-art .bubble { width: 72px !important; height: 72px !important; top: 20px !important; }
+            .hero-art .b1 { left: 20px; } .hero-art .b2 { left: 104px; top: 36px !important; }
+            .hero-art .b3 { left: 188px; } .hero-art .b4 { left: 272px; top: 36px !important; }
+            .hero-art .b5, .hero-art .b6 { display: none; }
+            .profile-image { display: none; }
+            .grid { grid-template-columns: 1fr; gap: 14px; }
+            .tile { min-height: 280px; padding: 24px 22px 20px; border-radius: 24px; }
+            .tile-title { font-size: 23px; }
+            .tile-art { width: 130px; height: 130px; }
+            .grid.featured > .tile:first-child { grid-column: auto; min-height: 320px; padding: 26px 22px 22px; }
+            .grid.featured > .tile:first-child .tile-title { font-size: 28px; }
+            .grid.featured > .tile:first-child .tile-desc { font-size: 15px; }
+            .grid.featured > .tile:first-child .tile-art { width: 170px; height: 170px; right: -16px; bottom: -18px; }
             .form-row { flex-direction: column; gap: 0; }
             .modal-content { padding: 22px; }
             .link-item { flex-direction: column; align-items: stretch; }
         }
-        @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+        @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
     </style>
 </head>
 <body>
@@ -375,9 +450,19 @@
     </svg>
     <header class="hero">
         <div class="hero-inner">
-            <img src="gamtudy.png" alt="Gamtudy ssam 프로필" class="profile-image">
-            <h1 class="hero-title">Gamtudy ssam의 교육용 프로그램</h1>
-            <p class="hero-sub">재미있게 게임으로 공부하고, 교실을 위해 똑똑하게 프로그램 활용하자</p>
+            <div>
+                <img src="gamtudy.png" alt="Gamtudy ssam 프로필" class="profile-image">
+                <h1 class="hero-title">Gamtudy ssam의 교육용 프로그램</h1>
+                <p class="hero-sub">재미있게 게임으로 공부하고, 교실을 위해 똑똑하게 프로그램 활용하자</p>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+                <div class="bubble b1"><img src="assets/emoji/1f3af.svg" alt=""></div>
+                <div class="bubble b2"><img src="assets/emoji/1f355.svg" alt=""></div>
+                <div class="bubble b3"><img src="assets/emoji/2694.svg" alt=""></div>
+                <div class="bubble b4"><img src="assets/emoji/1f986.svg" alt=""></div>
+                <div class="bubble b5"><img src="assets/emoji/1f3db.svg" alt=""></div>
+                <div class="bubble b6"><img src="assets/emoji/1f9ee.svg" alt=""></div>
+            </div>
         </div>
     </header>
 
@@ -729,7 +814,7 @@
         }
 
         const NEW_DAYS = 45;      // 이 기간 안에 올린 자료에 NEW 표시
-        const RECENT_COUNT = 4;   // '새로 올라왔어요'에 보여줄 개수
+        const RECENT_COUNT = 5;   // '새로 올라왔어요'에 보여줄 개수
 
         // 구 category → {grade,subject} 하위 호환
         const CATEGORY_MAP = {
@@ -1120,43 +1205,40 @@
         // ==========================================
         // 카드
         // ==========================================
-        function makeCard(it) {
-            const row = document.createElement('li');
-            row.className = 'row';
+        const SUBJECT_CLASS = { '수학': 's-math', '사회': 's-social', '과학': 's-science', '국어': 's-korean', '영어': 's-english' };
 
-            const meta = [];
-            if (it.grade && it.grade !== 'management') meta.push(`${it.grade}학년`);
-            if (it.subject) meta.push(esc(it.subject));
-            if (it.unit) meta.push(it.unit === '11' ? '전범위' : esc(it.unit) + '단원');
-            meta.push(TYPE_TAG[it.type]);
+        function makeCard(it) {
+            const tile = document.createElement('article');
+            tile.className = 'tile ' + (SUBJECT_CLASS[it.subject] || 's-etc');
+
+            const kick = [];
+            if (it.grade && it.grade !== 'management') kick.push(`${it.grade}학년`);
+            if (it.subject) kick.push(esc(it.subject));
+            if (it.unit) kick.push(it.unit === '11' ? '전범위' : esc(it.unit) + '단원');
+            kick.push(TYPE_TAG[it.type]);
 
             const multi = it.members.length > 1;
             const copyBtn = (url, cls = '') =>
                 `<button class="btn-copy icon-only ${cls}" data-url="${esc(url)}" title="링크 복사" aria-label="링크 복사">${ic('copy')}</button>`;
-            const title = multi
-                ? `<div class="row-title">${esc(it.title)}`
-                : `<a class="row-title" href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">${esc(it.title)}`;
 
-            row.innerHTML =
-                `<div class="row-icon">${emojiHtml(it.icon)}</div>` +
-                `<div class="row-body">` +
-                  title + (isNew(it.addedAt) ? '<span class="badge-new">NEW</span>' : '') + (multi ? '</div>' : '</a>') +
-                  `<p class="row-desc">${esc(it.description)}</p>` +
-                  `<div class="row-meta">${meta.map(m => `<span>${m}</span>`).join('')}</div>` +
-                  (multi
-                    ? `<div class="row-links">` + it.members.map(m =>
-                        `<span class="v-item"><a class="v-link" href="${esc(m.url)}" target="_blank" rel="noopener noreferrer">${esc(m.variant || m.title)}${ic('chevron-right')}</a>${copyBtn(m.url, 'small')}</span>`).join('') +
-                      `</div>`
-                    : '') +
-                `</div>` +
-                (multi ? '' :
-                  `<div class="row-actions">` +
-                    `<a class="btn-open" href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">열기</a>` +
-                    copyBtn(it.url) +
-                  `</div>`);
-            row.querySelectorAll('.btn-copy').forEach(b =>
+            tile.innerHTML =
+                `<div class="tile-art" aria-hidden="true">${emojiHtml(it.icon)}</div>` +
+                `<div class="tile-kicker">${kick.join(' ')}${isNew(it.addedAt) ? '<span class="badge-new">NEW</span>' : ''}</div>` +
+                (multi
+                  ? `<h3 class="tile-title">${esc(it.title)}</h3>`
+                  : `<h3><a class="tile-title" href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">${esc(it.title)}</a></h3>`) +
+                `<p class="tile-desc">${esc(it.description)}</p>` +
+                (multi
+                  ? `<div class="tile-links">` + it.members.map(m =>
+                      `<span class="v-item"><a class="v-link" href="${esc(m.url)}" target="_blank" rel="noopener noreferrer">${esc(m.variant || m.title)}${ic('chevron-right')}</a>${copyBtn(m.url, 'small')}</span>`).join('') +
+                    `</div>`
+                  : `<div class="tile-actions">` +
+                      `<a class="btn-open" href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">열기</a>` +
+                      copyBtn(it.url) +
+                    `</div>`);
+            tile.querySelectorAll('.btn-copy').forEach(b =>
                 b.addEventListener('click', e => copyLink(e, b.dataset.url, b)));
-            return row;
+            return tile;
         }
 
         function makeSection(title, items, opts = {}) {
@@ -1182,14 +1264,16 @@
                     });
                 }
             } else {
-                sec.appendChild(makeGrid(items));
+                const g = makeGrid(items);
+                if (opts.featured) g.classList.add('featured');
+                sec.appendChild(g);
             }
             return sec;
         }
 
         function makeGrid(items) {
-            const g = document.createElement('ul');
-            g.className = 'list';
+            const g = document.createElement('div');
+            g.className = 'grid';
             items.forEach(it => g.appendChild(makeCard(it)));
             return g;
         }
@@ -1232,7 +1316,7 @@
             // 처음 화면: 새로 올라온 자료 + 학년별
             if (!filtered) {
                 const recent = list.filter(it => it.addedAt).slice(0, RECENT_COUNT);
-                if (recent.length) container.appendChild(makeSection('새로 올라왔어요', recent, { hideCount: true, mark: `<span class="sec-mark new">${ic('sparkles')}</span>` }));
+                if (recent.length) container.appendChild(makeSection('새로 올라왔어요', recent, { hideCount: true, featured: true, mark: `<span class="sec-mark new">${ic('sparkles')}</span>` }));
             }
 
             const groups = {};
