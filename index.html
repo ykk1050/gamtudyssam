@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gamtudy ssam의 교육용 프로그램 모음</title>
     <meta name="description" content="초등 수업에 바로 쓰는 학습 게임, 연습 웹앱, 학급 경영 도구 모음">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#f4f6fb">
     <meta name="color-scheme" content="light only">
     <link rel="icon" href="gamtudy.png">
     <!-- 글꼴: Pretendard (SIL OFL 1.1) -->
@@ -34,13 +34,30 @@
         html { -webkit-text-size-adjust: 100%; }
         body {
             font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Segoe UI', sans-serif;
-            background: var(--bg);
+            background: #f4f6fb;
             color: var(--ink);
             min-height: 100vh;
+            position: relative;
             -webkit-font-smoothing: antialiased;
             font-size: 17px;
             line-height: 1.47;
             letter-spacing: -0.012em;
+        }
+        /* 배경: 타일 색과 맞춘 파스텔 번짐 + 공책 점 모눈 (스크롤해도 고정) */
+        body::before, body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+        body::before {
+            background:
+                radial-gradient(42vw 42vw at 4% 2%,  rgba(255,214,170,.55), transparent 70%),
+                radial-gradient(46vw 46vw at 98% 8%, rgba(190,210,255,.60), transparent 70%),
+                radial-gradient(40vw 40vw at 88% 92%, rgba(214,200,255,.45), transparent 70%),
+                radial-gradient(44vw 44vw at 6% 96%, rgba(190,236,212,.50), transparent 70%),
+                radial-gradient(30vw 30vw at 50% 55%, rgba(255,214,226,.30), transparent 70%);
+        }
+        body::after {
+            background-image: radial-gradient(circle, rgba(40,52,90,.13) 1px, transparent 1.4px);
+            background-size: 24px 24px;
+            -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.55) 45%, rgba(0,0,0,.25) 100%);
+            mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.55) 45%, rgba(0,0,0,.25) 100%);
         }
         button { font-family: inherit; letter-spacing: inherit; }
         a { color: var(--link); text-decoration: none; }
@@ -89,17 +106,22 @@
         .finder {
             position: sticky; top: 0; z-index: 50;
             margin: 0 -22px; padding: 14px 22px 14px;
-            background: rgba(255,255,255,.82);
-            backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
             border-bottom: 1px solid transparent;
+            transition: background .2s, border-color .2s;
+        }
+        .finder.stuck {
+            background: rgba(244,246,251,.78);
+            backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom-color: rgba(30,40,80,.08);
         }
         .search-box { position: relative; }
         .search-box input {
             width: 100%;
             padding: 12px 44px 12px 44px;
             font-size: 17px; font-family: inherit; letter-spacing: inherit;
-            border: none; border-radius: 12px;
-            background: var(--fill); color: var(--ink);
+            border: 1px solid rgba(30,40,80,.08); border-radius: 14px;
+            background: #fff; color: var(--ink);
+            box-shadow: 0 6px 20px -12px rgba(30,40,80,.25);
             -webkit-appearance: none; appearance: none;
         }
         .search-box input::placeholder { color: var(--faint); }
@@ -116,8 +138,8 @@
         .search-box.has-text .s-clear { display: flex; }
 
         .type-tabs {
-            display: inline-flex; gap: 2px; margin-top: 14px; padding: 2px;
-            background: var(--fill); border-radius: 10px;
+            display: inline-flex; gap: 2px; margin-top: 14px; padding: 3px;
+            background: rgba(30,40,80,.07); border-radius: 11px;
             max-width: 100%; overflow-x: auto; scrollbar-width: none;
         }
         .type-tabs::-webkit-scrollbar { display: none; }
@@ -183,6 +205,8 @@
             min-height: 340px; padding: 28px 28px 24px;
             border-radius: 28px;
             background: linear-gradient(160deg, var(--tile) 0%, var(--tile-2) 100%);
+            border: 1px solid rgba(255,255,255,.9);
+            box-shadow: 0 1px 2px rgba(30,40,80,.05), 0 18px 40px -24px rgba(30,40,80,.35);
             isolation: isolate;
         }
         .tile.s-math    { --tile: #eef4ff; --tile-2: #dce8ff; --kick: #2e62d9; }
@@ -1642,6 +1666,14 @@
         window.addEventListener('click', e => {
             if (e.target.classList.contains('modal')) e.target.classList.remove('active');
         });
+        // 검색 막대가 위에 붙었을 때만 반투명 배경을 깝니다
+        (() => {
+            const f = document.querySelector('.finder');
+            const onScroll = () => f.classList.toggle('stuck', f.getBoundingClientRect().top <= 0 && getComputedStyle(f).position === 'sticky');
+            addEventListener('scroll', onScroll, { passive: true });
+            addEventListener('resize', onScroll);
+            onScroll();
+        })();
     </script>
 </body>
 </html>
