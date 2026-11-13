@@ -506,7 +506,7 @@
         <!-- 링크 목록 -->
         <div class="links-section" id="linksContainer"></div>
 
-        <div class="footer">Made with ❤️ by Gamtudy ssam | 2026.07.10.20:42</div>
+        <div class="footer">Made with ❤️ by Gamtudy ssam | 2026.11.13</div>
     </div>
 
     <button class="edit-mode-btn" onclick="openEditModal()" title="링크 관리">✏️</button>
@@ -780,10 +780,33 @@
         };
 
         const DEFAULT_LINKS = [
-            { title:"수학몬 마스터", description:"분수의 곱셈을 마스터하는 몬스터 수집 게임", url:"https://ykk1050.github.io/yangume_mathmon_multiplication-of-fractions_sh_open/", icon:"🎯", category:"math-grade5" },
-            { title:"Division Quest-메테오 피하기", description:"나눗셈 문제를 풀며 운석을 피하는 액션 게임", url:"https://ykk1050.github.io/mathmeteo/", icon:"☄️", category:"math-grade3" },
-            { title:"스쿨몬", description:"점수제와 캐릭터 진화 기반 학급 경영 시스템, 오프라인 기반", url:"https://drive.google.com/file/d/1MdLN6nwc5W6Av0X0WPQuoE9y-Js9uSXk/view?usp=drive_link", icon:"⭐", category:"management" },
-            { title:"소수의 검: 수학 악마 전쟁", description:"소수의 곱셈으로 마왕을 무찌르는 게임", url:"https://ykk1050.github.io/multiplying-decimals/", icon:"⚔️", category:"math-grade5" }
+            {"title": "수학몬 마스터", "description": "분수의 곱셈을 마스터하는 몬스터 수집 게임", "url": "https://ykk1050.github.io/yangume_mathmon_multiplication-of-fractions_sh_open/", "icon": "🎯", "category": "math-grade5"},
+            {"title": "Division Quest-메테오 피하기", "description": "나눗셈 문제를 풀며 운석을 피하는 액션 게임", "url": "https://ykk1050.github.io/mathmeteo/", "icon": "☄️", "category": "math-grade3"},
+            {"title": "스쿨몬", "description": "점수제와 캐릭터 진화 기반 학급 경영 시스템, 오프라인 기반", "url": "https://drive.google.com/drive/folders/1wFzxu5gihBmFWllus6EtjPVlbUOdOleD?usp=drive_link", "icon": "😼", "category": "management"},
+            {"title": "소수의 검: 수학 악마 전쟁", "description": "소수의 곱셈으로 마왕을 무찌르는 게임", "url": "https://ykk1050.github.io/multiplying-decimals/", "icon": "⚔️", "category": "math-grade5"},
+            {"title": "우주의 수호자", "description": "평균 관련 문장제 문제를 풀며 우주의 나쁜 로봇들과 싸우는 용사를 지원하는 게임. ", "url": "https://ykk1050.github.io/the-hero-robot-invasion/", "icon": "🤖", "category": "math-grade5"},
+            {"title": "라스트 노바: 인류의 마지막 빛", "description": "5학년 과학 전범위 내용을 우주 비행선 슈팅 게임 형식으로 되돌아보는 게임.(2015 교육과정)", "url": "https://ykk1050.github.io/science_fifth/", "icon": "🛸", "grade": "5", "subject": "과학"},
+            {"title": "계산왕 바리스타", "description": "５학년 자연수의 혼합계산 연산 연습을 위한 자율 학습형 카페 경영 게임", "url": "https://ykk1050.github.io/Mixed-calculations-cafe/", "icon": "☕", "category": "math-grade5"},
+            {"title": "구구단 대장간 : 검 강화하기", "description": "곱셈구구를 재미있게 익히기 위한 검 강화 게임 ", "url": "https://ykk1050.github.io/multiplication-table-game/", "icon": "⚒️", "category": "math-grade2"},
+            {"title": "무한 수학 던전 ", "description": "약수와 배수 개념을 활용한 카드 게임", "url": "https://ykk1050.github.io/Infinite-Math-Dungeon_Factors-_Multiples-Roguelike/", "icon": "🃏", "category": "math-grade5"},
+            {"title": "아누비스의 재판 : 진실의 저울", "description": "약분 연습형 학습게임. 플레이어는 이집트 죽음의 신 아누비스가 되어 제시된 분수를 약분하여 가장 간단한 형태로 만들어 저울의 균형을 맞추며 망자들을 재판한다.", "url": "https://ykk1050.github.io/judgement-of-anubis", "icon": "⚖️", "category": "math-grade5"},
+            {"title": "구구단 대장간 2 : 창 강화하기", "description": "곱셈구구를 익히기 위한 심화버전 게임. 단계별로 무작위로 나오는 곱셈구구 문제를 해결하며 창을 강화하는 방식으로 진행.", "url": "https://ykk1050.github.io/multiplication-table-game2", "icon": "🔨", "category": "math-grade2"},
+            {"title": "[전자칠판 4인용] 구구단 대장간 : 검 강화하기", "description": "곱셈구구를 익히기 위한 검 강화하기의 전자칠판용 4인 플레이 버전.", "url": "https://ykk1050.github.io/multiplication-table-game-multi", "icon": "⚒️", "category": "math-grade2"},
+            {"title": "[전자칠판용 4인용]구구단 대장간 2 : 창 강화하기", "description": "곱셈구구를 익히기 위한 창 강화하기의 전자칠판용 4인 플레이 버전.", "url": "https://ykk1050.github.io/multiplication-table-game2-multi", "icon": "🔨", "category": "math-grade2"},
+            {"title": "우주 피자 가게 경영", "description": "통분을 하며 피자 조각을 서빙하고 피자 가게를 경영하는 게임. ", "url": "https://ykk1050.github.io/Cosmic-Pizza-Serve-Slice-Master/", "icon": "🍕", "category": "math-grade5"},
+            {"title": "분수 고양이 게임", "description": "높은 단계의 고양이를 만들면서 자연스럽게 분수의 덧셈 뺄셈을 연습하게 되는 게임. ", "url": "https://ykk1050.github.io/Fraction-Cat-Evolution/", "icon": "😸", "category": "math-grade5"},
+            {"title": "아기 오리 구출 대작전", "description": "늑대를 피해가며 5학년 1학기 전 범위 사회 문제를 풀며 아기 오리를 구하는 대장 오리의 대모험.", "url": "https://ykk1050.github.io/Duckling-Rescue-Quest/", "icon": "🦆", "grade": "5", "subject": "사회", "unit": "11"},
+            {"title": "합동과 대칭 미술관", "description": "5학년 2학기 3단원 합동과 대칭을 스마트 패드로 배우고 게임으로 익히는 수업용 웹앱.", "url": "https://ykk1050.github.io/Congruence-and-Congruence/", "icon": "🖼️", "grade": "5", "subject": "수학", "unit": "3"},
+            {"title": "역사의 선택: 광복을 향하여", "description": "고조선부터 광복까지, 역사 속 선택의 순간을 미니게임으로 체험하며 한국사 흐름을 익히는 게임.", "url": "https://ykk1050.github.io/korean-history-master/", "icon": "🇰🇷", "grade": "5", "subject": "사회"},
+            {"title": "미스터리 역사 박물관", "description": "끝없이 이어지는 박물관을 탐험하며 전시물 속 역사 문제를 풀어 탈출하는 3D 공포(순한 맛 선택 가능) 역사 게임.", "url": "https://ykk1050.github.io/Mystery-History-Museum/", "icon": "🏛️", "grade": "5", "subject": "사회"},
+            {"title": "소리 콩콩 학습 산책", "description": "한국사 문제의 답을 한 글자씩 밟으면 발소리가 ASMR이 되는 학습 게임.", "url": "https://ykk1050.github.io/kongkongASMR/", "icon": "🎧", "grade": "5", "subject": "사회"},
+            {"title": "고려 역사 그림책 활동지", "description": "고려 역사 이야기를 골라 장면별 글을 완성하고 캔바에서 그림책으로 만드는 활동지.", "url": "https://ykk1050.github.io/goryeo-picture-book/", "icon": "📚", "grade": "5", "subject": "사회"},
+            {"title": "고려 그림책 프롬프트 생성기", "description": "역사 사실에 맞는 고려 시대 그림을 AI로 만들 수 있도록 장면별 이미지 프롬프트를 만들어 주는 도구.", "url": "https://ykk1050.github.io/goryeo_picture_book_prompt_maker/", "icon": "🎨", "grade": "5", "subject": "사회"},
+            {"title": "국토 여행 계획 발표 워크시트", "description": "모둠별 국토 여행 계획 발표를 들으며 지형(해안·산지·하천)과 잘한 점·질문을 기록하는 워크시트.", "url": "https://ykk1050.github.io/travelplanworksheet0.1/", "icon": "🗺️", "grade": "5", "subject": "사회"},
+            {"title": "명화 속 숨바꼭질", "description": "명화 위에 캐릭터를 숨기고 그림과 똑같이 색칠해 위장하는 미술 시간용 멀티플레이 숨바꼭질 게임(프로토타입).", "url": "https://ykk1050.github.io/Masterpiece-Hide-and-Seek/", "icon": "🦎", "grade": "5", "subject": "미술"},
+            {"title": "IB 학습자상 진단 테스트 (IBTI)", "description": "10가지 IB 학습자상 중 나는 어디에 가까운지 50/100문항으로 진단하고 결과를 친구들과 비교하는 검사.", "url": "https://ykk1050.github.io/IB-Learner-Profile/", "icon": "🌟", "grade": "management", "category": "management"},
+            {"title": "나만의 스터디 펫", "description": "공부할수록 자라는 펫을 키우며 칭찬·꾸중, 상점, 미니게임으로 학습 동기를 높이는 다마고치형 학급 도구.", "url": "https://ykk1050.github.io/study_pet/", "icon": "🐣", "grade": "management", "category": "management"},
+            {"title": "한글 뷰어 (HWP·HWPX)", "description": "광고 없이 한글 문서를 바로 여는 뷰어. 파일은 기기 안에서만 열려요. 홈 화면에 앱으로 설치 가능.", "url": "https://ykk1050.github.io/hwp-viewer/", "icon": "📄", "grade": "management", "category": "management"}
         ];
 
         let links = [];
